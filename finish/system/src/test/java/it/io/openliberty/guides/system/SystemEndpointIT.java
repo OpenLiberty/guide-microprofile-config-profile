@@ -2,12 +2,11 @@
 /*******************************************************************************
  * Copyright (c) 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+ * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * http://www.eclipse.org/legal/epl-2.0/
  *
- * Contributors:
- *     IBM Corporation - Initial implementation
+ * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 // end::copyright[]
 package it.io.openliberty.guides.system;
@@ -35,10 +34,10 @@ public class SystemEndpointIT {
         String contextRoot = System.getProperty("system.context", "system");
         clusterUrl = "http://" + systemRootPath + "/" + contextRoot + "/property/";
 
-        String userPassword = System.getProperty("system.user", "admin") + ":" +
-                              System.getProperty("system.pwd", "adminpwd");
-        authHeader = "Basic " +
-                     Base64.getEncoder().encodeToString(userPassword .getBytes());
+        String userPassword = System.getProperty("system.user", "admin") + ":"
+                              + System.getProperty("system.pwd", "adminpwd");
+        authHeader = "Basic "
+            + Base64.getEncoder().encodeToString(userPassword .getBytes());
     }
 
     @Test
