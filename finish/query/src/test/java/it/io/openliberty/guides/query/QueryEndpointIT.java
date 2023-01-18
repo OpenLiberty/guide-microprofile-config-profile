@@ -62,7 +62,7 @@ public class QueryEndpointIT {
     public void testUnknownHost() {
         Response response = this.getResponse(baseUrl + "/systems/unknown");
         this.assertResponse(baseUrl, response);
-        
+
         JsonObject json = response.readEntity(JsonObject.class);
         assertEquals("Failed to reach the client unknown.", json.getString("fail"),
             "Fail message is wrong.");
