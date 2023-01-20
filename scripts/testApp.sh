@@ -24,22 +24,22 @@ mvn -pl query -ntp liberty:stop
 
 # Testing the development environment
 
-mvn -pl system -P development liberty:start 
-mvn -pl query -Dliberty.var.mp.config.profile="development" liberty:start 
+mvn -pl system -ntp -P development liberty:start 
+mvn -pl query -ntp -Dliberty.var.mp.config.profile="development" liberty:start 
 
-mvn -pl system -P development failsafe:integration-test
-mvn -pl query failsafe:integration-test
+mvn -pl system -ntp -P development failsafe:integration-test
+mvn -pl query -ntp failsafe:integration-test
 
-mvn -pl system liberty:stop
-mvn -pl query liberty:stop
+mvn -pl system -ntp liberty:stop
+mvn -pl query -ntp liberty:stop
 
 # Testing the production environment
 
-mvn -pl system -P production liberty:start
-mvn -pl query -Dliberty.var.mp.config.profile="production" liberty:start
+mvn -pl system -ntp -P production liberty:start
+mvn -pl query -ntp -Dliberty.var.mp.config.profile="production" liberty:start
 
-mvn -pl system -P production failsafe:integration-test
-mvn -pl query failsafe:integration-test
+mvn -pl system -ntp -P production failsafe:integration-test
+mvn -pl query -ntp failsafe:integration-test
 
-mvn -pl system liberty:stop
-mvn -pl query liberty:stop
+mvn -pl system -ntp liberty:stop
+mvn -pl query -ntp liberty:stop
