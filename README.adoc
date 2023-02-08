@@ -142,7 +142,7 @@ After you see the following message, your application server in dev mode is read
 *     Liberty is running in dev mode.
 ----
 
-Now, the Maven properties from the [hotspot=development file=0]`development` profile override the default configuration values from the [hotspot file=2]`system/server.xml` file. You can find out from the [hotspot file=0]`system/pom.xml` file that the `system` service is now running on port [hotspot=port file=0]`9081` with context root [hotspot=context.root file=0]`system/dev`. In addition, the credentials for the user registry are updated with the new username [hotspot=username file=0]`alice` and the new password [hotspot=password file=0]`alicepwd`.
+Now, the Maven properties from the [hotspot=development file=0]`development` profile override the default configuration [hotspot=defaultConfig file=2]`variable` values from the `system` server configuration file. You can find out from the [hotspot file=0]`system/pom.xml` file that the `system` service is now running on port [hotspot=port file=0]`9081` with context root [hotspot=context.root file=0]`system/dev`. In addition, the credentials for the user registry are updated with the new username [hotspot=username file=0]`alice` and the new password [hotspot=password file=0]`alicepwd`.
 
 Try to access the http://localhost:9085/query/systems/localhost URL. The `query` service returns the message: `{"fail":"Failed to reach the client localhost."}`.
 
@@ -153,7 +153,7 @@ query/microprofile-config.properties
 include::start/query/src/main/resources/META-INF/microprofile-config.properties[]
 ----
 
-It is caused by the `system` service is started with the `development` profile, but the current configuration properties defined in the [hotspot=system file=1]`src/main/resources/META-INF/microprofile-config.properties` file at the `query` service are the values for accessing the `system` service at the `testing` environment.
+It is caused by the `system` service is started with the `development` profile, but the current configuration properties defined in the [hotspot=system file=1]`query/src/main/resources/META-INF/microprofile-config.properties` file at the `query` service are the values for accessing the `system` service at the `testing` environment.
 
 // file 2
 system/server.xml
