@@ -34,9 +34,9 @@ Learn how to use the config profile feature in MicroProfile Config to provide mu
 // =================================================================================================
 == What you'll learn
 
-You'll learn how to configure multiple environments into a microservice by providing different sets of configuration properties for each environment. From development to production and across your DevOps environments, the https://download.eclipse.org/microprofile/microprofile-config-3.0/microprofile-config-spec-3.0.html#configprofile[config profile^] feature in MicroProfile Config gives you flexibility to set and choose configuration for your microservices depending on the current project stage efficiently. This guide assumes you are familiar with https://openliberty.io/docs/latest/external-configuration.html[External configuration of microservices^] and  https://openliberty.io/docs/latest/reference/feature/mpConfig-3.0.html[MicroProfile Config^]. If you're new to MicroProfile Config, you might want to start with the https://openliberty.io/guides/microprofile-config-intro.html[Separating configuration from code in microservices^] guide and the https://openliberty.io/guides/microprofile-config.html[Configuring microservices^] guide first.
+You'll learn how to configure multiple environments into a microservice by providing different sets of configuration properties for each environment. From development to production and across your DevOps environments, the https://download.eclipse.org/microprofile/microprofile-config-3.0/microprofile-config-spec-3.0.html#configprofile[config profile^] feature in MicroProfile Config gives you flexibility to set and choose configuration for your microservices depending on the current project stage efficiently. This guide assumes you are familiar with https://openliberty.io/docs/latest/external-configuration.html[External configuration of microservices^] and https://openliberty.io/docs/latest/reference/feature/mpConfig-3.0.html[MicroProfile Config^]. If you're new to MicroProfile Config, you might want to start with the https://openliberty.io/guides/microprofile-config-intro.html[Separating configuration from code in microservices^] guide and the https://openliberty.io/guides/microprofile-config.html[Configuring microservices^] guide first.
 
-The application that you will be working with is a `query` service. It fetches properties from the `system` microservices. The `system` microservice will use different port and require different user when running in the testing and development environments. You'll provide the `query` service with different configurations using the config profile feature in MicroProfile Config, so that it can access the `system` service in different environments.
+The application that you will be working with is a `query` service. It fetches properties from the `system` microservices. The `system` microservice will use different port and require different user when running in the testing and development environments. You'll provide the `query` service with different configurations by using the config profile feature in MicroProfile Config so that it can access the `system` service in different environments.
 
 // =================================================================================================
 // Getting Started
@@ -72,7 +72,7 @@ system/server.xml
 include::finish/system/src/main/liberty/config/server.xml[]
 ----
 
-In the `testing` environment, the configuration from the [hotspot=testingProperties file=0]`pom.xml` file is used. You can find out that the [hotspot=httpEndpoint hotspot=webApplication file=1]`system` service is running on port [hotspot=test.port file=0]`9082` with context root [hotspot=test.context.root file=0]`system/test`. In addition, a basic [hotspot=user file=1]`user` registry is configured with the user name [hotspot=test.username file=0]`bob` and the password [hotspot=test.password file=0]`bobpwd` as the authorized access to the resources from other services. Note that the `basicRegistry` element is a very simple case for learning purposes. For more information about the different user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
+In the `testing` environment, the configuration from the [hotspot=testingProperties file=0]`pom.xml` file is used. You can find out that the [hotspot=httpEndpoint hotspot=webApplication file=1]`system` service is running on port [hotspot=test.port file=0]`9082` with context root [hotspot=test.context.root file=0]`system/test`. In addition, a basic [hotspot=user file=1]`user` registry is configured with the username [hotspot=test.username file=0]`bob` and the password [hotspot=test.password file=0]`bobpwd` as the authorized access to the resources from other services. Note that the `basicRegistry` element is a simple case for learning purposes. For more information about the different user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
 
 Next, open another command-line session and navigate to the `start/query` directory. 
 
@@ -114,7 +114,6 @@ After you are finished checking out the application, stop the `system` service b
 [role='command']
 ```
 mvn liberty:stop
-
 ```
 
 // =================================================================================================
@@ -153,7 +152,7 @@ query/microprofile-config.properties
 include::start/query/src/main/resources/META-INF/microprofile-config.properties[]
 ----
 
-It is caused by the `system` service is started with the `development` profile, but the current configuration properties defined in the [hotspot=system file=1]`query/src/main/resources/META-INF/microprofile-config.properties` file at the `query` service are the values for accessing the `system` service at the `testing` environment.
+It is caused by the `system` service is started with the `development` profile, but the current configuration properties that are defined in the [hotspot=system file=1]`query/src/main/resources/META-INF/microprofile-config.properties` file at the `query` service are the values for accessing the `system` service at the `testing` environment.
 
 // file 2
 system/server.xml
