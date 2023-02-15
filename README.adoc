@@ -34,7 +34,7 @@ Learn how to use the config profile feature in MicroProfile Config to provide mu
 // =================================================================================================
 == What you'll learn
 
-You'll learn how to configure a microservice for multiple environments by providing different sets of configuration properties for each environment. From development to production and across your DevOps environments, you can use the https://download.eclipse.org/microprofile/microprofile-config-3.0/microprofile-config-spec-3.0.html#configprofile[config profile^] feature in MicroProfile Config to efficiently set and choose configuration for your microservices depending on the current project stage. 
+You'll learn how to configure a microservice for multiple environments by providing different sets of configuration properties for each environment. From development to production and across your DevOps environments, you can use the https://download.eclipse.org/microprofile/microprofile-config-3.0/microprofile-config-spec-3.0.html#configprofile[config profile^] feature in MicroProfile Config to efficiently set configuration for your microservices according to the current project stage. 
 
 This guide assumes you are familiar with https://openliberty.io/docs/latest/external-configuration.html[External configuration of microservices^] and https://openliberty.io/docs/latest/reference/feature/mpConfig-3.0.html[MicroProfile Config^]. If you're new to MicroProfile Config, you might want to start with the https://openliberty.io/guides/microprofile-config-intro.html[Separating configuration from code in microservices^] guide and the https://openliberty.io/guides/microprofile-config.html[Configuring microservices^] guide first.
 
