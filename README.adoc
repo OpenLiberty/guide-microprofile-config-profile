@@ -167,7 +167,7 @@ include::finish/system/src/main/liberty/config/server.xml[]
 // =================================================================================================
 == Create the configuration profile at the property level
 
-The config profile feature in MicroProfile Config supplies configurations for different environments such as development, testing, and production while only a single profile is active. The active profile is specified by using the `mp.config.profile` property, which can be set in any of the https://openliberty.io/docs/latest/external-configuration.html#_default_configuration_sources[ConfigSources^] or at application startup. Once it is set, the corresponding set of configuration properties that are associated with the active profile are used. 
+The config profile feature in MicroProfile Config supplies configurations for different environments such as development, testing, and production while only a single profile is active. The active profile is specified by using the `mp.config.profile` property, which can be set in any of the https://openliberty.io/guides/microprofile-config-intro.html#background-concepts[ConfigSources^] or at application startup. Once it is set, the corresponding set of configuration properties that are associated with the active profile are used. 
 
 Navigate to the `start` directory to create configuration profile for the `query` service at the property level.
 
