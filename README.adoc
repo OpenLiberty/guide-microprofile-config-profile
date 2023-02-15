@@ -111,7 +111,7 @@ Navigate to the `start` directory and check out the [hotspot=system file=2]`quer
 
 Point your browser to the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format. The URL retrieves the system property information for the `localhost` hostname by making a request to the `system` service at `\http://localhost:<system.httpPort>/<system.contextRoot>/property/{property}`.
 
-After you are finished checking out the application, stop the `system` service by pressing `CTRL+C` in the command-line session where you started the system service. Alternatively, you can run the `liberty:stop` goal from the `start/system` directory in another shell session:
+After you finish checking out the application, stop the `system` service by pressing `CTRL+C` in the command-line session where you started the `system` service. Alternatively, you can run the `liberty:stop` goal from the `start/system` directory in another shell session:
 
 [role='command']
 ```
