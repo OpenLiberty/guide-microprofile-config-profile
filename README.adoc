@@ -154,7 +154,7 @@ query/microprofile-config.properties
 include::start/query/src/main/resources/META-INF/microprofile-config.properties[]
 ----
 
-This failure occurs because the `system` service was started with the `development` profile but the configuration is still set for the `testing` environment. The current configuration properties that are defined in the [hotspot=system file=1]`query/src/main/resources/META-INF/microprofile-config.properties` file in the `query` service are the values for accessing the `system` service at the `testing` environment.
+This failure occurs because the `system` service was started with the `development` profile but the configuration properties that are defined in the [hotspot=system file=1]`query/src/main/resources/META-INF/microprofile-config.properties` file in the `query` service are the values to access the `system` service in the `testing` environment.
 
 // file 2
 system/server.xml
