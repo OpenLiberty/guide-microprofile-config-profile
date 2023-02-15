@@ -38,7 +38,7 @@ You'll learn how to configure a microservice for multiple environments by provid
 
 This guide assumes you are familiar with https://openliberty.io/docs/latest/external-configuration.html[External configuration of microservices^] and https://openliberty.io/docs/latest/reference/feature/mpConfig-3.0.html[MicroProfile Config^]. If you're new to MicroProfile Config, you might want to start with the https://openliberty.io/guides/microprofile-config-intro.html[Separating configuration from code in microservices^] guide and the https://openliberty.io/guides/microprofile-config.html[Configuring microservices^] guide first.
 
-The application that you will work with is a `query` service that fetches properties from the `system` microservice. The `system` microservice uses different ports and requires different users in the testing and development environments. You'll use the config profile feature in MicroProfile Config to provide the `query` service with different configurations to access the `system` service in different environments.
+The application that you will work with is a `query` service that fetches properties from the `system` microservice. The `system` microservice uses different ports and requires different users in the testing environment than it does in the development environment. You'll use the config profile feature in MicroProfile Config to provide the `query` service with different configurations to access the `system` service in different environments.
 
 // =================================================================================================
 // Getting Started
