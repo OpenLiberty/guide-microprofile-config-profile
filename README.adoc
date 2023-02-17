@@ -48,7 +48,7 @@ The application that you will work with is a `query` service that fetches proper
 include::{common-includes}/gitclone.adoc[]
 
 // =================================================================================================
-== Try the application in the testing environment
+== Running the application in the testing environment
 
 The starting Java project, which you can find in the `start` directory, is a multi-module Maven project that's made up of the `system` and `query` microservices. Each microservice resides in its own corresponding directory, `system` and `query`. 
 
@@ -119,7 +119,7 @@ mvn liberty:stop
 ```
 
 // =================================================================================================
-== Switch to the development environment
+== Switching to the development environment
 
 // file 0
 system/pom.xml
@@ -165,7 +165,7 @@ include::finish/system/src/main/liberty/config/server.xml[]
 
 
 // =================================================================================================
-== Create the configuration profile at the property level
+== Creating the configuration profile at the property level
 
 The config profile feature in MicroProfile Config supplies configurations for different environments such as development, testing, and production while only a single profile is active. The active profile is specified by using the `mp.config.profile` property, which can be set in any of the https://openliberty.io/docs/latest/external-configuration.html#_default_configuration_sources[ConfigSources^] or at application startup. Once it is set, the corresponding set of configuration properties that are associated with the active profile are used. 
 
@@ -211,7 +211,7 @@ The `mp.config.profile` property can be set in any of the ConfigSources. However
 Now, you can access the application by the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format.
 
 // =================================================================================================
-== Create the configuration profile using ConfigSource
+== Creating the configuration profile using ConfigSource
 
 You can also provide multiple ConfigSources with the names formatted as `microprofile-config-<mp.config.profile>.properties` under the `META-INF` directory.
 
@@ -260,7 +260,7 @@ Because you are running the `query` service in dev mode, the changes that you ma
 
 
 // ===========================================================================================
-== Implement test cases
+== Implementing test cases
 
 You will create endpoint tests to test the basic functionality of the `query` microservice. If a test failure occurs, then you might have introduced a bug into the code.
 
