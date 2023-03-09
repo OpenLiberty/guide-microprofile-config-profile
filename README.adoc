@@ -154,7 +154,7 @@ include::start/query/src/main/resources/META-INF/microprofile-config.properties[
 
 Test the connection between the `query` service and the `system` service by pointing your browser to the http://localhost:9085/query/systems/localhost URL. The `query` service returns the message: `{"fail":"Failed to reach the client localhost."}`.
 
-This failure occurs because the `system` service was started with the `development` profile, while the configuration properties defined in the [hotspot=system file=1]`query/src/main/resources/META-INF/microprofile-config.properties` file are set for the `testing` environment. 
+This failure occurs because the `system` service was started with the `development` profile, while the configuration properties defined in the [hotspot=system file=1]`query/src/main/resources/META-INF/microprofile-config.properties` file are configured for accessing the `testing` environment. 
 
 To resolve the issue, you'll create a configuration profile in the `query` service with the configuration properties necessary to access the `system` service in the `development` environment.
 
@@ -259,61 +259,11 @@ system/server.xml
 include::finish/system/src/main/liberty/config/server.xml[]
 ----
 
-Update the `microprofile-config.properties` file by removing the `%development.\*` properties and setting the `system.*` properties to their default production values from the [hotspot=defaultConfig file=3]`system/server.xml` file.
+Update the `microprofile-config.properties` file by removing the `%development.\*` properties and setting the [hotspot=system file=2]`system.*` properties to their default production values from the [hotspot=defaultConfig file=3]`system/server.xml` file.
 
-Since the active profile is set to `development`, the [hotspot file=0]`microprofile-config-development.properties` file is loaded on top of the default `microprofile-config.properties` file. Therefore, any [hotspot=system file=0]`system.*` properties specified in the former take precedence over the values in the latter.
+Since the active profile is set to `development`, the [hotspot file=0]`microprofile-config-development.properties` file is loaded on top of the default [hotspot file=2]`microprofile-config.properties` file. Therefore, any `system.*` properties specified in the former take precedence over the values in the latter.
 
 Because you are running the `query` service in dev mode, the changes that you made were automatically picked up. Point your browser to the http://localhost:9085/query/systems/localhost URL to check out the application again. You see the current OS and Java version in JSON format.
-
-// ===========================================================================================
-== Implementing test cases
-
-You will create endpoint tests to test the basic functionality of the `query` microservice. If a test failure occurs, then you might have introduced a bug into the code.
-
-// file 0
-[role="code_command hotspot file=0", subs="quotes"]
-----
-#Create the `QueryEndpointIT` class.#
-`query/src/test/java/it/io/openliberty/guides/query/QueryEndpointIT.java`
-----
-
-QueryEndpointIT.java
-[source, java, linenums, role="code_column hide_tags=copyright"]
-----
-include::finish/query/src/test/java/it/io/openliberty/guides/query/QueryEndpointIT.java[]
-----
-
-// file 1
-query/pom.xml
-[source, XML, linenums, role='code_column']
-----
-include::finish/query/pom.xml[]
-----
-
-See the following descriptions of the test cases:
-
-* [hotspot=testQuerySystem file=0]`testQuerySystem()` verifies the `/query/systems/{hostname}` endpoint.
-
-* [hotspot=testUnknownHost file=0]`testUnknownHost()` verifies that an unknown host or a host that does not expose their JVM system properties is correctly handled with a fail message.
-
-**Running the tests**
-
-Because you started Open Liberty in dev mode, you can run the tests by pressing the enter/return key from the command-line session where you started the `query` service. If the tests pass, you see output similar to the following example:
-
-[source, role="no_copy"]
-----
--------------------------------------------------------
- T E S T S
--------------------------------------------------------
-Running it.io.openliberty.guides.query.QueryEndpointIT
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.703 s - in it.io.openliberty.guides.query.QueryEndpointIT
-
-Results:
-
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
-----
-
-When you are done checking out the application in `development` environment, exit dev mode by pressing `CTRL+C` in the command-line sessions where you ran the `system` and `query` services, or by typing `q` and then pressing the `enter/return` key. 
 
 // ===========================================================================================
 == Testing the application
