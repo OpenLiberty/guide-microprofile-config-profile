@@ -213,7 +213,7 @@ In addition to creating configuration profiles at the property level, it's also 
 
 To create a configuration profile at the Config Source level, simply create a file under the `META-INF` folder on the classpath with the naming convention `microprofile-config-<mp.config.profile>.properties`. Once you have created the file, you can add your configuration properties to it with the `<property name>=<value>` syntax. 
 
-In this example, you will provide configuration properties for the `development` environment to the `query` service using ConfigSource.
+In this example, you will provide configuration properties for the `development` environment to the `query` service using a ConfigSource properties file.
 
 // file 0
 [role="code_command hotspot file=0", subs="quotes"]
