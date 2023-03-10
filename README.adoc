@@ -15,7 +15,7 @@
 :page-related-guides: ['microprofile-config-intro', 'microprofile-config-apis']
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :source-highlighter: prettify
-:page-seo-title: Configuring Java microservices for multiple environments using Eclipse MicroProfile Config
+:page-seo-title: Configuring Java microservices for multiple environments using MicroProfile Config
 :page-seo-description: A tutorial and example on how to configure multiple project environments and development stages in DevOps lifecycle for Java microservices using the config profile feature in Eclipse MicroProfile Config.
 :guide-author: Open Liberty
 = Configuring microservices for multiple environments
