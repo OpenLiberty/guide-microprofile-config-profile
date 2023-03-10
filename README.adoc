@@ -161,11 +161,11 @@ To resolve the issue, you'll create a configuration profile in the `query` servi
 // =================================================================================================
 == Creating the configuration profile at the property level
 
-MicroProfile Config's config profile feature allows for the supply of configurations for different environments, such as development, testing, and production, while only a single profile is active. The active profile is set using the `mp.config.profile` property, which can be set in any of the https://openliberty.io/guides/microprofile-config-intro.html#background-concepts[ConfigSources] or at application startup. Once set, the corresponding configuration properties associated with the active profile are used. 
+MicroProfile Config's config profile feature allows for the supply of configurations for different environments, such as development, testing, and production, while only a single profile is active. The active profile is set using the `mp.config.profile` property, which is a unique identifier for each configuration profile. This property can be set in any of the https://openliberty.io/guides/microprofile-config-intro.html#background-concepts[ConfigSources] or at application startup. Once set, the corresponding configuration properties associated with the active profile are used.
 
 Creating configuration profiles at the property level is useful when only a few configuration properties need to be set differently for each DevOps stage, such as when you require different database connection settings in different environments. 
 
-To provide a configuration property for a particular config profile, use the `%<mp.config.profile>.<property name> = <value>` syntax.
+To provide a configuration property for a particular config profile, use the `%<config_profile_id>.<property_name>=<value>` syntax, where `<config_profile_id>` is the unique identifier for the configuration profile and `<property_name>` is the name of the property you want to set.
 
 In this example, you will provide configuration properties for the `development` environment to the `query` service at the property level.
 
@@ -211,7 +211,7 @@ After restarting the `query` service with the `development` config profile, you 
 
 In addition to creating configuration profiles at the property level, it's also possible to create configuration profiles using ConfigSources. This can be particularly useful when you need to manage a large number of configuration properties for different environments. For instance, each DevOps stage may require the application to run on different ports and context roots. Using a ConfigSource to externalize and customize these configurations leads to a cleaner and more modular code design.
 
-To create a configuration profile at the Config Source level, simply create a file under the `META-INF` folder on the classpath with the naming convention `microprofile-config-<mp.config.profile>.properties`. Once you have created the file, you can add your configuration properties to it with the `<property name>=<value>` syntax. 
+To create a configuration profile at the Config Source level, simply create a file under the `META-INF` folder on the classpath with the naming convention `microprofile-config-<config_profile_id>.properties`, where `<config_profile_id>` is the unique identifier for the configuration profile. Once you have created the file, you can add your configuration properties to it with the `<property_name>=<value>` syntax. 
 
 In this example, you will provide configuration properties for the `development` environment to the `query` service using a ConfigSource properties file.
 
