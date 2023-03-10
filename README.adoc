@@ -23,7 +23,7 @@
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Learn how to configure microservices for multiple environments using MicroProfile Config's config profile feature, allowing for streamlined management of configurations across different phases of the DevOps lifecycle.
+Learn how to configure microservices for multiple environments using MicroProfile Config's config profile feature, which streamlines the management of configurations across different phases of the DevOps lifecycle.
 
 :win: WINDOWS
 :mac: MAC
