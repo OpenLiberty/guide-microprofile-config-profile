@@ -78,7 +78,7 @@ system/server.xml
 include::finish/system/src/main/liberty/config/server.xml[]
 ----
 
-During testing, the server configurations from the [hotspot=testing file=0]`testing` profile in the [hotspot file=0]`system/pom.xml` file are used for running the `system` service. You can find out that the `system` service runs on port [hotspot=test.port file=0]`9082` with context root [hotspot=test.context.root file=0]`system/test`, and a basic user registry is set up with username [hotspot=test.username file=0]`bob` and password [hotspot=test.password file=0]`bobpwd` to authorize access to resources from other services. Note that the `basicRegistry` element is a simple case for learning purposes, and for more information on different user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
+During testing, the server configurations from the [hotspot=testing file=0]`testing` profile in the [hotspot file=0]`system/pom.xml` file are used for running the `system` service. You can find out that the `system` service runs on port [hotspot=test.port file=0]`9082` with context root [hotspot=test.context.root file=0]`system/test`, and a basic user registry is set up with username [hotspot=test.username file=0]`bob` and password [hotspot=test.password file=0]`bobpwd` to authorize access to resources from other services. Note that the `basicRegistry` element is a simple case for learning purposes. For more information on different user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
 
 Next, open another command-line session.
 
