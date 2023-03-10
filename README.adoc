@@ -40,7 +40,7 @@ You'll learn how to provide different sets of configuration properties for each 
 
 This guide builds on the basics of the https://openliberty.io/guides/microprofile-config-intro.html[Separating configuration from code in microservices^] guide and the https://openliberty.io/guides/microprofile-config.html[Configuring microservices^] guide. If you are not familiar with externalizing the configuration of microservices, it will be helpful to read https://openliberty.io/docs/latest/external-configuration.html[this document^] and complete those guides before proceeding.
 
-The application that you will be working with is a `query` service, which fetches information about the running JVM from a `system` microservice. The `system` microservice requires different ports and credentials to access in the testing environment compared to the development environment. To address this, you'll use MicroProfile Config's config profile feature to provide the `query` service with different configurations for accessing the `system` service in each environment.
+The application that you will work with is a `query` service, which fetches information about the running JVM from a `system` microservice. The `system` microservice is accessed by different ports and credentials in the testing environment compared to the development environment. To address this change, you'll use MicroProfile Config's config profile feature to provide the `query` service with different configurations for accessing the `system` service in each environment.
 
 // =================================================================================================
 // Getting Started
