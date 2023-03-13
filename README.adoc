@@ -53,9 +53,9 @@ image::system-query-devops.png[System and query services DevOps,align="center"]
 include::{common-includes}/gitclone.adoc[]
 
 // =================================================================================================
-== Developing the query service with the system service running in testing environment
+== Trying the basic configuration
 
-Develop the `query` service against where the `system` service is running in the testing enivronment.
+Run the `query` service in development mode with the `system` service that is running in the testing enivronment.
 
 image::system-query-devops-testing.png[System service running in testing enivronment,align="center"]
 
