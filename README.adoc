@@ -8,10 +8,11 @@
 :projectid: microprofile-config-profile
 :page-layout: guide-multipane
 :page-duration: 20 minutes
-:page-releasedate: 2023-01-31
+:page-releasedate: 2023-03-31
 :page-description: Learn how to use the config profile feature in MicroProfile Config to provide configurations for different phases in the DevOps lifecycle.
 :page-tags: ['MicroProfile']
 :page-permalink: /guides/{projectid}
+:imagesdir: /img/guide/{projectid}
 :page-related-guides: ['microprofile-config-intro', 'microprofile-config-apis']
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :source-highlighter: prettify
@@ -41,6 +42,8 @@ You'll learn how to provide different sets of configuration properties for each 
 This guide builds on the basics of the https://openliberty.io/guides/microprofile-config-intro.html[Separating configuration from code in microservices^] guide and the https://openliberty.io/guides/microprofile-config.html[Configuring microservices^] guide. If you are not familiar with externalizing the configuration of microservices, it will be helpful to read https://openliberty.io/docs/latest/external-configuration.html[this document^] and complete those guides before proceeding.
 
 The application that you will work with is a `query` service, which fetches information about the running JVM from a `system` microservice. The `system` microservice is accessed by different ports and credentials in the testing environment compared to the development environment. To address this change, you'll use MicroProfile Config's config profile feature to provide the `query` service with different configurations for accessing the `system` service in each environment.
+
+image::system-query-devops.png[System and query services DevOps,align="center"]
 
 // =================================================================================================
 // Getting Started
