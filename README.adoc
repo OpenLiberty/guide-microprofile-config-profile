@@ -126,7 +126,11 @@ mvn liberty:stop
 ```
 
 // =================================================================================================
-== Switching to the development environment
+=== Switch the system to run in development environment
+
+Assume that the `system` service is required to fix something. The `query` service need connect to it running in the development environment.
+
+image::system-query-devops-development.png[System service running in development enivronment,align="center"]
 
 // file 0
 system/pom.xml
