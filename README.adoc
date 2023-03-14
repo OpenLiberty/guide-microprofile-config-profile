@@ -55,7 +55,7 @@ include::{common-includes}/gitclone.adoc[]
 // =================================================================================================
 == Trying the basic configuration
 
-Run the `query` service in development mode with the `system` service that is running in the testing enivronment.
+Deploy the `system` service in the testing environment and access it with the `query` service, which is running in dev mode.
 
 image::system-query-devops-testing.png[System service running in testing enivronment,align="center"]
 
