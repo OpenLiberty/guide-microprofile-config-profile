@@ -8,10 +8,11 @@
 :projectid: microprofile-config-profile
 :page-layout: guide-multipane
 :page-duration: 20 minutes
-:page-releasedate: 2023-01-31
+:page-releasedate: 2023-03-31
 :page-description: Learn how to use the config profile feature in MicroProfile Config to provide configurations for different phases in the DevOps lifecycle.
 :page-tags: ['MicroProfile']
 :page-permalink: /guides/{projectid}
+:imagesdir: /img/guide/{projectid}
 :page-related-guides: ['microprofile-config-intro', 'microprofile-config-apis']
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :source-highlighter: prettify
@@ -42,6 +43,8 @@ This guide builds on the basics of the https://openliberty.io/guides/microprofil
 
 The application that you will work with is a `query` service, which fetches information about the running JVM from a `system` microservice. The `system` microservice is accessed by different ports and credentials in the testing environment compared to the development environment. To address this change, you'll use MicroProfile Config's config profile feature to provide the `query` service with different configurations for accessing the `system` service in each environment.
 
+image::system-query-devops.png[System and query services DevOps,align="center"]
+
 // =================================================================================================
 // Getting Started
 // =================================================================================================
@@ -50,7 +53,11 @@ The application that you will work with is a `query` service, which fetches info
 include::{common-includes}/gitclone.adoc[]
 
 // =================================================================================================
-== Running the application in the testing environment
+== Starting from the default configuration
+
+Deploy the `system` service in the testing environment and access it with the `query` service, which is running in dev mode.
+
+image::system-query-devops-testing.png[System service running in testing enivronment,align="center"]
 
 Navigate to the `start` directory to begin.
 
@@ -119,7 +126,11 @@ mvn liberty:stop
 ```
 
 // =================================================================================================
-== Switching to the development environment
+=== Switching the system service to the development environment
+
+Assume that the `system` service is needs maintenance. The `query` service must now connect to it in the development environment instead of the testing environment.
+
+image::system-query-devops-development.png[System service running in development enivronment,align="center"]
 
 // file 0
 system/pom.xml
@@ -296,7 +307,7 @@ See the following descriptions of the test cases:
 
 * [hotspot=testUnknownHost file=0]`testUnknownHost()` verifies that an unknown host or a host that does not expose their JVM system properties is correctly handled with a fail message.
 
-=== Running the tests
+=== Running the tests in the development environment
 
 First, test the application under the `development` environment.
 
@@ -324,9 +335,11 @@ scripts/testApp.sh|.bat
 include::finish/scripts/testApp.sh[]
 ----
 
+=== Running the tests in the testing environment
+
 Now, navigate to the `start` directory. 
 
-Test the application under the `testing` environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services:
+Test the application under the `testing` environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services. Note that the `system` service starts with the Maven [hotspot=start-system file=0]`testing` profile and the `query` service uses the MicroProfile Config [hotspot=start-query file=0]`testing` profile that is provided for you at the `query/src/main/resources/META-INF/microprofile-config-testing.properties` file.
 
 include::{common-includes}/os-tabs.adoc[]
 
