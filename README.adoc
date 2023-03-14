@@ -53,7 +53,7 @@ image::system-query-devops.png[System and query services DevOps,align="center"]
 include::{common-includes}/gitclone.adoc[]
 
 // =================================================================================================
-== Trying the basic configuration
+== Starting from the default configuration
 
 Deploy the `system` service in the testing environment and access it with the `query` service, which is running in dev mode.
 
