@@ -126,7 +126,7 @@ mvn liberty:stop
 ```
 
 // =================================================================================================
-=== Switching the system service to development mode
+=== Switching the system service to the development environment
 
 Assume that the `system` service is needs maintenance. The `query` service must now connect to it in the development environment instead of the testing environment.
 
