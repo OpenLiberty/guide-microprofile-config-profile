@@ -1,3 +1,5 @@
+#!/bin/bash
+
 mvn -pl system -ntp clean package liberty:create liberty:install-feature liberty:deploy
 mvn -pl query -ntp clean package liberty:create liberty:install-feature liberty:deploy
 
