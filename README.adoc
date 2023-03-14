@@ -307,7 +307,7 @@ See the following descriptions of the test cases:
 
 * [hotspot=testUnknownHost file=0]`testUnknownHost()` verifies that an unknown host or a host that does not expose their JVM system properties is correctly handled with a fail message.
 
-=== Running the tests in dev mode
+=== Running the tests in the development environment
 
 First, test the application under the `development` environment.
 
