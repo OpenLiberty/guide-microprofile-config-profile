@@ -4,8 +4,12 @@ mvn -pl query -ntp clean package liberty:create liberty:install-feature liberty:
 # end::build[]
 
 # tag::start[]
+# tag::start-system[]
 mvn -pl system -ntp -P testing liberty:start
+# end::start-system[]
+# tag::start-query[]
 mvn -pl query -ntp -Dliberty.var.mp.config.profile="testing" liberty:start
+# end::start-query[]
 # end::start[]
 
 # tag::test[]
