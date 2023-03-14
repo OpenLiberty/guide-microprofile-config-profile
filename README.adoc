@@ -335,7 +335,7 @@ scripts/testApp.sh|.bat
 include::finish/scripts/testApp.sh[]
 ----
 
-=== Running the tests in testing environment
+=== Running the tests in the testing environment
 
 Now, navigate to the `start` directory. 
 
