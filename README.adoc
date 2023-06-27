@@ -55,7 +55,7 @@ include::{common-includes}/gitclone.adoc[]
 // =================================================================================================
 == Starting from the default configuration
 
-Deploy the `system` service in the testing environment and access it with the `query` service, which is running in dev mode.
+Deploy the `system` service in the testing environment and access it with the `query` service, which is running in https://openliberty.io/docs/latest/development-mode.html[dev mode^].
 
 image::system-query-devops-testing.png[System service running in testing enivronment,align="center"]
 
@@ -89,7 +89,7 @@ During testing, the server configurations from the [hotspot=testing file=0]`test
 
 Next, open another command-line session.
 
-When you run Open Liberty in development mode, known as dev mode, the server listens for file changes and automatically recompiles and deploys your updates whenever you save a new change. Run the following commands to navigate to the `query` directory and start the `query` service in dev mode:
+When you run Open Liberty in dev mode, known as dev mode, the server listens for file changes and automatically recompiles and deploys your updates whenever you save a new change. Run the following commands to navigate to the `query` directory and start the `query` service in dev mode:
 
 [role='command']
 ```
