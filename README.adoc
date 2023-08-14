@@ -89,7 +89,7 @@ During testing, the server configurations from the [hotspot=testing file=0]`test
 
 Next, open another command-line session.
 
-When you run Open Liberty in dev mode, known as dev mode, the server listens for file changes and automatically recompiles and deploys your updates whenever you save a new change. Run the following commands to navigate to the `query` directory and start the `query` service in dev mode:
+When you run Open Liberty in dev mode, known as dev mode, dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change. Run the following commands to navigate to the `query` directory and start the `query` service in dev mode:
 
 [role='command']
 ```
