@@ -85,11 +85,11 @@ system/server.xml
 include::finish/system/src/main/liberty/config/server.xml[]
 ----
 
-During testing, the server configurations from the [hotspot=testing file=0]`testing` profile in the [hotspot file=0]`system/pom.xml` file are used for running the `system` service. You can find out that the `system` service runs on port [hotspot=test.port file=0]`9082` with context root [hotspot=test.context.root file=0]`system/test`, and a basic user registry is set up with username [hotspot=test.username file=0]`bob` and password [hotspot=test.password file=0]`bobpwd` to authorize access to resources from other services. Note that the `basicRegistry` element is a simple case for learning purposes. For more information on different user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
+During testing, the Liberty configurations from the [hotspot=testing file=0]`testing` profile in the [hotspot file=0]`system/pom.xml` file are used for running the `system` service. You can find out that the `system` service runs on port [hotspot=test.port file=0]`9082` with context root [hotspot=test.context.root file=0]`system/test`, and a basic user registry is set up with username [hotspot=test.username file=0]`bob` and password [hotspot=test.password file=0]`bobpwd` to authorize access to resources from other services. Note that the `basicRegistry` element is a simple case for learning purposes. For more information on different user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
 
 Next, open another command-line session.
 
-When you run Open Liberty in dev mode, known as dev mode, the server listens for file changes and automatically recompiles and deploys your updates whenever you save a new change. Run the following commands to navigate to the `query` directory and start the `query` service in dev mode:
+When you run Open Liberty in dev mode, known as dev mode, dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change. Run the following commands to navigate to the `query` directory and start the `query` service in dev mode:
 
 [role='command']
 ```
@@ -97,7 +97,7 @@ cd query
 mvn liberty:dev
 ```
 
-After you see the following message, your runtime in dev mode is ready:
+After you see the following message, your Liberty instance is ready in dev mode:
 
 [source, role="no_copy"]
 ----
@@ -146,7 +146,7 @@ Restart the `system` service in [hotspot=development file=0]`development` enviro
 mvn liberty:dev
 ```
 
-After you see the following message, your runtime in dev mode is ready:
+After you see the following message, your Liberty instance is ready in dev mode:
 
 [source, role="no_copy"]
 ----
@@ -154,7 +154,7 @@ After you see the following message, your runtime in dev mode is ready:
 *     Liberty is running in dev mode.
 ----
 
-During development, the server configurations from the [hotspot=development file=0]`development` profile in the [hotspot file=0]`system/pom.xml` file are used for running the `system` service. The `system` service now runs on port [hotspot=port file=0]`9081` with context root [hotspot=context.root file=0]`system/dev`, and the credentials for the user registry are updated with username [hotspot=username file=0]`alice` and password [hotspot=password file=0]`alicepwd` for authentication to the service. 
+During development, the Liberty configurations from the [hotspot=development file=0]`development` profile in the [hotspot file=0]`system/pom.xml` file are used for running the `system` service. The `system` service now runs on port [hotspot=port file=0]`9081` with context root [hotspot=context.root file=0]`system/dev`, and the credentials for the user registry are updated with username [hotspot=username file=0]`alice` and password [hotspot=password file=0]`alicepwd` for authentication to the service. 
 
 // file 1
 query/microprofile-config.properties
@@ -270,7 +270,7 @@ system/server.xml
 include::finish/system/src/main/liberty/config/server.xml[]
 ----
 
-Update the `microprofile-config.properties` file by removing the `%development.\*` properties and setting the [hotspot=system file=2]`system.*` properties to their default production values from the [hotspot=defaultConfig file=3]`system/server.xml` file.
+Update the `microprofile-config.properties` file by removing the `%development.\*` properties and setting the [hotspot=system file=2]`system.*` properties to their default production values from the [hotspot=defaultConfig file=3]`system/server.xml` configuration file.
 
 Since the active profile is set to `development`, the [hotspot file=0]`microprofile-config-development.properties` file is loaded on top of the default [hotspot file=2]`microprofile-config.properties` file. Therefore, any `system.*` properties specified in the former take precedence over the values in the latter.
 
