@@ -97,7 +97,7 @@ cd query
 mvn liberty:dev
 ```
 
-After you see the following message, your runtime in dev mode is ready:
+After you see the following message, your Liberty instance is ready in dev mode:
 
 [source, role="no_copy"]
 ----
