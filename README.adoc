@@ -82,25 +82,13 @@ include::finish/system/src/main/liberty/config/server.xml[]
 
 In the prod environment, the Liberty [hotspot file=0]`server.xml` provides the default configuration. The `system` service runs on port [hotspot=port file=0]`9080` using the context root [hotspot=context.root file=0]`system`. It uses a basic user registry with username [hotspot=username file=0]`admin` and password [hotspot=password file=0]`adminpwd` for resource authorization. Note that the `basicRegistry` element is a simple case for learning purposes. For more information on user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
 
-Next, open another command-line session.
-
-When you run Open Liberty in dev mode, known as dev mode, dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change. Run the following commands to navigate to the `query` directory and start the `query` service in dev mode:
+Next, open another command-line session and run the following commands to navigate to the `query` directory and start the `query` service:
 
 [role='command']
 ```
 cd query
-mvn liberty:dev
+mvn liberty:run
 ```
-
-After you see the following message, your Liberty instance is ready in dev mode:
-
-[source, role="no_copy"]
-----
-**************************************************
-*     Liberty is running in dev mode.
-----
-
-Dev mode holds your command-line session to listen for file changes. Open another command-line session to continue, or open the project in your editor.
 
 // file 1
 microprofile-config.properties
@@ -136,12 +124,22 @@ system/pom.xml
 include::finish/system/pom.xml[]
 ----
 
-Restart the `system` service in [hotspot=development file=0]`dev` environment by running the following Maven goal from the `system` directory:
+When you run Open Liberty in dev mode, known as dev mode, dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change. Restart the `system` service in [hotspot=development file=0]`dev` environment by running the following Maven goal from the `system` directory:
 
 [role='command']
 ```
 mvn liberty:dev
 ```
+
+After you see the following message, your Liberty instance is ready in dev mode:
+
+[source, role="no_copy"]
+----
+**************************************************
+*     Liberty is running in dev mode.
+----
+
+Dev mode holds your command-line session to listen for file changes. Open another command-line session to continue, or open the project in your editor.
 
 Test the connection between the `query` service and the `system` service by pointing your browser to the http://localhost:9085/query/systems/localhost URL. The `query` service returns the message: `{"fail":"Failed to reach the client localhost."}`.
 
@@ -190,6 +188,16 @@ After stopping the `query` service, restart it with the `dev` configuration prof
 ```
 mvn liberty:dev -Dliberty.var.mp.config.profile="dev"
 ```
+
+After you see the following message, your Liberty instance is ready in dev mode:
+
+[source, role="no_copy"]
+----
+**************************************************
+*     Liberty is running in dev mode.
+----
+
+Dev mode holds your command-line session to listen for file changes. Open another command-line session to continue, or open the project in your editor.
 
 By setting `mp.config.profile` to `dev` as a Liberty variable, each `%dev.*` property will override the value of its original property. For example, the [hotspot=dev.port file=0]`%dev.system.httpPort` property will override the [hotspot=port file=0]`system.httpPort` property and the value will be resolved to `9081` in this case.
 
