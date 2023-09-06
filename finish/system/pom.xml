@@ -81,7 +81,7 @@
     <profiles>
         <!-- tag::development[] -->
         <profile>
-            <id>development</id>
+            <id>dev</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -128,7 +128,7 @@
 
         <!-- tag::testing[] -->
         <profile>
-            <id>testing</id>
+            <id>test</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -170,7 +170,7 @@
         <!-- end::testing[] -->
 
         <profile>
-            <id>production</id>
+            <id>prod</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
