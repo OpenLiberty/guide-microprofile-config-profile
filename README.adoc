@@ -335,7 +335,7 @@ microprofile-config-test.properties
 include::finish/query/src/main/resources/META-INF/microprofile-config-test.properties[]
 ----
 
-Test the application under the test environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services. Note that the `system` service starts with the Maven [hotspot=start-system file=0]`test` profile and the `query` service uses the MicroProfile Config [hotspot=start-query file=0]`test` configuration profile at the [hotspot file=1]`query/src/main/resources/META-INF/microprofile-config-test.properties` file.
+Test the application under the test environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services.
 
 include::{common-includes}/os-tabs.adoc[]
 
