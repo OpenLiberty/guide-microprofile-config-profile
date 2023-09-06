@@ -163,7 +163,7 @@ To provide a configuration property for a particular config profile, use the `%<
 ----
 
 // file 0
-query/microprofile-config.properties
+microprofile-config.properties
 [source, properties, linenums, role="code_column"]
 ----
 include::finish/query/src/main/resources/META-INF/microprofile-config.properties[]
@@ -224,7 +224,7 @@ In this example, you will provide configuration properties for the `dev` environ
 `query/src/main/resources/META-INF/microprofile-config-dev.properties`
 ----
 
-query/microprofile-config-dev.properties
+/microprofile-config-dev.properties
 [source, properties, linenums, role="code_column hide_tags=userPassword,properties,contactEmail,roleAndQuery"]
 ----
 include::finish/query/src/main/resources/META-INF/microprofile-config-dev.properties[]
@@ -246,7 +246,7 @@ Define the [hotspot=system file=0]`system.*` properties in the `microprofile-con
 `query/src/main/resources/META-INF/microprofile-config.properties`
 ----
 
-query/microprofile-config.properties
+microprofile-config.properties
 [source, properties, linenums, role="code_column hide_tags=development"]
 ----
 include::finish/query/src/main/resources/META-INF/microprofile-config.properties[]
