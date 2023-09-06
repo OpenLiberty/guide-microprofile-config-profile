@@ -99,7 +99,7 @@ include::finish/query/src/main/resources/META-INF/microprofile-config.properties
 
 Navigate to the [hotspot=system file=1]`query/src/main/resources/META-INF/microprofile-config.properties` local configuration file to check the static configuration. This file is the default configuration source for an application using MicroProfile Config and contains the required properties to access the prod environment of the `system` service.
 
-Point your browser to the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format. The URL retrieves the system property information for the `localhost` hostname by making a r equest to the `system` service at `\http://localhost:<system.httpPort>/<system.contextRoot>/property/{property}`.
+Point your browser to the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format. The URL retrieves the system property information for the `localhost` hostname by making a request to the `system` service at `\http://localhost:<system.httpPort>/<system.contextRoot>/property/{property}`.
 
 After you finish checking out the application, stop the `system` service by pressing `CTRL+C` in the command-line session where you started the `system` service. Alternatively, you can run the `liberty:stop` goal from the `system` directory in another shell session:
 
@@ -147,8 +147,6 @@ Given that the `system` service is currently undergoing development, the `query`
 
 image::system-query-devops-development.png[System service running in development environment,align="center"]
 
-To resolve the issue, you'll create a configuration profile in the `query` service with the properties necessary to access the `system` service in the `dev` environment.
-
 // =================================================================================================
 // Configuring properties at property level
 // =================================================================================================
@@ -180,7 +178,12 @@ include::finish/system/pom.xml[]
 
 Configure the [hotspot=development file=0]`%dev.*` properties in the `microprofile-config.properties` file based on the values from the [hotspot=developmentProperties file=1]`dev` profile of the `system` service.
 
-Once you have updated the properties, stop the `query` service by pressing `CTRL+C` in the command-line session where you ran the `query` service, or by typing `q` and then pressing the `enter/return` key.
+Once you have updated the properties, stop the `query` service by pressing `CTRL+C` in the command-line session where you started the `query` service. Alternatively, you can run the `liberty:stop` goal from the `query` directory in another shell session:
+
+[role='command']
+```
+mvn liberty:stop
+```
 
 After stopping the `query` service, restart it with the `dev` configuration profile by running the following Maven goal from the `query` directory:
 
@@ -201,8 +204,6 @@ Dev mode holds your command-line session to listen for file changes. Open anothe
 
 By setting `mp.config.profile` to `dev` as a Liberty variable, each `%dev.*` property will override the value of its original property. For example, the [hotspot=dev.port file=0]`%dev.system.httpPort` property will override the [hotspot=port file=0]`system.httpPort` property and the value will be resolved to `9081` in this case.
 
-Keep in mind that the `mp.config.profile` property can be set in any of the ConfigSources, but it is read only at application startup. Any changes made after that will be ignored until the next application startup.
-
 After restarting the `query` service with the `dev` configuration profile, you can now access the application by using the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format.
 
 // =================================================================================================
@@ -212,7 +213,7 @@ After restarting the `query` service with the `dev` configuration profile, you c
 
 In addition to creating configuration profiles at the property level, it's also possible to create configuration profiles using ConfigSources. This can be particularly useful when you need to manage a large number of configuration properties for different environments. For instance, each DevOps stage may require the application to run on different ports and context roots. Using a ConfigSource to externalize and customize these configurations leads to a cleaner and more modular code design.
 
-To create a configuration profile at the Config Source level, simply create a file under the `META-INF` folder on the classpath with the naming convention `microprofile-config-<config_profile_id>.properties`, where `<config_profile_id>` is the unique identifier for the configuration profile. Once you have created the file, you can add your configuration properties to it with the `<property_name>=<value>` syntax. 
+To create a configuration profile at the ConfigSource level, simply create a file under the `META-INF` folder on the classpath with the naming convention `microprofile-config-<config_profile_id>.properties`, where `<config_profile_id>` is the unique identifier for the configuration profile. Once you have created the file, you can add your configuration properties to it with the `<property_name>=<value>` syntax. 
 
 In this example, you will provide configuration properties for the `dev` environment to the `query` service using a ConfigSource properties file.
 
@@ -258,13 +259,13 @@ system/server.xml
 include::finish/system/src/main/liberty/config/server.xml[]
 ----
 
-Remove the `%dev.\*` properties in the `microprofile-config.properties` file.
+Remove the `%dev.*` properties from the `microprofile-config.properties` file.
 
-Since the active profile is set to `dev`, the [hotspot file=0]`microprofile-config-dev.properties` file is loaded on top of the default [hotspot file=2]`microprofile-config.properties` file. Aany `system.*` properties specified in the former thus take precedence over the values in the latter.
+Since the active profile is set to `dev`, the [hotspot file=0]`microprofile-config-dev.properties` file is loaded on top of the default [hotspot file=2]`microprofile-config.properties` file. Any `system.*` properties specified in the former thus take precedence over the values in the latter.
 
 Because you are running the `query` service in dev mode, the changes that you made were automatically picked up. Point your browser to the http://localhost:9085/query/systems/localhost URL to check out the application again. You see the current OS and Java version in JSON format.
 
-When you are done checking out the application in dev environment, exit dev mode by pressing CTRL+C in the command-line sessions where you ran the system and query services, or by typing q and then pressing the enter/return key.
+When you are done checking out the application in `dev` environment, exit dev mode by pressing `CTRL+C` in the command-line sessions where you ran the `system` and `query` services, or by typing `q` and then pressing the `enter/return` key. 
 
 // =================================================================================================
 // Creating configuration profile for test environment
@@ -280,7 +281,7 @@ In DevOps, the test environment is where integration tests come to life, checkin
 `query/src/main/resources/META-INF/microprofile-config-test.properties`
 ----
 
-query/microprofile-config-test.properties
+microprofile-config-test.properties
 [source, properties, linenums, role="code_column"]
 ----
 include::finish/query/src/main/resources/META-INF/microprofile-config-test.properties[]
@@ -296,7 +297,7 @@ include::finish/system/pom.xml[]
 Define the [hotspot=system file=0]`system.*` properties in the `microprofile-config-test.properties` file based on the values from the [hotspot=developmentProperties file=1]`test` profile of the `system` service.
 
 // file 2
-[role="code_command hotspot file=0", subs="quotes"]
+[role="code_command hotspot file=2", subs="quotes"]
 ----
 #Create the `QueryEndpointIT` class.#
 `query/src/test/java/it/io/openliberty/guides/query/QueryEndpointIT.java`
@@ -318,9 +319,23 @@ See the following descriptions of the test cases:
 
 === Running the tests in the test environment
 
-Now, navigate to the `start` directory. 
+Now, navigate to the `start` directory.
 
-Test the application under the test environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services. Note that the `system` service starts with the Maven [hotspot=start-system file=0]`test` profile and the `query` service uses the MicroProfile Config [hotspot=start-query file=0]`test` profile that is provided for you at the `query/src/main/resources/META-INF/microprofile-config-test.properties` file.
+// file 0
+scripts/testApp.sh|.bat
+[source, XML, linenums, role='code_column']
+----
+include::finish/scripts/testApp.sh[]
+----
+
+// file 1
+microprofile-config-test.properties
+[source, properties, linenums, role="code_column"]
+----
+include::finish/query/src/main/resources/META-INF/microprofile-config-test.properties[]
+----
+
+Test the application under the test environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services. Note that the `system` service starts with the Maven [hotspot=start-system file=0]`test` profile and the `query` service uses the MicroProfile Config [hotspot=start-query file=0]`test` configuration profile at the [hotspot file=1]`query/src/main/resources/META-INF/microprofile-config-test.properties` file.
 
 include::{common-includes}/os-tabs.adoc[]
 
@@ -339,7 +354,6 @@ include::{common-includes}/os-tabs.adoc[]
 scripts\testApp.bat
 ```
 --
-
 
 If the tests pass, you see output similar to the following example:
 
@@ -368,7 +382,6 @@ Results:
 Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 
 ----
-
 
 == Great work! You're done!
 
