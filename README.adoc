@@ -59,63 +59,9 @@ include::{common-includes}/gitclone.adoc[]
 // =================================================================================================
 == Externalizing configuration properties in the default profile
 
-When deploying microservices, configurations are typically set to default to production settings, ensuring the application runs optimally and securely if no specific profile is specified.
+When developing an application, configurations are typically set to default to development settings. This approach ensures a controlled environment suitable for initial code experimentation and debugging without risking the integrity or security of production data and systems.
 
 Navigate to the `start` directory to begin.
-
-The starting Java project, which you can find in the `start` directory, is a multi-module Maven project that's made up of the `system` and `query` microservices. Each microservice resides in its own corresponding directory, `system` and `query`. The `system` microservice contains the three build profiles: `dev`, `test`, and `prod`. 
-
-Start and deploy the `system` service to Open Liberty in the prod environment by running the following commands:
-
-[role='command']
-```
-cd system
-mvn -P prod liberty:run
-```
-
-// file 0
-system/server.xml
-[source, XML, linenums, role='code_column']
-----
-include::finish/system/src/main/liberty/config/server.xml[]
-----
-
-In the prod environment, the Liberty [hotspot file=0]`server.xml` provides the default configuration. The `system` service runs on port [hotspot=port file=0]`9080` using the context root [hotspot=context.root file=0]`system`. It uses a basic user registry with username [hotspot=username file=0]`admin` and password [hotspot=password file=0]`adminpwd` for resource authorization. Note that the `basicRegistry` element is a simple case for learning purposes. For more information on user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
-
-Next, open another command-line session and run the following commands to navigate to the `query` directory and start the `query` service:
-
-[role='command']
-```
-cd query
-mvn liberty:run
-```
-
-// file 1
-microprofile-config.properties
-[source, properties, linenums, role="code_column hide_tags=development"]
-----
-include::finish/query/src/main/resources/META-INF/microprofile-config.properties[]
-----
-
-Navigate to the [hotspot=system file=1]`query/src/main/resources/META-INF/microprofile-config.properties` local configuration file to check the static configuration. This file is the default configuration source for an application using MicroProfile Config and contains the required properties to access the prod environment of the `system` service.
-
-Point your browser to the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format. The URL retrieves the system property information for the `localhost` hostname by making a request to the `system` service at `\http://localhost:<system.httpPort>/<system.contextRoot>/property/{property}`.
-
-After you finish checking out the application, stop the `system` service by pressing `CTRL+C` in the command-line session where you started the `system` service. Alternatively, you can run the `liberty:stop` goal from the `system` directory in another shell session:
-
-[role='command']
-```
-mvn liberty:stop
-```
-
-// =================================================================================================
-// Creating configuration profile for dev environment
-// =================================================================================================
-== Creating configuration profile for dev environment
-
-In software development, it's best practice to maintain distinct configurations for dev and prod environments. The prod environments prioritize security and efficiency, while dev setups focus on debugging and flexibility.
-
-MicroProfile Config's configuration profile feature allows for the supply of configurations for different environments while only a single profile is active. The active profile is set using the `mp.config.profile` property, which is a unique identifier for each configuration profile. This property can be set in any of the https://openliberty.io/guides/microprofile-config-intro.html#background-concepts[ConfigSources] or at application startup. Once set, the corresponding configuration properties associated with the active profile are used.
 
 // file 0
 system/pom.xml
@@ -124,7 +70,28 @@ system/pom.xml
 include::finish/system/pom.xml[]
 ----
 
-When you run Open Liberty in dev mode, known as dev mode, dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change. Restart the `system` service in [hotspot=development file=0]`dev` environment by running the following Maven goal from the `system` directory:
+// file 1
+query/pom.xml
+[source, XML, linenums, role='code_column']
+----
+include::finish/query/pom.xml[]
+----
+
+The starting Java project, which you can find in the `start` directory, is a multi-module Maven project that's made up of the `system` and `query` microservices. Each microservice resides in its own corresponding directory, `system` and `query`. The `system` microservice contains the three build profiles: `dev`, `test`, and `prod`, in which the [hotspot=development file=0]`dev` profile is set as the default.
+
+MicroProfile Config's configuration profile feature allows for the supply of configurations for different environments while only a single profile is active. The active profile is set using the `mp.config.profile` property, which acts as a unique identifier for each configuration profile and can be set in any of the https://openliberty.io/guides/microprofile-config-intro.html#background-concepts[ConfigSources] or during application startup. When a profile is active, its associated configuration properties are used. For the `query` service, the `mp.config.profile` is set to [hotspot=mp.config.profile file=1]`dev` in the Maven `pom.xml` as the default configuration profile.
+
+When you run Open Liberty in dev mode, known as dev mode, dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change. 
+
+Open a command-line session and run the following commands to navigate to the `system` directory and start the `system` service in `dev` mode:
+
+[role='command']
+```
+cd system
+mvn liberty:dev
+```
+
+Open a command-line session and run the following commands to navigate to the `query` directory and start the `query` service in `dev` mode:
 
 [role='command']
 ```
@@ -141,9 +108,9 @@ After you see the following message, your Liberty instance is ready in dev mode:
 
 Dev mode holds your command-line session to listen for file changes. Open another command-line session to continue, or open the project in your editor.
 
-Test the connection between the `query` service and the `system` service by pointing your browser to the http://localhost:9085/query/systems/localhost URL. The `query` service returns the message: `{"fail":"Failed to reach the client localhost."}`.
+Test the connection between the `query` service and the `system` service under the current development environment by pointing your browser to the http://localhost:9085/query/systems/localhost URL. The `query` service returns the message: `{"fail":"Failed to reach the client localhost."}`. This is because the `query` service doesn't have a specific `dev` configuration profile. As a result, it falls back to using the default `microprofile-config.properties` config source.
 
-Given that the `system` service is currently undergoing development, the `query` service must now connect to it in the dev environment rather than the prod one.
+To communicate with the `system` service, which is in its development phase, the `query` service needs to establish a `dev` configuration profile.
 
 image::system-query-devops-development.png[System service running in development environment,align="center"]
 
@@ -178,33 +145,9 @@ include::finish/system/pom.xml[]
 
 Configure the [hotspot=development file=0]`%dev.*` properties in the `microprofile-config.properties` file based on the values from the [hotspot=developmentProperties file=1]`dev` profile of the `system` service.
 
-Once you have updated the properties, stop the `query` service by pressing `CTRL+C` in the command-line session where you started the `query` service. Alternatively, you can run the `liberty:stop` goal from the `query` directory in another shell session:
+Since the active profile is set to `dev`, each `%dev.*` property will override the value of its original property. For example, the [hotspot=dev.port file=0]`%dev.system.httpPort` property will override the [hotspot=port file=0]`system.httpPort` property and the value will be resolved to `9081` in this case.
 
-[role='command']
-```
-mvn liberty:stop
-```
-
-After stopping the `query` service, restart it with the `dev` configuration profile by running the following Maven goal from the `query` directory:
-
-[role='command']
-```
-mvn liberty:dev -Dliberty.var.mp.config.profile="dev"
-```
-
-After you see the following message, your Liberty instance is ready in dev mode:
-
-[source, role="no_copy"]
-----
-**************************************************
-*     Liberty is running in dev mode.
-----
-
-Dev mode holds your command-line session to listen for file changes. Open another command-line session to continue, or open the project in your editor.
-
-By setting `mp.config.profile` to `dev` as a Liberty variable, each `%dev.*` property will override the value of its original property. For example, the [hotspot=dev.port file=0]`%dev.system.httpPort` property will override the [hotspot=port file=0]`system.httpPort` property and the value will be resolved to `9081` in this case.
-
-After restarting the `query` service with the `dev` configuration profile, you can now access the application by using the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format.
+Because you are running the `query` service in dev mode, the changes that you made were automatically picked up. Try out the application at the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format.
 
 // =================================================================================================
 // Configuring properties at ConfigSource level
@@ -213,9 +156,7 @@ After restarting the `query` service with the `dev` configuration profile, you c
 
 In addition to creating configuration profiles at the property level, it's also possible to create configuration profiles using ConfigSources. This can be particularly useful when you need to manage a large number of configuration properties for different environments. For instance, each DevOps stage may require the application to run on different ports and context roots. Using a ConfigSource to externalize and customize these configurations leads to a cleaner and more modular code design.
 
-To create a configuration profile at the ConfigSource level, simply create a file under the `META-INF` folder on the classpath with the naming convention `microprofile-config-<config_profile_id>.properties`, where `<config_profile_id>` is the unique identifier for the configuration profile. Once you have created the file, you can add your configuration properties to it with the `<property_name>=<value>` syntax. 
-
-In this example, you will provide configuration properties for the `dev` environment to the `query` service using a ConfigSource properties file.
+To create a configuration profile at the ConfigSource level, simply create a file under the `META-INF` folder on the classpath with the naming convention `microprofile-config-<config_profile_id>.properties`, where `<config_profile_id>` is the unique identifier for the configuration profile. Once you have created the file, you can add your configuration properties to it with the standard `<property_name>=<value>` syntax. 
 
 // file 0
 [role="code_command hotspot file=0", subs="quotes"]
@@ -224,8 +165,8 @@ In this example, you will provide configuration properties for the `dev` environ
 `query/src/main/resources/META-INF/microprofile-config-dev.properties`
 ----
 
-/microprofile-config-dev.properties
-[source, properties, linenums, role="code_column hide_tags=userPassword,properties,contactEmail,roleAndQuery"]
+microprofile-config-dev.properties
+[source, properties, linenums, role="code_column"]
 ----
 include::finish/query/src/main/resources/META-INF/microprofile-config-dev.properties[]
 ----
@@ -263,7 +204,7 @@ Remove the `%dev.*` properties from the `microprofile-config.properties` file.
 
 Since the active profile is set to `dev`, the [hotspot file=0]`microprofile-config-dev.properties` file is loaded on top of the default [hotspot file=2]`microprofile-config.properties` file. Any `system.*` properties specified in the former thus take precedence over the values in the latter.
 
-Because you are running the `query` service in dev mode, the changes that you made were automatically picked up. Point your browser to the http://localhost:9085/query/systems/localhost URL to check out the application again. You see the current OS and Java version in JSON format.
+Now, point your browser to the http://localhost:9085/query/systems/localhost URL to check out the application again. You see the current OS and Java version in JSON format.
 
 When you are done checking out the application in `dev` environment, exit dev mode by pressing `CTRL+C` in the command-line sessions where you ran the `system` and `query` services, or by typing `q` and then pressing the `enter/return` key. 
 
@@ -335,7 +276,7 @@ microprofile-config-test.properties
 include::finish/query/src/main/resources/META-INF/microprofile-config-test.properties[]
 ----
 
-Test the application under the test environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services.
+Test the application under the `test` environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services.
 
 include::{common-includes}/os-tabs.adoc[]
 
@@ -382,6 +323,50 @@ Results:
 Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 
 ----
+
+// =================================================================================================
+// Deploying and running the application in prod environment
+// =================================================================================================
+== Deploying and running the application in prod environment
+
+In the DevOps process, the production environment must be both secure and optimal. One way to ensure security is by externalizing sensitive credentials, keeping them safe from potential threats.
+
+// file 0
+scripts/deployApp.sh|.bat
+[source, text, linenums, role='code_column']
+----
+include::finish/scripts/deployApp.sh[]
+----
+
+Replace the `[username]` and `[password]` in the following command, and then deploy the application under the `prod` environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build` and [hotspot=start file=0]`start` the services.
+
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.mac_section.linux_section]
+--
+[role='command']
+```
+./scripts/deployApp.sh [username] [password]
+```
+--
+
+[.tab_content.windows_section]
+--
+[role='command']
+```
+scripts\deployApp.bat [username] [password]
+```
+--
+
+Try out the application at the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format. 
+
+After you finish checking out the application, stop the Open Liberty instances by running the following goals in the same command-line session where you deployed the `system` and `query` services:
+
+[role='command']
+```
+mvn -pl system -ntp liberty:stop
+mvn -pl query -ntp liberty:stop
+```
 
 == Great work! You're done!
 
