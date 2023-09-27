@@ -14,12 +14,14 @@
     <variable name="default.http.port" defaultValue="9080"/>
     <!-- end::port[] -->
     <variable name="default.https.port" defaultValue="9443"/>
+    <!-- tag::credentials[] -->
     <!-- tag::username[] -->
     <variable name="default.username" defaultValue="admin"/>
     <!-- end::username[] -->
     <!-- tag::password[] -->
     <variable name="default.password" defaultValue="adminpwd"/>
     <!-- end::password[] -->
+    <!-- end::credentials[] -->
     <!-- tag::context.root[] -->
     <variable name="context.root" defaultValue="system"/>
     <!-- end::context.root[] -->
