@@ -114,7 +114,7 @@ After you see the following message, your Liberty instance is ready in dev mode:
 Dev mode holds your command-line session to listen for file changes. Open another command-line session to continue, or open the project in your editor.
 
 // file 2
-query/microprofile-config.properties
+microprofile-config.properties
 [source, Properties, linenums, role='code_column']
 ----
 include::start/query/src/main/resources/META-INF/microprofile-config.properties[]
@@ -208,7 +208,7 @@ include::finish/query/src/main/resources/META-INF/microprofile-config.properties
 ----
 
 // file 3
-system/server.xml
+server.xml
 [source, XML, linenums, role='code_column']
 ----
 include::finish/system/src/main/liberty/config/server.xml[]
@@ -355,14 +355,14 @@ include::finish/scripts/deployApp.sh[]
 ----
 
 // file 1
-system/server.xml
+server.xml
 [source, XML, linenums, role='code_column']
 ----
 include::finish/system/src/main/liberty/config/server.xml[]
 ----
 
 // file 2
-query/microprofile-config.properties
+microprofile-config.properties
 [source, Properties, linenums, role='code_column']
 ----
 include::start/query/src/main/resources/META-INF/microprofile-config.properties[]
