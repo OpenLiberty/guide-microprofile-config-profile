@@ -59,9 +59,11 @@ include::{common-includes}/gitclone.adoc[]
 // =================================================================================================
 == Creating configuration profile for dev environment
 
-When developing an application, configurations are typically set to default to development settings. This approach ensures a controlled environment suitable for initial code experimentation and debugging without risking the integrity or security of production data and systems.
+The development environment is a foundational stage where developers experiment, debug, and refine their code. This ensures an application's reliability before progressing to further stages.
 
 Navigate to the `start` directory to begin.
+
+The starting Java project, which you can find in the `start` directory, is a multi-module Maven project that's made up of the `system` and `query` microservices. Each microservice resides in its own corresponding directory, `system` and `query`.
 
 // file 0
 system/pom.xml
@@ -77,9 +79,9 @@ query/pom.xml
 include::finish/query/pom.xml[]
 ----
 
-The starting Java project, which you can find in the `start` directory, is a multi-module Maven project that's made up of the `system` and `query` microservices. Each microservice resides in its own corresponding directory, `system` and `query`. The `system` microservice contains the three build profiles: `dev`, `test`, and `prod`, in which the [hotspot=development file=0]`dev` profile is set as the default.
+In software, there are different setups for tasks like development, testing, and production. Making dev the starting setup helps avoid mistakes and makes work smoother. 
 
-In the dev environment, the configurations from the [hotspot=developmentProperties file=0]`dev` profile in the [hotspot file=0]`system/pom.xml` file are used for running the `system` service. The `system` service runs on port [hotspot=port file=0]`9081` using the context root [hotspot=context.root file=0]`system/dev`. It uses a basic user registry with username [hotspot=username file=0]`alice` and password [hotspot=password file=0]`alicepwd` for resource authorization. Note that the `basicRegistry` element is a simple case for learning purposes. For more information on user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
+The `system` microservice contains the three build profiles: `dev`, `test`, and `prod`, in which the [hotspot=development file=0]`dev` profile is set as the default.
 
 MicroProfile Config's configuration profile feature allows for the supply of configurations for different environments while only a single profile is active. The active profile is set using the `mp.config.profile` property, which acts as a unique identifier for each configuration profile and can be set in any of the https://openliberty.io/guides/microprofile-config-intro.html#background-concepts[ConfigSources] or during application startup. When a profile is active, its associated configuration properties are used. For the `query` service, the `mp.config.profile` is set to [hotspot=mp.config.profile file=1]`dev` in the Maven `pom.xml` as the default configuration profile.
 
@@ -118,7 +120,9 @@ query/microprofile-config.properties
 include::start/query/src/main/resources/META-INF/microprofile-config.properties[]
 ----
 
-Navigate to the [hotspot file=2]`query/src/main/resources/META-INF/microprofile-config.properties` local configuration file to check some static configuration. This file is the default configuration source for an application using MicroProfile Config and contains the required properties to access the `prod` environment of the `system` service.
+In the dev environment, the configurations from the [hotspot=developmentProperties file=0]`dev` profile in the [hotspot file=0]`system/pom.xml` file are used for running the `system` service. The `system` service runs on port [hotspot=port file=0]`9081` using the context root [hotspot=context.root file=0]`system/dev`. It uses a basic user registry with username [hotspot=username file=0]`alice` and password [hotspot=password file=0]`alicepwd` for resource authorization. Note that the `basicRegistry` element is a simple case for learning purposes. For more information on user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
+
+Navigate to the [hotspot file=2]`query/src/main/resources/META-INF/microprofile-config.properties` local configuration file to check some static configuration. This file is the default configuration source for an application using MicroProfile Config and contains the required properties to access the `prod` profile of the `system` service.
 
 Point your browser to the http://localhost:9085/query/systems/localhost URL. The `query` service returns the message: `{"fail":"Failed to reach the client localhost."}`. This is because the `query` service lacks a `dev` configuration profile, leading it to use the default configurations in the `microprofile-config.properties` file when making a request to the `system` service. For proper communication with the developing `system` service, the `query` service should set up a `dev` configuration profile.
 
@@ -339,7 +343,9 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 // =================================================================================================
 == Deploying and running the application in prod environment
 
-In the DevOps process, the production environment must be both secure and optimal. One way to ensure security is by externalizing sensitive credentials, keeping them safe from potential threats.
+Now that the application is ready to be deployed.
+
+In the DevOps process, the production environment must be both secure. One way to ensure security is by externalizing sensitive credentials, keeping them safe from potential threats.
 
 // file 0
 scripts/deployApp.sh|.bat
