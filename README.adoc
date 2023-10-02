@@ -202,7 +202,7 @@ include::finish/system/pom.xml[]
 
 Configure the [hotspot=development file=0]`%development.*` properties in the `microprofile-config.properties` file based on the values from the [hotspot=developmentProperties file=1]`development` profile of the `system` service.
 
-Once you have updated the properties, stop the `query` service by pressing `CTRL+C` in the command-line session where you ran the `query` service, or by typing `q` and then pressing the `enter/return` key.
+Once you have updated the properties, stop the `query` service by pressing `CTRL+C` in the command-line session where you ran the `query` service.
 
 After stopping the `query` service, restart it with the `development` config profile. To do so, run the following Maven goal from the `query` directory:
 
@@ -326,7 +326,7 @@ Results:
 Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 ----
 
-When you are done checking out the application in `development` environment, exit dev mode by pressing `CTRL+C` in the command-line sessions where you ran the `system` and `query` services, or by typing `q` and then pressing the `enter/return` key. 
+When you are done checking out the application in `development` environment, exit dev mode by pressing `CTRL+C` in the command-line sessions where you ran the `system` and `query` services.
 
 // file 0
 scripts/testApp.sh|.bat
