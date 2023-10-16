@@ -23,7 +23,6 @@ mvn -pl system -ntp \
     -Dliberty.var.default.password="$PASSWORD" \
     # end::systemCredential[]
     liberty:start
-# end::start-system[]
 mvn -pl query -ntp \
     # tag::queryProd[]
     -Dliberty.var.mp.config.profile="prod" \
@@ -33,5 +32,4 @@ mvn -pl query -ntp \
     -Dliberty.var.system.password="$PASSWORD" \
     # end::queryCredential[]
     liberty:start
-# end::start-query[]
 # end::start[]
