@@ -85,7 +85,7 @@ The `system` microservice contains the three build profiles: [hotspot=developmen
 
 MicroProfile Config's configuration profile feature allows for the supply of configurations for different environments while only a single profile is active. The active profile is set using the `mp.config.profile` property, which acts as a unique identifier for each configuration profile and can be set in any of the https://openliberty.io/guides/microprofile-config-intro.html#background-concepts[ConfigSources] or during application startup. When a profile is active, its associated configuration properties are used. For `query` service, the `mp.config.profile` property is set to [hotspot=mp.config.profile file=1]`dev` in its Maven `pom.xml` as the default configuration profile.
 
-When you run Open Liberty in https://openliberty.io/docs/latest/development-mode.html[dev mode^], known as dev mode, dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change. 
+When you run Open Liberty in https://openliberty.io/docs/latest/development-mode.html[dev mode^], dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
 
 Open a command-line session and run the following commands to navigate to the `system` directory and start the `system` service in `dev` environment:
 
@@ -95,7 +95,7 @@ cd system
 mvn liberty:dev
 ```
 
-Open a command-line session and run the following commands to navigate to the `query` directory and start the `query` service in `dev` environment:
+Open another command-line session and run the following commands to navigate to the `query` directory and start the `query` service in `dev` environment:
 
 [role='command']
 ```
@@ -159,7 +159,7 @@ include::finish/system/pom.xml[]
 
 Configure the [hotspot=development file=0]`%dev.*` properties in the `microprofile-config.properties` file based on the values from the [hotspot=developmentProperties file=1]`dev` profile of the `system` service.
 
-Since the active profile is set to `dev`, each `%dev.*` property will override the value of its original property. For example, the [hotspot=dev.port file=0]`%dev.system.httpPort` property will override the [hotspot=port file=0]`system.httpPort` property and the value will be resolved to `9081` in this case.
+Because the active profile is set to `dev`, each `%dev.*` property will override the value of its original property. For example, the [hotspot=dev.port file=0]`%dev.system.httpPort` property will override the [hotspot=port file=0]`system.httpPort` property and the value will be resolved to `9081` in this case.
 
 Because you are running the `query` service in dev mode, the changes that you made were automatically picked up. Try out the application at the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format.
 
@@ -216,7 +216,7 @@ include::finish/system/src/main/liberty/config/server.xml[]
 
 Remove the `%dev.*` properties from the `microprofile-config.properties` file.
 
-Since the active profile is set to `dev`, the [hotspot file=0]`microprofile-config-dev.properties` file is loaded on top of the default [hotspot file=2]`microprofile-config.properties` file. Any `system.*` properties specified in the former thus take precedence over the values in the latter.
+Because the active profile is set to `dev`, the [hotspot file=0]`microprofile-config-dev.properties` file is loaded on top of the default [hotspot file=2]`microprofile-config.properties` file. Any `system.*` properties specified in the former thus take precedence over the values in the latter.
 
 Now, point your browser to the http://localhost:9085/query/systems/localhost URL to check out the application again. You see the current OS and Java version in JSON format.
 
@@ -368,11 +368,11 @@ microprofile-config.properties
 include::start/query/src/main/resources/META-INF/microprofile-config.properties[]
 ----
 
-Navigate to the [hotspot=credentials file=1]`server.xml` and the [hotspot=credentials file=2]`microprofile-config.properties` files to see the provided default credentials for the `system` and `query` services.
+The [hotspot=credentials file=1]`server.xml` and the [hotspot=credentials file=2]`microprofile-config.properties` files provide the default credentials for the `system` and `query` services. While these default settings make development easier, they aren't ideal for production.
 
-While these default settings make development easier, they aren't ideal for production. To enhance security, use the [hotspot file=0]`deployApp.sh` script, which allows you to input the username and password during deployment, eliminating the use of hardcoded credentials.
+For simplicity, in this guide, the [hotspot file=0]`deployApp.sh` script is used to simulate the production deployment. To enhance security, the `deployApp.sh` script allows you to input the username and password during deployment. Through setting the system properities by the [hotspot=systemCredential hotspot=queryCredential file=0]`-D` options, both `system` and `query` services start with the secured credentials. To learn how to externalize configuration your application in Kubernetes, you can read the https://openliberty.io/guides/kubernetes-microprofile-config.html[Configuring microservices running in Kubernetes^] guide.
 
-Replace the `[username]` and `[password]` in the following command, and then deploy the application under the `prod` environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build` and [hotspot=start file=0]`start` the services.
+Run the following command by replacing the `[username]` and `[password]` parameters. The `deployApp.sh` will  [hotspot=build file=0]`build` and [hotspot=start file=0]`start` the services with [hotspot=systemProd hotspot=queryCredential file=0]`prod` profile.
 
 include::{common-includes}/os-tabs.adoc[]
 
