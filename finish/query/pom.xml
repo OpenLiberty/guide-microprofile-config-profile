@@ -15,6 +15,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <liberty.var.default.http.port>9085</liberty.var.default.http.port>
         <liberty.var.default.https.port>9448</liberty.var.default.https.port>
+        <!-- tag::mp.config.profile[] -->
+        <liberty.var.mp.config.profile>dev</liberty.var.mp.config.profile>
+        <!-- end::mp.config.profile[] -->
     </properties>
 
     <dependencies>
