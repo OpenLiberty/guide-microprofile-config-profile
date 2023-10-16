@@ -372,7 +372,7 @@ The [hotspot=credentials file=1]`server.xml` and the [hotspot=credentials file=2
 
 For simplicity, in this guide, the [hotspot file=0]`deployApp.sh` script is used to simulate the production deployment. To enhance security, the `deployApp.sh` script allows you to input the username and password during deployment. Through setting the system properities by the [hotspot=systemCredential hotspot=queryCredential file=0]`-D` options, both `system` and `query` services start with the secured credentials. To learn how to externalize configuration your application in Kubernetes, you can read the https://openliberty.io/guides/kubernetes-microprofile-config.html[Configuring microservices running in Kubernetes^] guide.
 
-Run the following command by replacing the `[username]` and `[password]` parameters. The `deployApp.sh` will  [hotspot=build file=0]`build` and [hotspot=start file=0]`start` the services with [hotspot=systemProd hotspot=queryProd file=0]`prod` profile.
+Run the following command by replacing the `[username]` and `[password]` parameters. The `deployApp.sh` will  [hotspot=build file=0]`build` and [hotspot=start file=0]`start` the services with [hotspot=18 hotspot=23 file=0]`prod` profile.
 
 include::{common-includes}/os-tabs.adoc[]
 

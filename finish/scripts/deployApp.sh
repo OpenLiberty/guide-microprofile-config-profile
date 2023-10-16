@@ -15,21 +15,13 @@ mvn -pl query -ntp clean package liberty:create liberty:install-feature liberty:
 
 # tag::start[]
 mvn -pl system -ntp \
-    # tag::systemProd[]
     -P prod \
-    # end::systemProd[]
-    # tag::systemCredential[]
     -Dliberty.var.default.username="$USERNAME" \
     -Dliberty.var.default.password="$PASSWORD" \
-    # end::systemCredential[]
     liberty:start
 mvn -pl query -ntp \
-    # tag::queryProd[]
     -Dliberty.var.mp.config.profile="prod" \
-    # end::queryProd[]
-    # tag::queryCredential[]
     -Dliberty.var.system.user="$USERNAME" \
     -Dliberty.var.system.password="$PASSWORD" \
-    # end::queryCredential[]
     liberty:start
 # end::start[]
