@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$#" -ne 2 ]; then
-    echo "Usage: ./deployApp.sh <username> <password>"
+    echo "Usage: ./deployApp.sh [username] [password]"
     exit 1
 fi
 

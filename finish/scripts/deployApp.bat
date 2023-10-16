@@ -1,7 +1,7 @@
 setlocal
 
 if "%~1"=="" (
-    echo Usage: deployApp.bat ^<username^> ^<password^>
+    echo "Usage: deployApp.bat [username] [password]"
     exit /b 1
 )
 
@@ -14,14 +14,14 @@ call mvn -pl system ^
 call mvn -pl query ^
          -ntp clean package liberty:create liberty:install-feature liberty:deploy
 
-call mvn -pl system ^
-         -ntp -P prod ^
+call mvn -pl system -ntp ^
+         -P prod ^
          -Dliberty.var.default.username="%USERNAME%" ^
          -Dliberty.var.default.password="%PASSWORD%" ^
          liberty:start
 
-call mvn -pl query ^
-         -ntp -Dliberty.var.mp.config.profile="prod" ^
+call mvn -pl query -ntp ^
+         -Dliberty.var.mp.config.profile="prod" ^
          -Dliberty.var.system.user="%USERNAME%" ^
          -Dliberty.var.system.password="%PASSWORD%" ^
          liberty:start
