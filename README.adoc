@@ -8,12 +8,12 @@
 :projectid: microprofile-config-profile
 :page-layout: guide-multipane
 :page-duration: 20 minutes
-:page-releasedate: 2023-03-31
+:page-releasedate: 2023-11-30
 :page-description: Learn how to use MicroProfile Config's configuration profile feature to provide configurations for different phases in the DevOps lifecycle.
 :page-tags: ['MicroProfile']
 :page-permalink: /guides/{projectid}
 :imagesdir: /img/guide/{projectid}
-:page-related-guides: ['microprofile-config-intro', 'microprofile-config-apis']
+:page-related-guides: ['microprofile-config-intro', 'microprofile-config']
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :source-highlighter: prettify
 :page-seo-title: Configuring Java microservices for multiple environments using MicroProfile Config
@@ -41,7 +41,7 @@ MicroProfile Config's configuration profile feature, also known as the https://d
 
 You'll learn how to provide environment-specific configurations using MicroProfile Config's configuration profile feature. You'll create configuration profiles at both the individual property and ConfigSource levels.
 
-This guide builds on the basics of the https://openliberty.io/guides/microprofile-config-intro.html[Separating configuration from code in microservices^] guide and the https://openliberty.io/guides/microprofile-config.html[Configuring microservices^] guide. If you are not familiar with externalizing the configuration of microservices, it will be helpful to read https://openliberty.io/docs/latest/external-configuration.html[this document^] and complete those guides before proceeding.
+This guide builds on the basics of the https://openliberty.io/guides/microprofile-config-intro.html[Separating configuration from code in microservices^] guide and the https://openliberty.io/guides/microprofile-config.html[Configuring microservices^] guide. If you are not familiar with externalizing the configuration of microservices, it will be helpful to read the https://openliberty.io/docs/latest/external-configuration.html[External configuration of microservices^] document and complete those guides before proceeding.
 
 The application that you will work with is a `query` service, which fetches information about the running JVM from a `system` microservice. Given the variances in accessing parameters between dev, test, and prod environments, you'll use the configuration profile feature to provide optimal configurations for these interactions.
 
@@ -81,7 +81,7 @@ include::finish/query/pom.xml[]
 
 In software, there are different setups for tasks like development, testing, and going live. Making dev the starting setup is a practical approach. It helps smooth out the workflow by ensuring immediate access to development-specific resources without any additional setup.
 
-The `system` microservice contains the three build profiles: `dev`, `test`, and `prod`, in which the [hotspot=development file=0]`dev` profile is set as the default.
+The `system` microservice contains the three build profiles: [hotspot=development file=0]`dev`, [hotspot=testing file=0]`test`, and [hotspot=prod file=0]`prod`, in which the [hotspot=defaultProfile file=0]`dev` profile is set as the default.
 
 MicroProfile Config's configuration profile feature allows for the supply of configurations for different environments while only a single profile is active. The active profile is set using the `mp.config.profile` property, which acts as a unique identifier for each configuration profile and can be set in any of the https://openliberty.io/guides/microprofile-config-intro.html#background-concepts[ConfigSources] or during application startup. When a profile is active, its associated configuration properties are used. For `query` service, the `mp.config.profile` property is set to [hotspot=mp.config.profile file=1]`dev` in its Maven `pom.xml` as the default configuration profile.
 

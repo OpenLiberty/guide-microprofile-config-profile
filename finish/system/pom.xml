@@ -81,10 +81,12 @@
     <profiles>
         <!-- tag::development[] -->
         <profile>
+            <!-- tag::defaultProfile[] -->
             <id>dev</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <!-- end::defaultProfile[] -->
 
             <properties>
                 <system.service.root>localhost:9081</system.service.root>
@@ -169,12 +171,14 @@
         </profile>
         <!-- end::testing[] -->
 
+        <!-- tag::prod[] -->
         <profile>
             <id>prod</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
         </profile>
+        <!-- end::prod[] -->
     </profiles>
 
 </project>
