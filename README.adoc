@@ -220,7 +220,7 @@ Since the active profile is set to `dev`, the [hotspot file=0]`microprofile-conf
 
 Now, point your browser to the http://localhost:9085/query/systems/localhost URL to check out the application again. You see the current OS and Java version in JSON format.
 
-When you are done checking out the application in `dev` environment, exit dev mode by pressing `CTRL+C` in the command-line sessions where you ran the `system` and `query` services, or by typing `q` and then pressing the `enter/return` key. 
+When you are done checking out the application in `dev` environment, exit dev mode by pressing `CTRL+C` in the command-line sessions where you ran the `system` and `query` services. 
 
 // =================================================================================================
 // Creating configuration profile for test environment
