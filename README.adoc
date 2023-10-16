@@ -122,9 +122,9 @@ include::start/query/src/main/resources/META-INF/microprofile-config.properties[
 
 In the dev environment, the configurations from the [hotspot=developmentProperties file=0]`dev` profile in the [hotspot file=0]`system/pom.xml` file are used for running the `system` service. The `system` service runs on port [hotspot=port file=0]`9081` using the context root [hotspot=context.root file=0]`system/dev`. It uses a basic user registry with username [hotspot=username file=0]`alice` and password [hotspot=password file=0]`alicepwd` for resource authorization. Note that the `basicRegistry` element is a simple case for learning purposes. For more information on user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
 
-Navigate to the [hotspot file=2]`query/src/main/resources/META-INF/microprofile-config.properties` local configuration file to check some static configuration in the `query` service. This file is the default configuration source for an application using MicroProfile Config and contains the required properties to access the `prod` profile of the `system` service.
+Point your browser to the http://localhost:9085/query/systems/localhost URL. The `query` service returns the message: `{"fail":"Failed to reach the client localhost."}`. This is because the current `query` service uses the default properties in the [hotspot file=2]`query/src/main/resources/META-INF/microprofile-config.properties` file to access the `system` service.
 
-Point your browser to the http://localhost:9085/query/systems/localhost URL. The `query` service returns the message: `{"fail":"Failed to reach the client localhost."}`. This is because the current `query` service lacks a `dev` configuration profile, leading it to use the default configurations in the [hotspot file=2]`microprofile-config.properties` file when making a request to the `system` service. For proper communication with the developing `system` service, the `query` service should set up a `dev` configuration profile.
+For proper communication with the developing `system` service, the `query` service should set up a `dev` configuration profile.
 
 image::system-query-devops-development.png[System service running in development environment,align="center"]
 
