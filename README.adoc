@@ -79,7 +79,7 @@ query/pom.xml
 include::finish/query/pom.xml[]
 ----
 
-In software, there are different setups for tasks like development, testing, and going live. Making dev the starting setup is a practical approach. It helps smooth out the workflow by ensuring immediate access to development-specific resources without any additional setup.
+In software processes, there are different setups for tasks like development, testing, and going live. Making dev the starting setup is a practical approach. It helps smooth out the workflow by ensuring immediate access to development-specific resources without any additional setup.
 
 The `system` microservice contains the three build profiles: [hotspot=development file=0]`dev`, [hotspot=testing file=0]`test`, and [hotspot=prod file=0]`prod`, in which the [hotspot=defaultProfile file=0]`dev` profile is set as the default.
 
@@ -120,7 +120,7 @@ microprofile-config.properties
 include::start/query/src/main/resources/META-INF/microprofile-config.properties[]
 ----
 
-In the dev environment, the configurations from the [hotspot=developmentProperties file=0]`dev` profile in the [hotspot file=0]`system/pom.xml` file are used for running the `system` service. The `system` service runs on port [hotspot=port file=0]`9081` using the context root [hotspot=context.root file=0]`system/dev`. It uses a basic user registry with username [hotspot=username file=0]`alice` and password [hotspot=password file=0]`alicepwd` for resource authorization. Note that the `basicRegistry` element is a simple case for learning purposes. For more information on user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
+In the dev environment, the [hotspot=developmentProperties file=0]`dev` configuration profile in the [hotspot file=0]`system/pom.xml` file is used for running the `system` service. The `system` service runs on port [hotspot=port file=0]`9081` using the context root [hotspot=context.root file=0]`system/dev`. It uses a basic user registry with username [hotspot=username file=0]`alice` and password [hotspot=password file=0]`alicepwd` for resource authorization. Note that the `basicRegistry` element is a simple case for learning purposes. For more information on user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
 
 Point your browser to the http://localhost:9085/query/systems/localhost URL. The `query` service returns the message: `{"fail":"Failed to reach the client localhost."}`. This is because the current `query` service uses the default properties in the [hotspot file=2]`query/src/main/resources/META-INF/microprofile-config.properties` file to access the `system` service.
 
