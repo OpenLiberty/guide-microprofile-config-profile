@@ -18,6 +18,7 @@ mvn -pl query -ntp -Dliberty.var.mp.config.profile="test" liberty:start
 
 mvn -pl system -ntp -P test failsafe:integration-test
 mvn -pl query -ntp failsafe:integration-test
+mvn -ntp failsafe:verify
 
 mvn -pl system -ntp liberty:stop
 mvn -pl query -ntp liberty:stop
@@ -29,6 +30,7 @@ mvn -pl query -ntp -Dliberty.var.mp.config.profile="dev" liberty:start
 
 mvn -pl system -ntp -P dev failsafe:integration-test
 mvn -pl query -ntp failsafe:integration-test
+mvn -ntp failsafe:verify
 
 mvn -pl system -ntp liberty:stop
 mvn -pl query -ntp liberty:stop
@@ -40,6 +42,7 @@ mvn -pl query -ntp -Dliberty.var.mp.config.profile="prod" liberty:start
 
 mvn -pl system -ntp -P prod failsafe:integration-test
 mvn -pl query -ntp failsafe:integration-test
+mvn -ntp failsafe:verify
 
 mvn -pl system -ntp liberty:stop
 mvn -pl query -ntp liberty:stop
