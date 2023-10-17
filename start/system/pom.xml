@@ -92,7 +92,7 @@
                 <liberty.var.default.username>alice</liberty.var.default.username>
                 <liberty.var.default.password>alicepwd</liberty.var.default.password>
                 <liberty.var.context.root>system/dev</liberty.var.context.root>
-             </properties>
+            </properties>
 
             <build>
                 <plugins>
