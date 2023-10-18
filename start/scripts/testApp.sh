@@ -6,7 +6,7 @@ mvn -pl query -ntp clean package liberty:create liberty:install-feature liberty:
 mvn -pl system -ntp -P test liberty:start
 mvn -pl query -ntp -Dliberty.var.mp.config.profile="test" liberty:start
 
-mvn -pl system -ntp -P testing failsafe:integration-test
+mvn -pl system -ntp -P test failsafe:integration-test
 mvn -pl query -ntp failsafe:integration-test
 
 mvn -pl query -ntp liberty:stop
