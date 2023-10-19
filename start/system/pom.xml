@@ -80,7 +80,7 @@
 
     <profiles>
         <profile>
-            <id>development</id>
+            <id>dev</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -92,7 +92,7 @@
                 <liberty.var.default.username>alice</liberty.var.default.username>
                 <liberty.var.default.password>alicepwd</liberty.var.default.password>
                 <liberty.var.context.root>system/dev</liberty.var.context.root>
-             </properties>
+            </properties>
 
             <build>
                 <plugins>
@@ -113,7 +113,7 @@
         </profile>
 
         <profile>
-            <id>testing</id>
+            <id>test</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -144,7 +144,7 @@
         </profile>
 
         <profile>
-            <id>production</id>
+            <id>prod</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
