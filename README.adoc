@@ -19,7 +19,7 @@
 :page-seo-title: Configuring Java microservices for multiple environments using MicroProfile Config
 :page-seo-description: A tutorial and example on how to configure multiple project environments and development stages in DevOps lifecycle for Java microservices using MicroProfile Config's configuration profile feature.
 :guide-author: Open Liberty
-= Externalizing microservice configuration for continuous deployment in DevOps
+= Externalizing environment-specific microservice configuration for DevOps
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
@@ -35,9 +35,7 @@ Learn how to create environment-specific configurations for microservices using 
 // =================================================================================================
 == What you'll learn
 
-In the domain of software delivery, managing configurations for microservices can become complex, especially when configurations require adjustments across various stages. Continuous Deployment (CD) offers a solution by enabling the rapid and safe release of software changes. This practice is a significant component of the wider DevOps approach, which aims to refine the processes of software development and delivery.
-
-MicroProfile Config's configuration profile feature, also known as the https://download.eclipse.org/microprofile/microprofile-config-3.0/microprofile-config-spec-3.0.html#configprofile[Config Profile^], is a direct solution to this challenge. It simplifies the management of microservice configurations across diverse environments -- from development to production and throughout the DevOps pipeline. By tailoring configuration properties to each environment, the deployment process becomes more seamless, allowing developers to concentrate on perfecting their application's delivery.
+In the domain of software delivery, managing configurations for microservices can become complex, especially when configurations require adjustments across various stages of the software lifecycle. MicroProfile Config's configuration profile feature, also known as the https://download.eclipse.org/microprofile/microprofile-config-3.0/microprofile-config-spec-3.0.html#configprofile[Config Profile^], is a direct solution to this challenge. It simplifies the management of microservice configurations across diverse environments -- from development to production and throughout the DevOps pipeline. By tailoring configuration properties to each environment, the deployment process becomes more seamless, allowing developers to concentrate on perfecting their application's delivery.
 
 You'll learn how to provide environment-specific configurations using MicroProfile Config's configuration profile feature. You'll create configuration profiles at both the individual property and ConfigSource levels.
 
@@ -290,7 +288,7 @@ microprofile-config-test.properties
 include::finish/query/src/main/resources/META-INF/microprofile-config-test.properties[]
 ----
 
-Test the application under the `test` environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services.
+Test the application under the [hotspot=11 hotspot=16 file=0]`test` environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services.
 
 include::{common-includes}/os-tabs.adoc[]
 
@@ -363,9 +361,9 @@ include::finish/system/src/main/liberty/config/server.xml[]
 
 // file 2
 microprofile-config.properties
-[source, Properties, linenums, role='code_column']
+[source, Properties, linenums, role="code_column hide_tags=development"]
 ----
-include::start/query/src/main/resources/META-INF/microprofile-config.properties[]
+include::finish/query/src/main/resources/META-INF/microprofile-config.properties[]
 ----
 
 The [hotspot=credentials file=1]`server.xml` and the [hotspot=credentials file=2]`microprofile-config.properties` files provide the default credentials for the `system` and `query` services. While these default settings make development easier, they aren't ideal for production.
