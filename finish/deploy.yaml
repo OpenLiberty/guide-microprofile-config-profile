@@ -1,0 +1,49 @@
+apiVersion: apps.openliberty.io/v1
+kind: OpenLibertyApplication
+metadata:
+  name: system
+  labels:
+    name: system
+spec:
+  applicationImage: system:1.0-SNAPSHOT
+  service:
+    port: 9080
+  expose: true
+  route:
+    pathType: ImplementationSpecific
+  env:
+    - name: DEFAULT_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: sys-app-credentials
+          key: username
+    - name: DEFAULT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: sys-app-credentials
+          key: password
+---
+apiVersion: apps.openliberty.io/v1
+kind: OpenLibertyApplication
+metadata:
+  name: query
+  labels:
+    name: query
+spec:
+  applicationImage: query:1.0-SNAPSHOT
+  service:
+    port: 9085
+  expose: true
+  route:
+    pathType: ImplementationSpecific
+  env:
+    - name: SYSTEM_USER
+      valueFrom:
+        secretKeyRef:
+          name: sys-app-credentials
+          key: username
+    - name: SYSTEM_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: sys-app-credentials
+          key: password
