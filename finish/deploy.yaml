@@ -1,3 +1,4 @@
+# tag::system[]
 apiVersion: apps.openliberty.io/v1
 kind: OpenLibertyApplication
 metadata:
@@ -11,18 +12,26 @@ spec:
   expose: true
   route:
     pathType: ImplementationSpecific
+  # tag::system.env[]
   env:
+    # tag::default.username[]
     - name: DEFAULT_USERNAME
       valueFrom:
         secretKeyRef:
           name: sys-app-credentials
           key: username
+    # end::default.username[]
+    # tag::default.password[]
     - name: DEFAULT_PASSWORD
       valueFrom:
         secretKeyRef:
           name: sys-app-credentials
           key: password
+    # end::default.password[]
+  # end::system.env[]
+# end::system[]
 ---
+# tag::query[]
 apiVersion: apps.openliberty.io/v1
 kind: OpenLibertyApplication
 metadata:
@@ -36,14 +45,21 @@ spec:
   expose: true
   route:
     pathType: ImplementationSpecific
+  # tag::query.env[]
   env:
+    # tag::system.user[]
     - name: SYSTEM_USER
       valueFrom:
         secretKeyRef:
           name: sys-app-credentials
           key: username
+    # end::system.user[]
+    # tag::system.password[]
     - name: SYSTEM_PASSWORD
       valueFrom:
         secretKeyRef:
           name: sys-app-credentials
           key: password
+    # end::system.password[]
+  # end::query.env[]
+# end::query[]
