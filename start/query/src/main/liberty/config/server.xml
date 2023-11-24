@@ -13,7 +13,7 @@
     <variable name="http.port" defaultValue="9085"/>
     <variable name="https.port" defaultValue="9448"/>
 
-    <httpEndpoint id="httpEndpoint"
+    <httpEndpoint id="defaultHttpEndpoint"
         host="*"
         httpPort="${http.port}" 
         httpsPort="${https.port}"/>
