@@ -92,9 +92,9 @@
                 <system.service.root>localhost:9081</system.service.root>
                 <!-- tag::developmentProperties[] -->
                 <!-- tag::port[] -->
-                <liberty.var.default.http.port>9081</liberty.var.default.http.port>
+                <liberty.var.http.port>9081</liberty.var.http.port>
                 <!-- end::port[] -->
-                <liberty.var.default.https.port>9444</liberty.var.default.https.port>
+                <liberty.var.https.port>9444</liberty.var.https.port>
                 <!-- tag::username[] -->
                 <liberty.var.default.username>alice</liberty.var.default.username>
                 <!-- end::username[] -->
@@ -138,9 +138,9 @@
                 <!-- tag::testingProperties[] -->
                 <system.service.root>localhost:9082</system.service.root>
                 <!-- tag::test.port[] -->
-                <liberty.var.default.http.port>9082</liberty.var.default.http.port>
+                <liberty.var.http.port>9082</liberty.var.http.port>
                 <!-- end::test.port[] -->
-                <liberty.var.default.https.port>9445</liberty.var.default.https.port>
+                <liberty.var.https.port>9445</liberty.var.https.port>
                 <!-- tag::test.username[] -->
                 <liberty.var.default.username>bob</liberty.var.default.username>
                 <!-- end::test.username[] -->
