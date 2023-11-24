@@ -343,7 +343,7 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 // =================================================================================================
 == Deploying the application in prod environment with Kubernetes
 
-Deploying the application to a Kubernetes environment using the Open Liberty Operator is an optional step in this guide. For a comprehensive walkthrough on deploying to Kubernetes with the Open Liberty Operator, refer to the https://openliberty.io/guides/openliberty-operator-intro.html[Deploying a microservice to Kubernetes using Open Liberty Operator^] guide.
+Deploying the application to a Kubernetes environment using the Open Liberty Operator is an optional step in this guide. For detailed instructions on this process, you can read the https://openliberty.io/guides/openliberty-operator-intro.html[Deploying a microservice to Kubernetes using Open Liberty Operator^] guide.
 
 In the DevOps process, ensuring security in the production environment is essential. Kubernetes secrets provide a secure way to manage these credentials, preventing their exposure in the application's code or configuration files. For more information on using Kubernetes secrets, you can read the https://openliberty.io/guides/kubernetes-microprofile-config.html[Configuring microservices running in Kubernetes^] guide. 
 
@@ -354,7 +354,7 @@ deploy.yaml
 include::finish/deploy.yaml[]
 ----
 
-The [hotspot file=0]`deploy.yaml` file configures the deployment of the `system` and `query` microservices using the Open Liberty Operator. It sets the environment variables [hotspot=default.username file=0]`DEFAULT_USERNAME` and [hotspot=default.password file=0]`DEFAULT_PASSWORD` for the [hotspot=system file=0]`system` microservice, and [hotspot=system.user file=0]`SYSTEM_USER` and [hotspot=system.password file=0]`SYSTEM_PASSWORD` for the [hotspot=query file=0]`query` service, using the `sys-app-credentials` Kubernetes secrets.
+The [hotspot file=0]`deploy.yaml` file configures the deployment of the [hotspot=system file=0]`system` and [hotspot=query file=0]`query` microservices using the Open Liberty Operator. The [hotspot=sys-app-credentials-1 hotspot=sys-app-credentials-2 hotspot=sys-app-credentials-3 hotspot=sys-app-credentials-4 file=0]`sys-app-credentials` Kubernetes secrets set the environment variables [hotspot=default.username file=0]`DEFAULT_USERNAME` and [hotspot=default.password file=0]`DEFAULT_PASSWORD` for the `system` microservice, and [hotspot=system.user file=0]`SYSTEM_USER` and [hotspot=system.password file=0]`SYSTEM_PASSWORD` for the `query` microservice.
 
 // file 1
 system/pom.xml

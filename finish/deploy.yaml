@@ -18,14 +18,18 @@ spec:
     - name: DEFAULT_USERNAME
       valueFrom:
         secretKeyRef:
+          # tag::sys-app-credentials-1[]
           name: sys-app-credentials
+          # end::sys-app-credentials-1[]
           key: username
     # end::default.username[]
     # tag::default.password[]
     - name: DEFAULT_PASSWORD
       valueFrom:
         secretKeyRef:
+          # tag::sys-app-credentials-2[]
           name: sys-app-credentials
+          # end::sys-app-credentials-2[]
           key: password
     # end::default.password[]
   # end::system.env[]
@@ -51,14 +55,18 @@ spec:
     - name: SYSTEM_USER
       valueFrom:
         secretKeyRef:
+          # tag::sys-app-credentials-3[]
           name: sys-app-credentials
+          # end::sys-app-credentials-3[]
           key: username
     # end::system.user[]
     # tag::system.password[]
     - name: SYSTEM_PASSWORD
       valueFrom:
         secretKeyRef:
+          # tag::sys-app-credentials-4[]
           name: sys-app-credentials
+          # end::sys-app-credentials-4[]
           key: password
     # end::system.password[]
   # end::query.env[]
