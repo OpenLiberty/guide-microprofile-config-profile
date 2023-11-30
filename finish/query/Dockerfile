@@ -25,4 +25,6 @@ RUN features.sh
 COPY --chown=1001:0 target/guide-microprofile-config-profile-query.war /config/apps
 # end::war[]
 
+EXPOSE 9085 9448
+
 RUN configure.sh
