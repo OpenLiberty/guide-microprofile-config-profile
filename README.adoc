@@ -397,7 +397,7 @@ docker build -t query:1.0-SNAPSHOT query/.
 
 The Maven `clean` and `package` goals can clean and build the `.war` application files.
 
-The [hotspot=mp-config-dev file=3]`microprofile-config-dev.properties` and [hotspot=mp-config-test file=3]`microprofile-config-test.properties` from the `query` microservice are excluded from the production build. The default [hotspot file=4]`microprofile-config.properties` file is automatically applied.
+The [hotspot=mp-config-dev file=3]`microprofile-config-dev.properties` and [hotspot=mp-config-test file=3]`microprofile-config-test.properties` from the `query` microservice are excluded from the [hotspot=prod file=3]`prod` profile. The default [hotspot file=4]`microprofile-config.properties` file is automatically applied.
 
 The Docker `build` commands package the `.war` file of the [hotspot=config hotspot=war file=1]`system` and [hotspot=config hotspot=war file=2]`query` microservices with their default configuration into Docker images.
 
