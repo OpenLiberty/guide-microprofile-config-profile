@@ -46,3 +46,33 @@ mvn -ntp failsafe:verify
 
 mvn -pl system -ntp liberty:stop
 mvn -pl query -ntp liberty:stop
+
+# Testing the docker environment
+
+mvn -P prod package
+docker build -t system:1.0-SNAPSHOT system/.
+docker build -t query:1.0-SNAPSHOT query/.
+
+NETWORK=query-app
+docker network create $NETWORK
+
+docker run -d --network=$NETWORK --name system -p 9080:9080 system:1.0-SNAPSHOT
+docker run -d --network=$NETWORK --name query -p 9085:9085 query:1.0-SNAPSHOT
+
+sleep 30
+
+curl http://localhost:9085/query/systems/system
+
+queryStatus="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9085/query/systems/system")"
+
+docker stop system query
+docker rm system query
+docker network rm $NETWORK
+
+if [ "$queryStatus" == "200" ]; then
+  echo ENDPOINT OK
+else
+  echo query status: "$queryStatus"
+  echo ENDPOINT
+  exit 1
+fi

@@ -8,7 +8,7 @@
 :projectid: microprofile-config-profile
 :page-layout: guide-multipane
 :page-duration: 20 minutes
-:page-releasedate: 2023-11-30
+:page-releasedate: 2023-12-20
 :page-description: Learn how to use MicroProfile Config's configuration profile feature to provide configurations for different phases in the DevOps lifecycle.
 :page-tags: ['MicroProfile']
 :page-permalink: /guides/{projectid}
@@ -343,7 +343,11 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 // =================================================================================================
 == Deploying the application in prod environment with Kubernetes
 
-Deploying the application to a Kubernetes environment using the Open Liberty Operator is an optional step in this guide. For detailed instructions on this process, you can read the https://openliberty.io/guides/openliberty-operator-intro.html[Deploying a microservice to Kubernetes using Open Liberty Operator^] guide.
+Deploying the application to a Kubernetes environment using the Open Liberty Operator is an optional step in this guide. For detailed instructions on this process, you can read the following guides:
+
+* https://openliberty.io/guides/openliberty-operator-intro.html[Deploying a microservice to Kubernetes using Open Liberty Operator^]
+* https://openliberty.io/guides/openliberty-operator-openshift.html[Deploying a microservice to OpenShift 4 using Open Liberty Operator^]
+
 
 In the DevOps process, ensuring security in the production environment is essential. Kubernetes secrets provide a secure way to manage these credentials, preventing their exposure in the application's code or configuration files. For more information on using Kubernetes secrets, you can read the https://openliberty.io/guides/kubernetes-microprofile-config.html[Configuring microservices running in Kubernetes^] guide. 
 
@@ -369,10 +373,10 @@ include::finish/query/Dockerfile[]
 ----
 
 // file 3
-system/pom.xml
+query/pom.xml
 [source, XML, linenums, role='code_column']
 ----
-include::finish/system/pom.xml[]
+include::finish/query/pom.xml[]
 ----
 
 // file 4
@@ -382,11 +386,36 @@ microprofile-config.properties
 include::finish/query/src/main/resources/META-INF/microprofile-config.properties[]
 ----
 
-Before deploying, the application needs to be built and containerized. A Dockerfile is provided for both the [hotspot file=1]`system` and [hotspot file=2]`query` microservices. You can start by running `mvn clean package` from the `start` directory to build the application `.war` files. Then, build the Docker images for each microservice using the commands `docker build -t system:1.0-SNAPSHOT system/.` and `docker build -t query:1.0-SNAPSHOT query/.`. The Docker build process packages both the `system` and `query` microservices with their default configuration in the `prod` environment. The [hotspot=prod file=3]`prod` profile from the `system` microservice and the default [hotspot file=4]`microprofile-config.properties` file from the `query` microservice are automatically applied. This setup ensures that no manual settings like the `-P` option or `liberty.var.mp.config.profile` are required.
+Before deploying, create the Dockerfile files for both [hotspot file=1]`system` and [hotspot file=2]`query` microservices. Then, build their `.war` files and Docker images at the `start` directory.
 
-After building the images, you can create a Kubernetes secret for storing credentials by executing `kubectl create secret generic sys-app-credentials --from-literal username=[username] --from-literal password=[password]` with the replaced `[username]` and `[password]` parameters.
+[source, role="no_copy"]
+----
+mvn -P prod clean package
+docker build -t system:1.0-SNAPSHOT system/.
+docker build -t query:1.0-SNAPSHOT query/.
+----
 
-The [hotspot file=0]`deploy.yaml` file configures the deployment of the [hotspot=system file=0]`system` and [hotspot=query file=0]`query` microservices using the Open Liberty Operator. The [hotspot=sys-app-credentials-1 hotspot=sys-app-credentials-2 hotspot=sys-app-credentials-3 hotspot=sys-app-credentials-4 file=0]`sys-app-credentials` Kubernetes secrets set the environment variables [hotspot=default.username file=0]`DEFAULT_USERNAME` and [hotspot=default.password file=0]`DEFAULT_PASSWORD` for the `system` microservice, and [hotspot=system.user file=0]`SYSTEM_USER` and [hotspot=system.password file=0]`SYSTEM_PASSWORD` for the `query` microservice. Once the images and the secret are ready, you can deploy the microservices by running `kubectl apply -f deploy.yaml`.
+The Maven `clean` and `package` goals can clean the `target` directories and build the `.war` application files from scratch. The [hotspot=mp-config-dev file=3]`microprofile-config-dev.properties` and [hotspot=mp-config-test file=3]`microprofile-config-test.properties` of the `query` microservice are excluded from the [hotspot=prod file=3]`prod` build. The default [hotspot file=4]`microprofile-config.properties` file is automatically applied.
+
+The Docker `build` commands package the `.war` file of the [hotspot=config hotspot=war file=1]`system` and [hotspot=config hotspot=war file=2]`query` microservices with their default configuration into your Docker images.
+
+After building the images, you can create a Kubernetes secret for storing sensitive data such as credentials.
+
+[source, role="no_copy"]
+----
+kubectl create secret generic sys-app-credentials \
+        --from-literal username=[username] \
+        --from-literal password=[password]
+----
+
+Finally, write up the [hotspot file=0]`deploy.yaml` deployment file to configure the deployment of the [hotspot=system file=0]`system` and [hotspot=query file=0]`query` microservices by using the Open Liberty Operator. The [hotspot=sys-app-credentials-1 hotspot=sys-app-credentials-2 hotspot=sys-app-credentials-3 hotspot=sys-app-credentials-4 file=0]`sys-app-credentials` Kubernetes secrets set the environment variables [hotspot=default.username file=0]`DEFAULT_USERNAME` and [hotspot=default.password file=0]`DEFAULT_PASSWORD` for the `system` microservice, and [hotspot=system.user file=0]`SYSTEM_USER` and [hotspot=system.password file=0]`SYSTEM_PASSWORD` for the `query` microservice.
+
+Once the images and the secret are ready, you can deploy the microservices to your production environment with Kubernetes.
+
+[source, role="no_copy"]
+----
+kubectl apply -f deploy.yaml
+----
 
 == Great work! You're done!
 
