@@ -11,9 +11,9 @@
 
     <!-- tag::defaultConfig[] -->
     <!-- tag::port[] -->
-    <variable name="default.http.port" defaultValue="9080"/>
+    <variable name="http.port" defaultValue="9080"/>
     <!-- end::port[] -->
-    <variable name="default.https.port" defaultValue="9443"/>
+    <variable name="https.port" defaultValue="9443"/>
     <!-- tag::credentials[] -->
     <!-- tag::username[] -->
     <variable name="default.username" defaultValue="admin"/>
@@ -29,8 +29,8 @@
 
     <!-- tag::httpEndpoint[] -->
     <httpEndpoint id="defaultHttpEndpoint" host="*"
-        httpPort="${default.http.port}" 
-        httpsPort="${default.https.port}"/>
+        httpPort="${http.port}" 
+        httpsPort="${https.port}"/>
     <!-- end::httpEndpoint[] -->
 
     <!-- tag::webApplication[] -->
@@ -39,7 +39,7 @@
     <!-- end::webApplication[] -->
 
     <basicRegistry id="basic" realm="BasicRegistry">
-    	  <!-- tag::user[] -->
+    	<!-- tag::user[] -->
         <user name="${default.username}" password="${default.password}"/>
         <!-- end::user[] -->
     </basicRegistry>

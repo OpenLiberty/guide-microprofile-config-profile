@@ -8,7 +8,7 @@
 :projectid: microprofile-config-profile
 :page-layout: guide-multipane
 :page-duration: 20 minutes
-:page-releasedate: 2023-11-30
+:page-releasedate: 2023-12-20
 :page-description: Learn how to use MicroProfile Config's configuration profile feature to provide configurations for different phases in the DevOps lifecycle.
 :page-tags: ['MicroProfile']
 :page-permalink: /guides/{projectid}
@@ -19,7 +19,7 @@
 :page-seo-title: Configuring Java microservices for multiple environments using MicroProfile Config
 :page-seo-description: A tutorial and example on how to configure multiple project environments and development stages in DevOps lifecycle for Java microservices using MicroProfile Config's configuration profile feature.
 :guide-author: Open Liberty
-= Externalizing microservice configuration for continuous deployment in DevOps
+= Externalizing environment-specific microservice configuration for DevOps
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
@@ -35,9 +35,7 @@ Learn how to create environment-specific configurations for microservices using 
 // =================================================================================================
 == What you'll learn
 
-In the domain of software delivery, managing configurations for microservices can become complex, especially when configurations require adjustments across various stages. Continuous Deployment (CD) offers a solution by enabling the rapid and safe release of software changes. This practice is a significant component of the wider DevOps approach, which aims to refine the processes of software development and delivery.
-
-MicroProfile Config's configuration profile feature, also known as the https://download.eclipse.org/microprofile/microprofile-config-3.0/microprofile-config-spec-3.0.html#configprofile[Config Profile^], is a direct solution to this challenge. It simplifies the management of microservice configurations across diverse environments -- from development to production and throughout the DevOps pipeline. By tailoring configuration properties to each environment, the deployment process becomes more seamless, allowing developers to concentrate on perfecting their application's delivery.
+In the domain of software delivery, managing configurations for microservices can become complex, especially when configurations require adjustments across various stages of the software lifecycle. MicroProfile Config's configuration profile feature, also known as the https://download.eclipse.org/microprofile/microprofile-config-3.0/microprofile-config-spec-3.0.html#configprofile[Config Profile^], is a direct solution to this challenge. It simplifies the management of microservice configurations across diverse environments -- from development to production and throughout the DevOps pipeline. By tailoring configuration properties to each environment, the deployment process becomes more seamless, allowing developers to concentrate on perfecting their application's delivery.
 
 You'll learn how to provide environment-specific configurations using MicroProfile Config's configuration profile feature. You'll create configuration profiles at both the individual property and ConfigSource levels.
 
@@ -229,6 +227,8 @@ When you are done checking out the application in `dev` environment, exit dev mo
 
 In DevOps, test environment is where integration tests come to life, checking software readiness. Proper testing configuration not only ensures smooth operations but also aligns the environment closer to potential production settings.
 
+image::system-query-devops-testing.png[System service running in testing environment,align="center"]
+
 // file 0
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -290,7 +290,7 @@ microprofile-config-test.properties
 include::finish/query/src/main/resources/META-INF/microprofile-config-test.properties[]
 ----
 
-Test the application under the `test` environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services.
+Test the application under the [hotspot=11 hotspot=16 file=0]`test` environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services.
 
 include::{common-includes}/os-tabs.adoc[]
 
@@ -339,68 +339,83 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 ----
 
 // =================================================================================================
-// Deploying and running the application in prod environment
+// Deploying the application in prod environment with Kubernetes
 // =================================================================================================
-== Deploying and running the application in prod environment
+== Deploying the application in prod environment with Kubernetes
 
-Now that the application is ready to be deployed.
+Deploying the application to a Kubernetes environment using the Open Liberty Operator is an optional step in this guide. For detailed instructions on this process, you can read the following guides:
 
-In the DevOps process, the prod environment must be secure. One way to ensure security is by externalizing sensitive details like usernames and passwords. This keeps these critical credentials away from direct embedding in the code, keeping them safe from potential threats.
+* https://openliberty.io/guides/openliberty-operator-intro.html[Deploying a microservice to Kubernetes using Open Liberty Operator^]
+* https://openliberty.io/guides/openliberty-operator-openshift.html[Deploying a microservice to OpenShift 4 using Open Liberty Operator^]
+
+
+In the DevOps process, ensuring security in the production environment is essential. Kubernetes secrets provide a secure way to manage these credentials, preventing their exposure in the application's code or configuration files. For more information on using Kubernetes secrets, you can read the https://openliberty.io/guides/kubernetes-microprofile-config.html[Configuring microservices running in Kubernetes^] guide. 
 
 // file 0
-scripts/deployApp.sh|.bat
-[source, text, linenums, role='code_column']
+deploy.yaml
+[source, XML, linenums, role='code_column']
 ----
-include::finish/scripts/deployApp.sh[]
+include::finish/deploy.yaml[]
 ----
 
 // file 1
-server.xml
-[source, XML, linenums, role='code_column']
+system/Dockerfile
+[source, Dockerfile, linenums, role='code_column']
 ----
-include::finish/system/src/main/liberty/config/server.xml[]
+include::finish/system/Dockerfile[]
 ----
 
 // file 2
+query/Dockerfile
+[source, Dockerfile, linenums, role='code_column']
+----
+include::finish/query/Dockerfile[]
+----
+
+// file 3
+query/pom.xml
+[source, XML, linenums, role='code_column']
+----
+include::finish/query/pom.xml[]
+----
+
+// file 4
 microprofile-config.properties
-[source, Properties, linenums, role='code_column']
+[source, properties, linenums, role="code_column hide_tags=development"]
 ----
-include::start/query/src/main/resources/META-INF/microprofile-config.properties[]
+include::finish/query/src/main/resources/META-INF/microprofile-config.properties[]
 ----
 
-The [hotspot=credentials file=1]`server.xml` and the [hotspot=credentials file=2]`microprofile-config.properties` files provide the default credentials for the `system` and `query` services. While these default settings make development easier, they aren't ideal for production.
+Before deploying, create the Dockerfile files for both [hotspot file=1]`system` and [hotspot file=2]`query` microservices. Then, build their `.war` files and Docker images at the `start` directory.
 
-For simplicity, in this guide, the [hotspot file=0]`deployApp.sh` script is used to simulate the production deployment. To enhance security, the `deployApp.sh` script allows you to input the username and password during deployment. Through setting the system properities by the [hotspot=19-20 hotspot=24-25 file=0]`-D` options, both `system` and `query` services start with the secured credentials. To learn how to externalize configuration your application in Kubernetes, you can read the https://openliberty.io/guides/kubernetes-microprofile-config.html[Configuring microservices running in Kubernetes^] guide.
+[source, role="no_copy"]
+----
+mvn -P prod clean package
+docker build -t system:1.0-SNAPSHOT system/.
+docker build -t query:1.0-SNAPSHOT query/.
+----
 
-Run the following command by replacing the `[username]` and `[password]` parameters. The `deployApp.sh` will  [hotspot=build file=0]`build` and [hotspot=start file=0]`start` the services with [hotspot=18 hotspot=23 file=0]`prod` profile.
+The Maven `clean` and `package` goals can clean the `target` directories and build the `.war` application files from scratch. The [hotspot=mp-config-dev file=3]`microprofile-config-dev.properties` and [hotspot=mp-config-test file=3]`microprofile-config-test.properties` of the `query` microservice are excluded from the [hotspot=prod file=3]`prod` build. The default [hotspot file=4]`microprofile-config.properties` file is automatically applied.
 
-include::{common-includes}/os-tabs.adoc[]
+The Docker `build` commands package the `.war` file of the [hotspot=config hotspot=war file=1]`system` and [hotspot=config hotspot=war file=2]`query` microservices with their default configuration into your Docker images.
 
-[.tab_content.mac_section.linux_section]
---
-[role='command']
-```
-./scripts/deployApp.sh [username] [password]
-```
---
+After building the images, you can create a Kubernetes secret for storing sensitive data such as credentials.
 
-[.tab_content.windows_section]
---
-[role='command']
-```
-scripts\deployApp.bat [username] [password]
-```
---
+[source, role="no_copy"]
+----
+kubectl create secret generic sys-app-credentials \
+        --from-literal username=[username] \
+        --from-literal password=[password]
+----
 
-Try out the application at the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format. 
+Finally, write up the [hotspot file=0]`deploy.yaml` deployment file to configure the deployment of the [hotspot=system file=0]`system` and [hotspot=query file=0]`query` microservices by using the Open Liberty Operator. The [hotspot=sys-app-credentials-1 hotspot=sys-app-credentials-2 hotspot=sys-app-credentials-3 hotspot=sys-app-credentials-4 file=0]`sys-app-credentials` Kubernetes secrets set the environment variables [hotspot=default.username file=0]`DEFAULT_USERNAME` and [hotspot=default.password file=0]`DEFAULT_PASSWORD` for the `system` microservice, and [hotspot=system.user file=0]`SYSTEM_USER` and [hotspot=system.password file=0]`SYSTEM_PASSWORD` for the `query` microservice.
 
-After you finish checking out the application, stop the Open Liberty instances by running the following goals in the same command-line session where you deployed the `system` and `query` services:
+Once the images and the secret are ready, you can deploy the microservices to your production environment with Kubernetes.
 
-[role='command']
-```
-mvn -pl system -ntp liberty:stop
-mvn -pl query -ntp liberty:stop
-```
+[source, role="no_copy"]
+----
+kubectl apply -f deploy.yaml
+----
 
 == Great work! You're done!
 
