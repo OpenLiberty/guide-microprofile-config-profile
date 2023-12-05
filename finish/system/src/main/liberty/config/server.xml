@@ -38,10 +38,14 @@
         contextRoot="${context.root}"/>
     <!-- end::webApplication[] -->
 
+    <keyStore id="defaultKeyStore" password="secret" />
+
     <basicRegistry id="basic" realm="BasicRegistry">
     	<!-- tag::user[] -->
         <user name="${default.username}" password="${default.password}"/>
         <!-- end::user[] -->
     </basicRegistry>
+
+    <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
 
 </server>

@@ -18,7 +18,11 @@
         httpPort="${http.port}" 
         httpsPort="${https.port}"/>
 
+    <keyStore id="defaultKeyStore" password="secret" />
+
     <webApplication contextRoot="/query"
                     location="guide-microprofile-config-profile-query.war"/>
+
+    <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
 
 </server>

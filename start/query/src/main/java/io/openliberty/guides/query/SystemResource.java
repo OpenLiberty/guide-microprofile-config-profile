@@ -34,8 +34,8 @@ import jakarta.ws.rs.core.MediaType;
 public class SystemResource {
 
     @Inject
-    @ConfigProperty(name = "system.httpPort")
-    private String systemHttpPort;
+    @ConfigProperty(name = "system.httpsPort")
+    private String systemHttpsPort;
 
     @Inject
     @ConfigProperty(name = "system.user")
@@ -59,7 +59,7 @@ public class SystemResource {
         Properties p = new Properties();
 
         try {
-            String uriString = "http://" + hostname + ":" + systemHttpPort
+            String uriString = "https://" + hostname + ":" + systemHttpsPort
                                + "/" + systemContextRoot;
             URI customURI = URI.create(uriString);
             systemClient = RestClientBuilder.newBuilder()

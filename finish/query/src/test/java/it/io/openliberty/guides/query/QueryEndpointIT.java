@@ -33,7 +33,7 @@ public class QueryEndpointIT {
 
     @BeforeEach
     public void setup() {
-      client = ClientBuilder.newClient();
+        client = ClientBuilder.newClient();
     }
 
     @AfterEach

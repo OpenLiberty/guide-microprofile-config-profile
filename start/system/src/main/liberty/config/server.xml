@@ -23,8 +23,12 @@
     <webApplication location="guide-microprofile-config-profile-system.war"
         contextRoot="${context.root}"/>
 
+    <keyStore id="defaultKeyStore" password="secret" />
+
     <basicRegistry id="basic" realm="BasicRegistry">
         <user name="${default.username}" password="${default.password}"/>
     </basicRegistry>
+
+    <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
 
 </server>
