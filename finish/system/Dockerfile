@@ -12,7 +12,7 @@ LABEL \
   vendor="Open Liberty" \
   name="system" \
   version="$VERSION-$REVISION" \
-  summary="The system microservice from the Microprofile Config profile guide" \
+  summary="The system microservice from the Externalizing environment-specific microservice configuration for DevOps guide" \
   description="This image contains the system microservice running with the Open Liberty runtime."
 
 # tag::config[]

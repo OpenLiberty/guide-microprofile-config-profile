@@ -12,7 +12,7 @@ LABEL \
   vendor="Open Liberty" \
   name="query" \
   version="$VERSION-$REVISION" \
-  summary="The query microservice from the Microprofile Config profile guide" \
+  summary="The query microservice from the Externalizing environment-specific microservice configuration for DevOps guide" \
   description="This image contains the query microservice running with the Open Liberty runtime."
 
 # tag::config[]
