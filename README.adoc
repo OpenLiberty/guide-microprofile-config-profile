@@ -339,11 +339,18 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 ----
 
 // =================================================================================================
+// Next steps
+// =================================================================================================
+== Next steps
+
+Deploying the application to a Kubernetes environment using the Open Liberty Operator is an optional step in this guide.
+
+// =================================================================================================
 // Deploying the application in prod environment with Kubernetes
 // =================================================================================================
-== Deploying the application in prod environment with Kubernetes
+=== Deploying the application in prod environment with Kubernetes
 
-Deploying the application to a Kubernetes environment using the Open Liberty Operator is an optional step in this guide. For detailed instructions on this process, you can read the following guides:
+To further explore deploying microservices using Kubernetes and the Open Liberty Operator, you can read the following guides:
 
 * https://openliberty.io/guides/openliberty-operator-intro.html[Deploying a microservice to Kubernetes using Open Liberty Operator^]
 * https://openliberty.io/guides/openliberty-operator-openshift.html[Deploying a microservice to OpenShift 4 using Open Liberty Operator^]
