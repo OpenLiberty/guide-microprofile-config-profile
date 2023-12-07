@@ -228,6 +228,7 @@ When you are done checking out the application in `dev` environment, exit dev mo
 In DevOps, test environment is where integration tests come to life, checking software readiness. Proper testing configuration not only ensures smooth operations but also aligns the environment closer to potential production settings.
 
 image::system-query-devops-testing.png[System service running in testing environment,align="center",width=85%,height=85%]
+{empty} +
 
 // file 0
 [role="code_command hotspot file=0", subs="quotes"]
