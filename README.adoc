@@ -43,7 +43,7 @@ This guide builds on the basics of the https://openliberty.io/guides/microprofil
 
 The application that you will work with is a `query` service, which fetches information about the running JVM from a `system` microservice. Given the variances in accessing parameters between dev, test, and prod environments, you'll use the configuration profile feature to provide optimal configurations for these interactions.
 
-image::system-query-devops.png[System and query services DevOps,align="center",width=70%,height=70%]
+image::system-query-devops.png[System and query services DevOps,align="center",width=85%,height=85%]
 
 // =================================================================================================
 // Getting started
@@ -124,7 +124,7 @@ Point your browser to the http://localhost:9085/query/systems/localhost URL. The
 
 For proper communication with the developing `system` service, the `query` service should set up a `dev` configuration profile.
 
-image::system-query-devops-development.png[System service running in development environment,align="center",width=70%,height=70%]
+image::system-query-devops-development.png[System service running in development environment,align="center",width=85%,height=85%]
 
 // =================================================================================================
 // Configuring properties at property level
@@ -227,7 +227,7 @@ When you are done checking out the application in `dev` environment, exit dev mo
 
 In DevOps, test environment is where integration tests come to life, checking software readiness. Proper testing configuration not only ensures smooth operations but also aligns the environment closer to potential production settings.
 
-image::system-query-devops-testing.png[System service running in testing environment,align="center",width=70%,height=70%]
+image::system-query-devops-testing.png[System service running in testing environment,align="center",width=85%,height=85%]
 
 // file 0
 [role="code_command hotspot file=0", subs="quotes"]
