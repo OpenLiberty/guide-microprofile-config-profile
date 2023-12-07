@@ -6,7 +6,7 @@
         <feature>jsonp-2.1</feature>
         <feature>cdi-4.0</feature>
         <feature>mpConfig-3.0</feature>
-        <feature>appSecurity-5.0</feature>
+        <feature>ssl-1.0</feature>
     </featureManager>
 
     <variable name="http.port" defaultValue="9080"/>
@@ -23,7 +23,9 @@
     <webApplication location="guide-microprofile-config-profile-system.war"
         contextRoot="${context.root}"/>
 
-    <keyStore id="defaultKeyStore" password="secret" />
+    <keyStore id="guideKeyStore"
+              password="secret"
+              location="${server.config.dir}/resources/security/key.p12"/>
 
     <basicRegistry id="basic" realm="BasicRegistry">
         <user name="${default.username}" password="${default.password}"/>
