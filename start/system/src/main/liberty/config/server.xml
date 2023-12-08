@@ -23,14 +23,14 @@
     <webApplication location="guide-microprofile-config-profile-system.war"
         contextRoot="${context.root}"/>
 
-    <keyStore id="guideKeyStore"
-              password="secret"
-              location="${server.config.dir}/resources/security/key.p12"/>
-
     <basicRegistry id="basic" realm="BasicRegistry">
         <user name="${default.username}" password="${default.password}"/>
     </basicRegistry>
 
-    <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
+    <keyStore id="guideKeyStore"
+              password="secret"
+              location="${server.config.dir}/resources/security/key.p12"/>
+
+    <ssl id="defaultSSLConfig" keyStoreRef="guideKeyStore" trustDefaultCerts="true"/>
 
 </server>

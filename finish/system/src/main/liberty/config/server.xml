@@ -38,16 +38,16 @@
         contextRoot="${context.root}"/>
     <!-- end::webApplication[] -->
 
-    <keyStore id="guideKeyStore"
-              password="secret"
-              location="${server.config.dir}/resources/security/key.p12"/>
-
     <basicRegistry id="basic" realm="BasicRegistry">
     	<!-- tag::user[] -->
         <user name="${default.username}" password="${default.password}"/>
         <!-- end::user[] -->
     </basicRegistry>
 
-    <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
+    <keyStore id="guideKeyStore"
+              password="secret"
+              location="${server.config.dir}/resources/security/key.p12"/>
+
+    <ssl id="defaultSSLConfig" keyStoreRef="guideKeyStore" trustDefaultCerts="true"/>
 
 </server>

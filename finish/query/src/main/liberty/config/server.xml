@@ -19,13 +19,13 @@
         httpPort="${http.port}" 
         httpsPort="${https.port}"/>
 
+    <webApplication contextRoot="/query"
+                    location="guide-microprofile-config-profile-query.war"/>
+
     <keyStore id="guideKeyStore"
               password="secret"
               location="${server.config.dir}/resources/security/key.p12"/>
 
-    <webApplication contextRoot="/query"
-                    location="guide-microprofile-config-profile-query.war"/>
-
-    <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
+    <ssl id="defaultSSLConfig" keyStoreRef="guideKeyStore" trustDefaultCerts="true"/>
 
 </server>
