@@ -12,7 +12,7 @@ docker build -t query:1.0-SNAPSHOT query/.
 docker tag system:1.0-SNAPSHOT us.icr.io/"${SN_ICR_NAMESPACE}"/system:1.0-SNAPSHOT
 docker push us.icr.io/"${SN_ICR_NAMESPACE}"/system:1.0-SNAPSHOT
 
-docker tag query:1.0-SNAPSHOT us.icr.io/$SN_ICR_NAMESPACE/query:1.0-SNAPSHOT
+docker tag query:1.0-SNAPSHOT us.icr.io/"${SN_ICR_NAMESPACE}"/query:1.0-SNAPSHOT
 docker push us.icr.io/$SN_ICR_NAMESPACE/query:1.0-SNAPSHOT
 
 sed -i 's=system:1.0-SNAPSHOT=us.icr.io/'"${SN_ICR_NAMESPACE}"'/system:1.0-SNAPSHOT\n  pullPolicy: Always\n  pullSecret: icr=g' deploy.yaml
