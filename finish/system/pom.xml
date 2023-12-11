@@ -91,10 +91,12 @@
             <properties>
                 <system.service.root>localhost:9081</system.service.root>
                 <!-- tag::developmentProperties[] -->
-                <!-- tag::port[] -->
+                <!-- tag::httpport[] -->
                 <liberty.var.http.port>9081</liberty.var.http.port>
-                <!-- end::port[] -->
+                <!-- end::httpport[] -->
+                <!-- tag::httpsport[] -->
                 <liberty.var.https.port>9444</liberty.var.https.port>
+                <!-- end::httpsport[] -->
                 <!-- tag::username[] -->
                 <liberty.var.default.username>alice</liberty.var.default.username>
                 <!-- end::username[] -->

@@ -34,8 +34,8 @@ import jakarta.ws.rs.core.MediaType;
 public class SystemResource {
 
     @Inject
-    @ConfigProperty(name = "system.httpPort")
-    private String systemHttpPort;
+    @ConfigProperty(name = "system.httpsPort")
+    private String systemHttpsPort;
 
     @Inject
     @ConfigProperty(name = "system.user")
@@ -58,16 +58,18 @@ public class SystemResource {
         SystemClient systemClient = null;
         Properties p = new Properties();
 
+        String uriString = "https://" + hostname + ":" + systemHttpsPort
+                           + "/" + systemContextRoot;
+
         try {
-            String uriString = "http://" + hostname + ":" + systemHttpPort
-                               + "/" + systemContextRoot;
             URI customURI = URI.create(uriString);
             systemClient = RestClientBuilder.newBuilder()
                 .baseUri(customURI)
                 .register(UnknownUriExceptionMapper.class)
                 .build(SystemClient.class);
         } catch (Exception e) {
-            p.put("fail", "Failed to create the client " + hostname + ".");
+            e.printStackTrace(System.out);
+            p.put("fail", "Failed to create the client by " + uriString + ".");
             return p;
         }
 
@@ -80,6 +82,7 @@ public class SystemResource {
             p.put("os.name", systemClient.getProperty(authHeader, "os.name"));
             p.put("java.version", systemClient.getProperty(authHeader, "java.version"));
         } catch (Exception e) {
+            e.printStackTrace(System.out);
             p.put("fail", "Failed to reach the client " + hostname + ".");
             return p;
         } finally {

@@ -6,7 +6,7 @@
         <feature>jsonp-2.1</feature>
         <feature>cdi-4.0</feature>
         <feature>mpConfig-3.0</feature>
-        <feature>appSecurity-5.0</feature>
+        <feature>ssl-1.0</feature>
     </featureManager>
 
     <!-- tag::defaultConfig[] -->
@@ -43,5 +43,11 @@
         <user name="${default.username}" password="${default.password}"/>
         <!-- end::user[] -->
     </basicRegistry>
+
+    <keyStore id="guideKeyStore"
+              password="secret"
+              location="${server.config.dir}/resources/security/key.p12"/>
+
+    <ssl id="defaultSSLConfig" keyStoreRef="guideKeyStore" trustDefaultCerts="true"/>
 
 </server>

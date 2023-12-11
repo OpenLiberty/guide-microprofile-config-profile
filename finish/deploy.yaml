@@ -6,9 +6,10 @@ metadata:
   labels:
     name: system
 spec:
+  applicationName: guide-microprofile-config-profile
   applicationImage: system:1.0-SNAPSHOT
   service:
-    port: 9080
+    port: 9443
   expose: true
   route:
     pathType: ImplementationSpecific
@@ -43,9 +44,10 @@ metadata:
   labels:
     name: query
 spec:
+  applicationName: guide-microprofile-config-profile
   applicationImage: query:1.0-SNAPSHOT
   service:
-    port: 9085
+    port: 9448
   expose: true
   route:
     pathType: ImplementationSpecific
