@@ -53,15 +53,15 @@ image::system-query-devops.png[System and query services DevOps,align="center",w
 include::{common-includes}/gitclone.adoc[]
 
 // =================================================================================================
-// Creating configuration profile for dev environment
+// Creating a configuration profile for the dev environment
 // =================================================================================================
-== Creating configuration profile for dev environment
+== Creating a configuration profile for the dev environment
 
 The dev environment is a foundational stage where developers experiment, debug, and refine their code, ensuring an application's reliability before progressing to subsequent stages.
 
 Navigate to the `start` directory to begin.
 
-The starting Java project, which you can find in the `start` directory, is a multi-module Maven project comprised of the `system` and `query` microservices. Each microservice resides in its own corresponding directory, `system` and `query`.
+The starting Java project, which you can find in the `start` directory, is a multi-module Maven project comprised of the `system` and `query` microservices. Each microservice is in its own corresponding directory, `system` and `query`.
 
 // file 0
 system/pom.xml
@@ -81,7 +81,7 @@ In software processes, there are different setups for tasks such as development,
 
 The `system` microservice contains the three build profiles: [hotspot=development file=0]`dev`, [hotspot=testing file=0]`test`, and [hotspot=prod file=0]`prod`, in which the [hotspot=defaultProfile file=0]`dev` profile is set as the default.
 
-MicroProfile Config's configuration profile feature allows for the supply of configurations for different environments while only a single profile is active. The active profile is set using the `mp.config.profile` property, which acts as a unique identifier for each configuration profile and can be set in any of the https://openliberty.io/guides/microprofile-config-intro.html#background-concepts[ConfigSources] or during the application startup. When a profile is active, its associated configuration properties are used. For `query` service, the `mp.config.profile` property is set to [hotspot=mp.config.profile file=1]`dev` in its Maven `pom.xml` as the default configuration profile.
+MicroProfile Config's configuration profile feature allows for the supply of configurations for different environments while only a single profile is active. The active profile is set using the `mp.config.profile` property, which acts as a unique identifier for each configuration profile and can be set in any of the https://openliberty.io/docs/latest/external-configuration.html#default[configuration sources^] or during the application startup. When a profile is active, its associated configuration properties are used. For the `query` service, the `mp.config.profile` property is set to [hotspot=mp.config.profile file=1]`dev` in its Maven `pom.xml` as the default configuration profile.
 
 When you run Open Liberty in https://openliberty.io/docs/latest/development-mode.html[dev mode^], the dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
 
@@ -127,9 +127,9 @@ For proper communication with the development `system` service, the `query` serv
 image::system-query-devops-development.png[System service running in development environment,align="center",width=85%,height=85%]
 
 // =================================================================================================
-// Configuring properties at property level
+// Configuring properties at the property level
 // =================================================================================================
-=== Configuring properties at property level
+=== Configuring properties at the property level
 
 Creating configuration profiles at the property level is useful when only a few configuration properties need to be set differently for each DevOps stage, such as when you require different database connection settings in different environments. 
 
@@ -163,11 +163,11 @@ Because the active profile is set to `dev`, each `%dev.*` property will override
 Because you are running the `query` service in dev mode, the changes that you made were automatically picked up. Try out the application at the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format.
 
 // =================================================================================================
-// Configuring properties at ConfigSource level
+// Configuring properties at the ConfigSource level
 // =================================================================================================
-=== Configuring properties at ConfigSource level
+=== Configuring properties at the ConfigSource level
 
-In addition to creating configuration profiles at the property level, it's also possible to create configuration profiles using ConfigSources. This can be particularly useful when you need to manage a large number of configuration properties for different environments. For instance, each DevOps stage may require the application to run on different ports and context roots. Using a ConfigSource to externalize and customize these configurations leads to a cleaner and more modular code design.
+In addition to creating configuration profiles at the property level, it's also possible to create configuration profiles using configuration sources. This can be particularly useful when you need to manage a large number of configuration properties for different environments. For instance, each DevOps stage may require the application to run on different ports and context roots. Using a ConfigSource to externalize and customize these configurations leads to a cleaner and more modular code design.
 
 To create a configuration profile at the ConfigSource level, simply create a file in the `META-INF` folder on the classpath with the naming convention `microprofile-config-<config_profile_id>.properties`, where `<config_profile_id>` is the unique identifier for the configuration profile. Once you have created the file, you can add your configuration properties to it with the standard `<property_name>=<value>` syntax. 
 
@@ -215,18 +215,18 @@ include::finish/system/src/main/liberty/config/server.xml[]
 
 Remove the `%dev.*` properties from the `microprofile-config.properties` file.
 
-Because the active profile is set to `dev`, the [hotspot file=0]`microprofile-config-dev.properties` file is loaded on top of the default [hotspot file=2]`microprofile-config.properties` file. Any `system.*` properties specified in the former thus take precedence over the values in the latter.
+Because the active profile is set to `dev`, the [hotspot file=0]`microprofile-config-dev.properties` file is loaded on top of the default [hotspot file=2]`microprofile-config.properties` file. Any [hotspot=system file=0]`system.*` properties specified in the `microprofile-config-dev.properties` take precedence over [hotspot=system file=2]`system.*` property values in the`microprofile-config.properties`.
 
 Now, point your browser to the http://localhost:9085/query/systems/localhost URL to check out the application again. You see the current OS and Java version in JSON format.
 
 When you are done checking out the application in `dev` environment, exit dev mode by pressing `CTRL+C` in the command-line sessions where you ran the `system` and `query` services. 
 
 // =================================================================================================
-// Creating configuration profile for test environment
+// Creating a configuration profile for the test environment
 // =================================================================================================
-== Creating configuration profile for test environment
+== Creating a configuration profile for the test environment
 
-In DevOps, the test environment is where integration tests come to life, checking software readiness. Proper testing configuration not only ensures smooth operations but also aligns the environment closer to potential production settings.
+In DevOps, the test environment is where integration tests come to life, checking software readiness. A good testing configuration not only ensures smooth operations but also aligns the environment closely with potential production settings.
 
 image::system-query-devops-testing.png[System service running in testing environment,align="center",width=85%,height=85%]
 {empty} +
@@ -349,9 +349,9 @@ Deploying the application to a Kubernetes environment using the Open Liberty Ope
 
 
 // =================================================================================================
-// Deploying the application in prod environment with Kubernetes
+// Deploying the application in the prod environment with Kubernetes
 // =================================================================================================
-=== Deploying the application in prod environment with Kubernetes
+=== Deploying the application in the prod environment with Kubernetes
 
 To further explore deploying microservices using Kubernetes and the Open Liberty Operator, you can read the following guides:
 
