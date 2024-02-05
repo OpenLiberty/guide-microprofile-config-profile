@@ -126,14 +126,14 @@ For proper communication with the development `system` service, the `query` serv
 
 image::system-query-devops-development.png[System service running in development environment,align="center",width=85%,height=85%]
 
+There are two ways to approach this. The first is at the property level: creating configuration profiles for individual properties is useful when only a few number of settings need to be set differently for each DevOps stage, such as database connection settings for different environments. Alternatively, it can be particularly useful to create configuration profiles in higher-level configuration sources when you need to manage a large number of configuration properties across different environments, such as varying ports and context roots. 
+
 // =================================================================================================
 // Configuring properties at the property level
 // =================================================================================================
 === Configuring properties at the property level
 
-Creating configuration profiles at the property level is useful when only a few configuration properties need to be set differently for each DevOps stage, such as when you require different database connection settings in different environments. 
-
-To provide a configuration property for a particular config profile, use the `%<config_profile_id>.<property_name>=<value>` syntax, where `<config_profile_id>` is the unique identifier for the configuration profile and `<property_name>` is the name of the property you want to set.
+This approach involves directly specifying property values within the default `microprofile-config.properties` configuration file. To provide a configuration property for a particular config profile, use the `%<config_profile_id>.<property_name>=<value>` syntax, where `<config_profile_id>` is the unique identifier for the configuration profile and `<property_name>` is the name of the property you want to set.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -163,13 +163,11 @@ Because the active profile is set to `dev`, each `%dev.*` property will override
 Because you are running the `query` service in dev mode, the changes that you made were automatically picked up. Try out the application at the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format.
 
 // =================================================================================================
-// Configuring properties at the ConfigSource level
+// Configuring properties using higher-level configuration sources
 // =================================================================================================
-=== Configuring properties at the ConfigSource level
+=== Configuring properties using higher-level configuration sources
 
-In addition to creating configuration profiles at the property level, it's also possible to create configuration profiles using configuration sources. This can be particularly useful when you need to manage a large number of configuration properties for different environments. For instance, each DevOps stage may require the application to run on different ports and context roots. Using a ConfigSource to externalize and customize these configurations leads to a cleaner and more modular code design.
-
-To create a configuration profile at the ConfigSource level, simply create a file in the `META-INF` folder on the classpath with the naming convention `microprofile-config-<config_profile_id>.properties`, where `<config_profile_id>` is the unique identifier for the configuration profile. Once you have created the file, you can add your configuration properties to it with the standard `<property_name>=<value>` syntax. 
+Creating configuration profiles in higher-level configuration sources offers a structured way to manage extensive configurations. This can be done by creating a configuration file for each profile with the naming convention `microprofile-config-<config_profile_id>` in the `META-INF` folder on the classpath, where `<config_profile_id>` is the unique identifier for the configuration profile. Once you have created the file, you can add your configuration properties to it with the standard `<property_name>=<value>` syntax. 
 
 // file 0
 [role="code_command hotspot file=0", subs="quotes"]
