@@ -9,7 +9,7 @@
 :page-layout: guide-multipane
 :page-duration: 20 minutes
 :page-releasedate: 2024-01-30
-:page-description: Learn how to use MicroProfile Config's configuration profile feature to provide configurations for different phases of the DevOps lifecycle.
+:page-description: Learn how to use MicroProfile Config's configuration profile feature to provide configurations for different phases of the CI/CD lifecycle.
 :page-tags: ['microprofile']
 :page-permalink: /guides/{projectid}
 :imagesdir: /img/guide/{projectid}
@@ -17,14 +17,14 @@
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :source-highlighter: prettify
 :page-seo-title: Configuring Java microservices for multiple environments using MicroProfile Config
-:page-seo-description: A tutorial and example on how to configure multiple project environments and development stages in the DevOps lifecycle for Java microservices using MicroProfile Config's configuration profile feature.
+:page-seo-description: A tutorial and example on how to configure multiple project environments and development stages in the CI/CD lifecycle for Java microservices using MicroProfile Config's configuration profile feature.
 :guide-author: Open Liberty
-= Externalizing environment-specific microservice configuration for DevOps
+= Externalizing environment-specific microservice configuration for CI/CD
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Learn how to create environment-specific configurations for microservices by using MicroProfile Config's configuration profile feature for smoother management throughout the DevOps lifecycle.
+Learn how to create environment-specific configurations for microservices by using MicroProfile Config's configuration profile feature for smoother management throughout the CI/CD lifecycle.
 
 :win: WINDOWS
 :mac: MAC
@@ -35,9 +35,9 @@ Learn how to create environment-specific configurations for microservices by usi
 // =================================================================================================
 == What you'll learn
 
-In the domain of software delivery, managing configurations for microservices can become complex, especially when configurations require adjustments across various stages of the software lifecycle. MicroProfile Config's configuration profile feature, also known as the https://download.eclipse.org/microprofile/microprofile-config-3.0/microprofile-config-spec-3.0.html#configprofile[Config Profile^], is a direct solution to this challenge. It simplifies the management of microservice configurations across diverse environments - from development to production and throughout the DevOps pipeline. By tailoring configuration properties to each environment, the deployment process becomes more seamless, allowing developers to concentrate on perfecting their application's delivery.
+In the domain of software delivery, managing configurations for microservices can become complex, especially when configurations require adjustments across various stages of the software lifecycle. MicroProfile Config's configuration profile feature, also known as the https://download.eclipse.org/microprofile/microprofile-config-3.0/microprofile-config-spec-3.0.html#configprofile[Config Profile^], is a direct solution to this challenge. It simplifies the management of microservice configurations across diverse environments - from development to production and throughout the CI/CD pipeline. By tailoring configuration properties to each environment, the deployment process becomes more seamless, allowing developers to concentrate on perfecting their application's delivery.
 
-You'll learn how to provide environment-specific configurations by using the MicroProfile Config's configuration profile feature. You'll create configuration profiles at both the individual property and ConfigSource levels.
+You'll learn how to provide environment-specific configurations by using the MicroProfile Config's configuration profile feature. You'll create configuration profiles at both the individual property level and the higher-level configuration sources.
 
 This guide builds on the basics of the https://openliberty.io/guides/microprofile-config-intro.html[Separating configuration from code in microservices^] guide and the https://openliberty.io/guides/microprofile-config.html[Configuring microservices^] guide. If you are not familiar with externalizing the configuration of microservices, it will be helpful to read the https://openliberty.io/docs/latest/external-configuration.html[External configuration of microservices^] document and complete those guides before proceeding.
 
@@ -53,15 +53,15 @@ image::system-query-devops.png[System and query services DevOps,align="center",w
 include::{common-includes}/gitclone.adoc[]
 
 // =================================================================================================
-// Creating configuration profile for dev environment
+// Creating a configuration profile for the dev environment
 // =================================================================================================
-== Creating configuration profile for dev environment
+== Creating a configuration profile for the dev environment
 
 The dev environment is a foundational stage where developers experiment, debug, and refine their code, ensuring an application's reliability before progressing to subsequent stages.
 
 Navigate to the `start` directory to begin.
 
-The starting Java project, which you can find in the `start` directory, is a multi-module Maven project comprised of the `system` and `query` microservices. Each microservice resides in its own corresponding directory, `system` and `query`.
+The starting Java project, which you can find in the `start` directory, is a multi-module Maven project comprised of the `system` and `query` microservices. Each microservice is in its own corresponding directory, `system` and `query`.
 
 // file 0
 system/pom.xml
@@ -81,7 +81,7 @@ In software processes, there are different setups for tasks such as development,
 
 The `system` microservice contains the three build profiles: [hotspot=development file=0]`dev`, [hotspot=testing file=0]`test`, and [hotspot=prod file=0]`prod`, in which the [hotspot=defaultProfile file=0]`dev` profile is set as the default.
 
-MicroProfile Config's configuration profile feature allows for the supply of configurations for different environments while only a single profile is active. The active profile is set using the `mp.config.profile` property, which acts as a unique identifier for each configuration profile and can be set in any of the https://openliberty.io/guides/microprofile-config-intro.html#background-concepts[ConfigSources] or during the application startup. When a profile is active, its associated configuration properties are used. For `query` service, the `mp.config.profile` property is set to [hotspot=mp.config.profile file=1]`dev` in its Maven `pom.xml` as the default configuration profile.
+MicroProfile Config's configuration profile feature allows for the supply of configurations for different environments while only a single profile is active. The active profile is set using the `mp.config.profile` property, which acts as a unique identifier for each configuration profile and can be set in any of the https://openliberty.io/docs/latest/external-configuration.html#default[configuration sources^] or during the application startup. When a profile is active, its associated configuration properties are used. For the `query` service, the `mp.config.profile` property is set to [hotspot=mp.config.profile file=1]`dev` in its Maven `pom.xml` as the default configuration profile.
 
 When you run Open Liberty in https://openliberty.io/docs/latest/development-mode.html[dev mode^], the dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
 
@@ -126,14 +126,14 @@ For proper communication with the development `system` service, the `query` serv
 
 image::system-query-devops-development.png[System service running in development environment,align="center",width=85%,height=85%]
 
-// =================================================================================================
-// Configuring properties at property level
-// =================================================================================================
-=== Configuring properties at property level
+There are two ways to approach this. The first is at the property level: creating configuration profiles for individual properties is useful when only a few number of settings need to be set differently for each CI/CD stage, such as database connection settings for different environments. Alternatively, it can be particularly useful to create configuration profiles in higher-level configuration sources when you need to manage a large number of configuration properties across different environments, such as varying ports and context roots. 
 
-Creating configuration profiles at the property level is useful when only a few configuration properties need to be set differently for each DevOps stage, such as when you require different database connection settings in different environments. 
+// =================================================================================================
+// Configuring properties at the property level
+// =================================================================================================
+=== Configuring properties at the property level
 
-To provide a configuration property for a particular config profile, use the `%<config_profile_id>.<property_name>=<value>` syntax, where `<config_profile_id>` is the unique identifier for the configuration profile and `<property_name>` is the name of the property you want to set.
+This approach involves directly specifying property values within the default `microprofile-config.properties` configuration file. To provide a configuration property for a particular config profile, use the `%<config_profile_id>.<property_name>=<value>` syntax, where `<config_profile_id>` is the unique identifier for the configuration profile and `<property_name>` is the name of the property you want to set.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -163,13 +163,11 @@ Because the active profile is set to `dev`, each `%dev.*` property will override
 Because you are running the `query` service in dev mode, the changes that you made were automatically picked up. Try out the application at the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format.
 
 // =================================================================================================
-// Configuring properties at ConfigSource level
+// Configuring properties using higher-level configuration sources
 // =================================================================================================
-=== Configuring properties at ConfigSource level
+=== Configuring properties using higher-level configuration sources
 
-In addition to creating configuration profiles at the property level, it's also possible to create configuration profiles using ConfigSources. This can be particularly useful when you need to manage a large number of configuration properties for different environments. For instance, each DevOps stage may require the application to run on different ports and context roots. Using a ConfigSource to externalize and customize these configurations leads to a cleaner and more modular code design.
-
-To create a configuration profile at the ConfigSource level, simply create a file in the `META-INF` folder on the classpath with the naming convention `microprofile-config-<config_profile_id>.properties`, where `<config_profile_id>` is the unique identifier for the configuration profile. Once you have created the file, you can add your configuration properties to it with the standard `<property_name>=<value>` syntax. 
+Creating configuration profiles in higher-level configuration sources offers a structured way to manage extensive configurations. This can be done by creating a configuration file for each profile with the naming convention `microprofile-config-<config_profile_id>` in the `META-INF` folder on the classpath, where `<config_profile_id>` is the unique identifier for the configuration profile. Once you have created the file, you can add your configuration properties to it with the standard `<property_name>=<value>` syntax. 
 
 // file 0
 [role="code_command hotspot file=0", subs="quotes"]
@@ -215,18 +213,18 @@ include::finish/system/src/main/liberty/config/server.xml[]
 
 Remove the `%dev.*` properties from the `microprofile-config.properties` file.
 
-Because the active profile is set to `dev`, the [hotspot file=0]`microprofile-config-dev.properties` file is loaded on top of the default [hotspot file=2]`microprofile-config.properties` file. Any `system.*` properties specified in the former thus take precedence over the values in the latter.
+Because the active profile is set to `dev`, the [hotspot file=0]`microprofile-config-dev.properties` file is loaded on top of the default [hotspot file=2]`microprofile-config.properties` file. Any [hotspot=system file=0]`system.*` properties specified in the `microprofile-config-dev.properties` take precedence over [hotspot=system file=2]`system.*` property values in the`microprofile-config.properties`.
 
 Now, point your browser to the http://localhost:9085/query/systems/localhost URL to check out the application again. You see the current OS and Java version in JSON format.
 
 When you are done checking out the application in `dev` environment, exit dev mode by pressing `CTRL+C` in the command-line sessions where you ran the `system` and `query` services. 
 
 // =================================================================================================
-// Creating configuration profile for test environment
+// Creating a configuration profile for the test environment
 // =================================================================================================
-== Creating configuration profile for test environment
+== Creating a configuration profile for the test environment
 
-In DevOps, the test environment is where integration tests come to life, checking software readiness. Proper testing configuration not only ensures smooth operations but also aligns the environment closer to potential production settings.
+In CI/CD, the test environment is where integration tests come to life, checking software readiness. A good testing configuration not only ensures smooth operations but also aligns the environment closely with potential production settings.
 
 image::system-query-devops-testing.png[System service running in testing environment,align="center",width=85%,height=85%]
 {empty} +
@@ -349,9 +347,9 @@ Deploying the application to a Kubernetes environment using the Open Liberty Ope
 
 
 // =================================================================================================
-// Deploying the application in prod environment with Kubernetes
+// Deploying the application in the prod environment with Kubernetes
 // =================================================================================================
-=== Deploying the application in prod environment with Kubernetes
+=== Deploying the application in the prod environment with Kubernetes
 
 To further explore deploying microservices using Kubernetes and the Open Liberty Operator, you can read the following guides:
 
@@ -359,7 +357,7 @@ To further explore deploying microservices using Kubernetes and the Open Liberty
 * https://openliberty.io/guides/openliberty-operator-openshift.html[Deploying a microservice to OpenShift 4 using Open Liberty Operator^]
 
 
-In the DevOps process, ensuring security in the production environment is essential. Kubernetes secrets provide a secure way to manage these credentials, preventing their exposure in the application's code or configuration files. For more information on using Kubernetes secrets, you can read the https://openliberty.io/guides/kubernetes-microprofile-config.html[Configuring microservices running in Kubernetes^] guide. 
+In the CI/CD process, ensuring security in the production environment is essential. Kubernetes secrets provide a secure way to manage these credentials, preventing their exposure in the application's code or configuration files. For more information on using Kubernetes secrets, you can read the https://openliberty.io/guides/kubernetes-microprofile-config.html[Configuring microservices running in Kubernetes^] guide. 
 
 // file 0
 deploy.yaml
@@ -429,7 +427,7 @@ kubectl apply -f deploy.yaml
 
 == Great work! You're done!
 
-You just learned how to use the MicroProfile Config's configuration profile feature to configure your application for multiple DevOps environments.
+You just learned how to use the MicroProfile Config's configuration profile feature to configure your application for multiple CI/CD environments.
 
 Feel free to try one of the related guides. They demonstrate new technologies that you can learn to expand on what you built in this guide.
 
