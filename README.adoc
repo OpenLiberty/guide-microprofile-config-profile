@@ -428,7 +428,7 @@ include::finish/deploy.yaml[]
 ----
 
 
-If you want to override the other property, you can specify it through the `env` in the `deploy.yaml`. For example, set in the [hotspot=context.root file=5]`CONTEXT_ROOT` in the `system` deployment and [hotspot=system.contextRoot file=5]`SYSTEM_CONTEXTROOT` in the `query` deployment.
+If you want to override the other property, you can specify it through the `env` in the `deploy.yaml`. For example, set the [hotspot=context.root file=5]`CONTEXT_ROOT` environment variable in the `system` deployment and [hotspot=system.contextRoot file=5]`SYSTEM_CONTEXTROOT` environment variable in the `query` deployment.
 
 
 Once the images and the secret are ready, you can deploy the microservices to your production environment with Kubernetes.
