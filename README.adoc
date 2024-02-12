@@ -406,7 +406,7 @@ The Maven `clean` and `package` goals can clean the `target` directories and bui
 
 The Docker `build` commands package the `.war` files of the [hotspot=config hotspot=war file=1]`system` and [hotspot=config hotspot=war file=2]`query` microservices with their default configuration into your Docker images.
 
-After building the images, you can create a Kubernetes secret for storing sensitive data such as credentials. To learn more how to manage the secrets, visit the https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl[Managing Secrets using kubectl^] documentation 
+After building the images, you can create a Kubernetes secret for storing sensitive data such as credentials.
 
 [source, role="no_copy"]
 ----
@@ -414,6 +414,9 @@ kubectl create secret generic sys-app-credentials \
         --from-literal username=[username] \
         --from-literal password=[password]
 ----
+
+To learn more how to manage the secrets, visit the https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl[Managing Secrets using kubectl^] documentation.
+
 
 Finally, write up the [hotspot file=0]`deploy.yaml` deployment file to configure the deployment of the [hotspot=system file=0]`system` and [hotspot=query file=0]`query` microservices by using the Open Liberty Operator. The [hotspot=sys-app-credentials-1 hotspot=sys-app-credentials-2 hotspot=sys-app-credentials-3 hotspot=sys-app-credentials-4 file=0]`sys-app-credentials` Kubernetes secrets set the environment variables [hotspot=default.username file=0]`DEFAULT_USERNAME` and [hotspot=default.password file=0]`DEFAULT_PASSWORD` for the `system` microservice, and [hotspot=system.user file=0]`SYSTEM_USER` and [hotspot=system.password file=0]`SYSTEM_PASSWORD` for the `query` microservice.
 
@@ -425,7 +428,7 @@ include::finish/deploy.yaml[]
 ----
 
 
-If you want to override the other property, you can specify it through the `env` in the `deploy.yaml`. For example, set in the [hotspot file=5 hotspot=context.root]`CONTEXT_ROOT` in the `system` deployment and [hotspot file=5 hotspot=system.contextRoot]`SYSTEM_CONTEXTROOT` in the `query` deployment.
+If you want to override the other property, you can specify it through the `env` in the `deploy.yaml`. For example, set in the [hotspot=context.root file=5]`CONTEXT_ROOT` in the `system` deployment and [hotspot=system.contextRoot file=5]`SYSTEM_CONTEXTROOT` in the `query` deployment.
 
 
 Once the images and the secret are ready, you can deploy the microservices to your production environment with Kubernetes.
