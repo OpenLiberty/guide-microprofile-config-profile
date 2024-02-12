@@ -418,6 +418,8 @@ kubectl create secret generic sys-app-credentials \
 
 Finally, write up the [hotspot file=0]`deploy.yaml` deployment file to configure the deployment of the [hotspot=system file=0]`system` and [hotspot=query file=0]`query` microservices by using the Open Liberty Operator. The [hotspot=sys-app-credentials-1 hotspot=sys-app-credentials-2 hotspot=sys-app-credentials-3 hotspot=sys-app-credentials-4 file=0]`sys-app-credentials` Kubernetes secrets set the environment variables [hotspot=default.username file=0]`DEFAULT_USERNAME` and [hotspot=default.password file=0]`DEFAULT_PASSWORD` for the `system` microservice, and [hotspot=system.user file=0]`SYSTEM_USER` and [hotspot=system.password file=0]`SYSTEM_PASSWORD` for the `query` microservice.
 
+Note that active configuration property values can be overridden by environment variables. The Kubernetes secret, by setting environment variables, replaces default values with sensitive data such as usernames and passwords. This avoids hard-coding sensitive information into the application or its configuration files. It also allows for changes to application settings at runtime, making the deployment more secure and adaptable to different environments.
+
 Once the images and the secret are ready, you can deploy the microservices to your production environment with Kubernetes.
 
 [source, role="no_copy"]
