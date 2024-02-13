@@ -417,7 +417,7 @@ kubectl create secret generic sys-app-credentials \
         --from-literal password=[password]
 ----
 
-For more information about  managing secrets, see the https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl[Managing Secrets using kubectl^] documentation.
+For more information about managing secrets, see the https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl[Managing Secrets using kubectl^] documentation.
 
 
 Finally, write up the [hotspot file=0]`deploy.yaml` deployment file to configure the deployment of the [hotspot=system file=0]`system` and [hotspot=query file=0]`query` microservices by using the Open Liberty Operator. The [hotspot=sys-app-credentials-1 hotspot=sys-app-credentials-2 hotspot=sys-app-credentials-3 hotspot=sys-app-credentials-4 file=0]`sys-app-credentials` Kubernetes secrets set the environment variables [hotspot=default.username file=0]`DEFAULT_USERNAME` and [hotspot=default.password file=0]`DEFAULT_PASSWORD` for the `system` microservice, and [hotspot=system.user file=0]`SYSTEM_USER` and [hotspot=system.password file=0]`SYSTEM_PASSWORD` for the `query` microservice.
