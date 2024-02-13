@@ -13,7 +13,6 @@ spec:
   expose: true
   route:
     pathType: ImplementationSpecific
-  # tag::system.env[]
   env:
     # tag::default.username[]
     - name: DEFAULT_USERNAME
@@ -33,7 +32,10 @@ spec:
           # end::sys-app-credentials-2[]
           key: password
     # end::default.password[]
-  # end::system.env[]
+    # tag::context.root[]
+    - name: CONTEXT_ROOT
+      value: api/system
+    # end::context.root[]
 # end::system[]
 ---
 # tag::query[]
@@ -51,7 +53,6 @@ spec:
   expose: true
   route:
     pathType: ImplementationSpecific
-  # tag::query.env[]
   env:
     # tag::system.user[]
     - name: SYSTEM_USER
@@ -71,5 +72,8 @@ spec:
           # end::sys-app-credentials-4[]
           key: password
     # end::system.password[]
-  # end::query.env[]
+  # tag::system.contextRoot[]
+    - name: SYSTEM_CONTEXTROOT
+      value: api/system
+  # end::system.contextRoot[]
 # end::query[]

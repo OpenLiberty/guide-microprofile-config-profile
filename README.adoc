@@ -8,7 +8,7 @@
 :projectid: microprofile-config-profile
 :page-layout: guide-multipane
 :page-duration: 20 minutes
-:page-releasedate: 2024-01-30
+:page-releasedate: 2024-02-29
 :page-description: Learn how to use MicroProfile Config's configuration profile feature to provide configurations for different phases of the CI/CD lifecycle.
 :page-tags: ['microprofile']
 :page-permalink: /guides/{projectid}
@@ -345,23 +345,24 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 
 Deploying the application to a Kubernetes environment using the Open Liberty Operator is an optional step in this guide.
 
+To further explore deploying microservices using Kubernetes and the Open Liberty Operator, you can read the following guides:
+
+* https://openliberty.io/guides/openliberty-operator-intro.html[Deploying a microservice to Kubernetes using Open Liberty Operator^]
+* https://openliberty.io/guides/openliberty-operator-openshift.html[Deploying a microservice to OpenShift 4 using Open Liberty Operator^]
+
+A secure production environment is essential to application security. In the previous sections, you learned how to externalize credentials and other properties for accessing the `system` service by using MicroProfile Config. This strategy makes the application more adaptable to different environments without changing code or configuration files. 
+
+In the this section, you'll learn how to use Kubernetes secrets to provide the credentials and how to pass them to the `query` service by using MicroProfile Config.
+
 
 // =================================================================================================
 // Deploying the application in the prod environment with Kubernetes
 // =================================================================================================
 === Deploying the application in the prod environment with Kubernetes
 
-To further explore deploying microservices using Kubernetes and the Open Liberty Operator, you can read the following guides:
-
-* https://openliberty.io/guides/openliberty-operator-intro.html[Deploying a microservice to Kubernetes using Open Liberty Operator^]
-* https://openliberty.io/guides/openliberty-operator-openshift.html[Deploying a microservice to OpenShift 4 using Open Liberty Operator^]
-
-
-In the CI/CD process, ensuring security in the production environment is essential. Kubernetes secrets provide a secure way to manage these credentials, preventing their exposure in the application's code or configuration files. For more information on using Kubernetes secrets, you can read the https://openliberty.io/guides/kubernetes-microprofile-config.html[Configuring microservices running in Kubernetes^] guide. 
-
 // file 0
 deploy.yaml
-[source, XML, linenums, role='code_column']
+[source, XML, linenums, role='code_column hide_tags=context.root,system.contextRoot']
 ----
 include::finish/deploy.yaml[]
 ----
@@ -416,7 +417,21 @@ kubectl create secret generic sys-app-credentials \
         --from-literal password=[password]
 ----
 
+For more information about managing secrets, see the https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl[Managing Secrets using kubectl^] documentation.
+
+
 Finally, write up the [hotspot file=0]`deploy.yaml` deployment file to configure the deployment of the [hotspot=system file=0]`system` and [hotspot=query file=0]`query` microservices by using the Open Liberty Operator. The [hotspot=sys-app-credentials-1 hotspot=sys-app-credentials-2 hotspot=sys-app-credentials-3 hotspot=sys-app-credentials-4 file=0]`sys-app-credentials` Kubernetes secrets set the environment variables [hotspot=default.username file=0]`DEFAULT_USERNAME` and [hotspot=default.password file=0]`DEFAULT_PASSWORD` for the `system` microservice, and [hotspot=system.user file=0]`SYSTEM_USER` and [hotspot=system.password file=0]`SYSTEM_PASSWORD` for the `query` microservice.
+
+// file 5
+deploy.yaml
+[source, XML, linenums, role='code_column']
+----
+include::finish/deploy.yaml[]
+----
+
+
+If you want to override another property, you can specify it in the `env` sections of the `deploy.yaml` file. For example, set the [hotspot=context.root file=5]`CONTEXT_ROOT` environment variable in the `system` deployment and the [hotspot=system.contextRoot file=5]`SYSTEM_CONTEXTROOT` environment variable in the `query` deployment.
+
 
 Once the images and the secret are ready, you can deploy the microservices to your production environment with Kubernetes.
 
