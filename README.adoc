@@ -350,7 +350,9 @@ To further explore deploying microservices using Kubernetes and the Open Liberty
 * https://openliberty.io/guides/openliberty-operator-intro.html[Deploying a microservice to Kubernetes using Open Liberty Operator^]
 * https://openliberty.io/guides/openliberty-operator-openshift.html[Deploying a microservice to OpenShift 4 using Open Liberty Operator^]
 
-Ensuring security in the production environment is essential. In the previous sections, you have learnt how to externalize credentials and other properties for accessing the `system` service by using MicroProfile Config, making the application more adaptable to different environments without changing code or configuration files. In the this section, you'll learn how to make use of Kubernetes secrets to provide the credentials and how to pass them to the `query` service through the MicroProfile Config.
+A secure production environment is essential to application security. In the previous sections, you learned how to externalize credentials and other properties for accessing the `system` service by using MicroProfile Config. This strategy makes the application more adaptable to different environments without changing code or configuration files. 
+
+In the this section, you'll learn how to use Kubernetes secrets to provide the credentials and how to pass them to the `query` service by using MicroProfile Config.
 
 
 // =================================================================================================
