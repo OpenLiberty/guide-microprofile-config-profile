@@ -164,7 +164,7 @@ Because you are running the `query` service in dev mode, the changes that you ma
 // =================================================================================================
 === Creating profile-specific `microprofile-config.properties` configuration files
 
-Creating profile-specific offers `microprofile-config.properties` configuration files offers a structured way to manage more extensive configurations. You can create a configuration file for each configuration profile using the naming convention `microprofile-config-<config_profile_id>` in the `META-INF` folder on the classpath of your application, where `<config_profile_id>` is the unique identifier for a configuration profile. Once you have created the file, you can add your configuration properties to it with the standard `<property_name>=<value>` syntax.
+Creating profile-specific offers `microprofile-config.properties` configuration files offers a structured way to provide and manage more extensive sets of default configurations. You can create a configuration file for each configuration profile using the naming convention `microprofile-config-<config_profile_id>` in the `META-INF` folder on the classpath of your application, where `<config_profile_id>` is the unique identifier for a configuration profile. Once you have created the file, you can add your configuration properties to it with the standard `<property_name>=<value>` syntax.
 
 // file 0
 [role="code_command hotspot file=0", subs="quotes"]
