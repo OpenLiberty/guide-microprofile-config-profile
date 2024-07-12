@@ -17,7 +17,7 @@
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :source-highlighter: prettify
 :page-seo-title: Configuring Java microservices for multiple environments using MicroProfile Config
-:page-seo-description: A tutorial and example on how to externalize configuration of Java microservices and applications for different deployment environmtns in the CI/CD lifecycle using MicroProfile Config configuration profiles.
+:page-seo-description: A tutorial and example on how to externalize configuration of Java microservices and applications for different deployment environments in the CI/CD lifecycle using MicroProfile Config configuration profiles.
 :guide-author: Open Liberty
 = Externalizing environment-specific microservice configuration for CI/CD
 
