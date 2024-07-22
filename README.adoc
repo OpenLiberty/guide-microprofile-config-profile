@@ -129,7 +129,7 @@ There are two ways to define configuration properties associated with your confi
 // =================================================================================================
 // Configuring properties at the property level
 // =================================================================================================
-=== Creating individual profile-specific configuration properties
+=== Creating profile-specific configuration properties
 
 This approach involves directly associating individual configuration properties with a configuration profile. To define a configuration property for a particular config profile, use the `%<config_profile_id>.<property_name>=<value>` syntax, where `<config_profile_id>` is the unique identifier for the configuration profile and `<property_name>` is the name of the property you want to set.
 
