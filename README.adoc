@@ -57,7 +57,7 @@ include::{common-includes}/gitclone.adoc[]
 // =================================================================================================
 == Creating a configuration profile for the dev environment
 
-The dev environment is used in the development stage by developers to test, experiment, debug, and refine their code, ensuring an application's functional readiness before progressing to subsequent stages in a software development and delivery lifecycle.
+The dev environment is used to test, experiment, debug, and refine your code, ensuring an application's functional readiness before progressing to subsequent stages in a software development and delivery lifecycle.
 
 Navigate to the `start` directory to begin.
 
