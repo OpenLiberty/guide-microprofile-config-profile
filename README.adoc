@@ -120,7 +120,7 @@ In the dev environment, the [hotspot=development file=0]`dev` configuration prof
 
 Point your browser to the http://localhost:9085/query/systems/localhost URL. The `query` service returns the message: `{"fail":"Failed to reach the client localhost."}`. This is because the current `query` service uses the default properties in the [hotspot file=2]`query/src/main/resources/META-INF/microprofile-config.properties` file to access the `system` service.
 
-For proper communication with the development `system` service, the `query` service should use the properties in the `dev` configuration profile.
+For proper communication with the development `system` service, the `query` service uses the properties in the `dev` configuration profile.
 
 image::system-query-devops-development.png[System service running in development environment,align="center",width=85%,height=85%]
 
