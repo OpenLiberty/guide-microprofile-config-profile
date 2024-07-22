@@ -155,7 +155,7 @@ include::finish/system/pom.xml[]
 
 Configure the [hotspot=development file=0]`%dev.*` properties in the `microprofile-config.properties` file based on the values from the [hotspot=developmentProperties file=1]`dev` profile of the `system` service.
 
-Because the active profile is set to `dev`, each `%dev.*` property will override the value of the plain non-profile-specific property. For example, the [hotspot=dev.port file=0]`%dev.system.httpsPort` property will override the [hotspot=port file=0]`system.httpsPort` property and the value will be resolved to `9444` in this case.
+Because the active profile is set to `dev`, each `%dev.*` property overrides the value of the plain non-profile-specific property. For example, in this case the [hotspot=dev.port file=0]`%dev.system.httpsPort` property overrides the [hotspot=port file=0]`system.httpsPort` property and the value is resolved to `9444`.
 
 Because you are running the `query` service in dev mode, the changes that you made are automatically picked up. Try out the application at the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format.
 
