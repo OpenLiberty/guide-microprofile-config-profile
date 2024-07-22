@@ -77,7 +77,7 @@ query/pom.xml
 include::finish/query/pom.xml[]
 ----
 
-The `system` microservice contains the three Maven build profiles: [hotspot=development file=0]`dev`, [hotspot=testing file=0]`test`, and [hotspot=prod file=0]`prod`, in which the [hotspot=defaultProfile file=0]`dev` profile is set as the default. Each build profile defines properties for a particular deployment configuration that the microservice should use.
+The `system` microservice contains the three Maven build profiles: [hotspot=development file=0]`dev`, [hotspot=testing file=0]`test`, and [hotspot=prod file=0]`prod`, in which the [hotspot=defaultProfile file=0]`dev` profile is set as the default. Each build profile defines properties for a particular deployment configuration that the microservice uses.
 
 MicroProfile Config's configuration profile feature allows for the supply of configurations for different environments while only a single profile is active. The active profile is set using the `mp.config.profile` property. It can be set in any of the https://openliberty.io/docs/latest/external-configuration.html#default[configuration sources^] and is read once during application startup. When a profile is active, its associated configuration properties are used. For the `query` service, the `mp.config.profile` property is set to [hotspot=mp.config.profile file=1]`dev` in its Maven `pom.xml` as a Liberty configuration variable indicating to the runtime that `dev` is the active configuration profile.
 
