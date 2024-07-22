@@ -210,7 +210,7 @@ include::finish/system/src/main/liberty/config/server.xml[]
 
 Remove the `%dev.*` properties from the `microprofile-config.properties` file.
 
-Because the active profile is set to `dev`, the [hotspot file=0]`microprofile-config-dev.properties` file is loaded on top of the default [hotspot file=2]`microprofile-config.properties` file. Any [hotspot=system file=0]`system.*` properties specified in the `microprofile-config-dev.properties` file takes precedence over the [hotspot=system file=2]`system.*` property values in the `microprofile-config.properties` file.
+Because the active profile is set to `dev`, any [hotspot=system file=0]`system.*` properties specified in the `microprofile-config-dev.properties` file take precedence over the [hotspot=system file=2]`system.*` property values in the `microprofile-config.properties` file.
 
 Now, point your browser to the http://localhost:9085/query/systems/localhost URL to check out the application again. You see the current OS and Java version in JSON format.
 
