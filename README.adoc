@@ -134,7 +134,14 @@ include::start/query/src/main/resources/META-INF/microprofile-config.properties[
 
 In the dev environment, the [hotspot=development file=0]`dev` configuration profile is set in the [hotspot file=0]`system/pom.xml` file as the configuration profile to use for running the `system` service. The `system` service runs on HTTP port [hotspot=httpport file=0]`9081` and HTTPS port [hotspot=httpsport file=0]`9444` using the context root [hotspot=context.root file=0]`system/dev`. It uses a basic user registry with username [hotspot=username file=0]`alice` and password [hotspot=password file=0]`alicepwd` for resource authorization. Note that the `basicRegistry` element is a simple registry configuration for learning purposes. For more information on user registries, see the https://openliberty.io/docs/latest/user-registries-application-security.html[User registries documentation^].
 
-Point your browser to the http://localhost:9085/query/systems/localhost URL. The `query` service returns the message: `{"fail":"Failed to reach the client localhost."}`. This is because the current `query` service uses the default properties in the [hotspot file=2]`query/src/main/resources/META-INF/microprofile-config.properties` file to access the `system` service.
+ifndef::cloud-hosted[]
+Point your browser to the http://localhost:9085/query/systems/localhost URL.
+endif::[]
+ifdef::cloud-hosted[]
+Click the following button to check out the `query` service:
+::startApplication{port="9085" display="external" name="Check out the query service" route="/query/systems/localhost"}
+endif::[]
+The `query` service returns the message: `{"fail":"Failed to reach the client localhost."}`. This is because the current `query` service uses the default properties in the [hotspot file=2]`query/src/main/resources/META-INF/microprofile-config.properties` file to access the `system` service.
 
 For proper communication with the development `system` service, the `query` service uses the properties in the `dev` configuration profile.
 
@@ -173,7 +180,18 @@ Configure the [hotspot=development file=0]`%dev.*` properties in the `microprofi
 
 Because the active profile is set to `dev`, each `%dev.*` property overrides the value of the plain non-profile-specific property. For example, in this case the [hotspot=dev.port file=0]`%dev.system.httpsPort` property overrides the [hotspot=port file=0]`system.httpsPort` property and the value is resolved to `9444`.
 
-Because you are running the `query` service in dev mode, the changes that you made are automatically picked up. Try out the application at the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format.
+Because you are running the `query` service in dev mode, the changes that you made are automatically picked up. 
+
+ifndef::cloud-hosted[]
+Try out the application at the http://localhost:9085/query/systems/localhost URL. You can see the current OS and Java version in JSON format.
+endif::[]
+ifdef::cloud-hosted[]
+Click the following button to try out the application:
+::startApplication{port="9085" display="external" name="Try out the application" route="/query/systems/localhost"}
+
+You can see the current OS and Java version in JSON format.
+endif::[]
+
 
 // =================================================================================================
 // Configuring properties using higher-level configuration sources
@@ -181,6 +199,10 @@ Because you are running the `query` service in dev mode, the changes that you ma
 === Creating profile-specific `microprofile-config.properties` configuration files
 
 Creating profile-specific `microprofile-config.properties` configuration files is a structured way to provide and manage more extensive sets of default configurations. You can create a configuration file for each configuration profile in the `META-INF` folder on the classpath of your application by using the `microprofile-config-<config_profile_id>` naming convention, where `<config_profile_id>` is the unique identifier for a configuration profile. Once you create the file, you can add your configuration properties to it with the standard `<property_name>=<value>` syntax.
+
+ifdef::cloud-hosted[]
+Open another command-line session.
+endif::[]
 
 // file 0
 [role="code_command hotspot file=0", subs="quotes"]
@@ -228,7 +250,15 @@ Remove the `%dev.*` properties from the `microprofile-config.properties` file.
 
 Because the active profile is set to `dev`, any [hotspot=system file=0]`system.*` properties specified in the `microprofile-config-dev.properties` file take precedence over the [hotspot=system file=2]`system.*` property values in the `microprofile-config.properties` file.
 
-Now, point your browser to the http://localhost:9085/query/systems/localhost URL to check out the application again. You see the current OS and Java version in JSON format.
+ifndef::cloud-hosted[]
+Now, point your browser to the http://localhost:9085/query/systems/localhost URL to check out the application again. You can see the current OS and Java version in JSON format.
+endif::[]
+ifdef::cloud-hosted[]
+Now, click the following button to try out the application again:
+::startApplication{port="9085" display="external" name="Try out the application" route="/query/systems/localhost"}
+
+You can see the current OS and Java version in JSON format.
+endif::[]
 
 When you are done checking out the application in `dev` environment, exit dev mode by pressing `CTRL+C` in the command-line sessions where you ran the `system` and `query` services. 
 
@@ -305,6 +335,7 @@ include::finish/query/src/main/resources/META-INF/microprofile-config-test.prope
 
 Test the application under the [hotspot=11 hotspot=16 file=0]`test` environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services.
 
+ifdef::cloud-hosted[]
 include::{common-includes}/os-tabs.adoc[]
 
 [.tab_content.windows_section]
@@ -322,6 +353,13 @@ scripts\testApp.bat
 ./scripts/testApp.sh
 ```
 --
+endif::[]
+ifdef::cloud-hosted[]
+```bash
+cd /home/project/guide-microprofile-config-profile/start
+./scripts/testApp.sh
+```
+endif::[]
 
 If the tests pass, you see output similar to the following example:
 
