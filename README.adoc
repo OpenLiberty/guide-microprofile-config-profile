@@ -291,19 +291,19 @@ Test the application under the [hotspot=11 hotspot=16 file=0]`test` environment 
 
 include::{common-includes}/os-tabs.adoc[]
 
-[.tab_content.mac_section.linux_section]
---
-[role='command']
-```
-./scripts/testApp.sh
-```
---
-
 [.tab_content.windows_section]
 --
 [role='command']
 ```
 scripts\testApp.bat
+```
+--
+
+[.tab_content.mac_section.linux_section]
+--
+[role='command']
+```
+./scripts/testApp.sh
 ```
 --
 
