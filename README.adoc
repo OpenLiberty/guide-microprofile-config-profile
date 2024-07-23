@@ -61,12 +61,6 @@ The dev environment is used to test, experiment, debug, and refine your code, en
 
 Navigate to the `start` directory to begin.
 
-ifdef::cloud-hosted[]
-```bash
-cd /home/project/guide-arquillian-managed/start
-```
-endif::[]
-
 The starting Java project, which you can find in the `start` directory, is a multi-module Maven project comprised of the `system` and `query` microservices. Each microservice is in its own corresponding directory, `system` and `query`.
 
 // file 0
@@ -91,19 +85,35 @@ When you run Open Liberty in https://openliberty.io/docs/latest/development-mode
 
 Open a command-line session and run the following commands to navigate to the `system` directory and start the `system` service in `dev` environment:
 
+ifndef::cloud-hosted[]
 [role='command']
 ```
 cd system
 mvn liberty:dev
 ```
+endif::[]
+ifdef::cloud-hosted[]
+```bash
+cd /home/project/guide-microprofile-config-profile/start/system
+mvn liberty:dev
+```
+endif::[]
 
 Open another command-line session and run the following commands to navigate to the `query` directory and start the `query` service in `dev` environment:
 
+ifndef::cloud-hosted[]
 [role='command']
 ```
 cd query
 mvn liberty:dev
 ```
+endif::[]
+ifdef::cloud-hosted[]
+```bash
+cd /home/project/guide-microprofile-config-profile/start/query
+mvn liberty:dev
+```
+endif::[]
 
 After you see the following message, your Liberty instance is ready in dev mode:
 
