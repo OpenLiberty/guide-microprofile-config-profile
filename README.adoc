@@ -335,7 +335,7 @@ include::finish/query/src/main/resources/META-INF/microprofile-config-test.prope
 
 Test the application under the [hotspot=11 hotspot=16 file=0]`test` environment by running the following script that contains different Maven goals to [hotspot=build file=0]`build`, [hotspot=start file=0]`start`, [hotspot=test file=0]`test`, and [hotspot=stop file=0]`stop` the services.
 
-ifdef::cloud-hosted[]
+ifndef::cloud-hosted[]
 include::{common-includes}/os-tabs.adoc[]
 
 [.tab_content.windows_section]
