@@ -447,12 +447,33 @@ include::finish/query/src/main/resources/META-INF/microprofile-config.properties
 
 Before deploying, create the Dockerfile files for both [hotspot file=1]`system` and [hotspot file=2]`query` microservices. Then, build their `.war` files and Docker images in the `start` directory.
 
+ifndef::cloud-hosted[]
 [source, role="no_copy"]
 ----
 mvn -P prod clean package
 docker build -t system:1.0-SNAPSHOT system/.
 docker build -t query:1.0-SNAPSHOT query/.
 ----
+endif::[]
+ifdef::cloud-hosted[]
+```bash
+cp /home/project/guide-microprofile-config-profile/finish/system/Dockerfile /home/project/guide-microprofile-config-profile/start/system
+cp /home/project/guide-microprofile-config-profile/finish/query/Dockerfile /home/project/guide-microprofile-config-profile/start/query
+cd /home/project/guide-microprofile-config-profile/start
+mvn -P prod clean package
+docker build -t system:1.0-SNAPSHOT system/.
+docker build -t query:1.0-SNAPSHOT query/.
+```
+
+Push your images to the container registry on IBM Cloud with the following commands:
+
+```bash
+docker tag system:1.0-SNAPSHOT us.icr.io/$SN_ICR_NAMESPACE/system:1.0-SNAPSHOT
+docker tag query:1.0-SNAPSHOT us.icr.io/$SN_ICR_NAMESPACE/query:1.0-SNAPSHOT
+docker push us.icr.io/$SN_ICR_NAMESPACE/system:1.0-SNAPSHOT
+docker push us.icr.io/$SN_ICR_NAMESPACE/query:1.0-SNAPSHOT
+```
+endif::[]
 
 The Maven `clean` and `package` goals can clean the `target` directories and build the `.war` application files from scratch. The [hotspot=mp-config-dev file=3]`microprofile-config-dev.properties` and [hotspot=mp-config-test file=3]`microprofile-config-test.properties` of the `query` microservice are excluded from the [hotspot=prod file=3]`prod` build. The default [hotspot file=4]`microprofile-config.properties` file is automatically applied.
 
@@ -460,12 +481,21 @@ The Docker `build` commands package the `.war` files of the [hotspot=config hots
 
 After building the images, you can create a Kubernetes secret for storing sensitive data such as credentials.
 
+ifndef::cloud-hosted[]
 [source, role="no_copy"]
 ----
 kubectl create secret generic sys-app-credentials \
         --from-literal username=[username] \
         --from-literal password=[password]
 ----
+endif::[]
+ifdef::cloud-hosted[]
+```bash
+kubectl create secret generic sys-app-credentials \
+        --from-literal username=$USERNAME \
+        --from-literal password=password
+```
+endif::[]
 
 For more information about managing secrets, see the https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl[Managing Secrets using kubectl^] documentation.
 
@@ -477,15 +507,72 @@ deploy.yaml
 ----
 include::finish/deploy.yaml[]
 ----
+endif::[]
+ifdef::cloud-hosted[]
+```bash
+cp /home/project/guide-microprofile-config-profile/finish/deploy.yaml /home/project/guide-microprofile-config-profile/start
+sed -i 's=system:1.0-SNAPSHOT=us.icr.io/'"${SN_ICR_NAMESPACE}"'/system:1.0-SNAPSHOT\n  pullPolicy: Always\n  pullSecret: icr=g' deploy.yaml
+sed -i 's=query:1.0-SNAPSHOT=us.icr.io/'"${SN_ICR_NAMESPACE}"'/query:1.0-SNAPSHOT\n  pullPolicy: Always\n  pullSecret: icr=g' deploy.yaml
+```
+endif::[]
 
 If you want to override another property, you can specify it in the `env` sections of the `deploy.yaml` file. For example, set the [hotspot=context.root file=5]`CONTEXT_ROOT` environment variable in the `system` deployment and the [hotspot=system.contextRoot file=5]`SYSTEM_CONTEXTROOT` environment variable in the `query` deployment.
 
 Once the images and the secret are ready, you can deploy the microservices to your production environment with Kubernetes.
 
+ifndef::cloud-hosted[]
 [source, role="no_copy"]
 ----
 kubectl apply -f deploy.yaml
 ----
+endif::[]
+ifdef::cloud-hosted[]
+```bash
+kubectl apply -f deploy.yaml
+```
+When the apps are deployed, run the following command to check the status of your pods:
+```bash
+kubectl get pods
+```
+
+You'll see an output similar to the following if all the pods are healthy and running:
+
+```
+----
+NAME                     READY   STATUS    RESTARTS   AGE
+query-7b7b6db4b6-cqtqx   1/1     Running   0          4s
+system-bc85bc8dc-rw5pb   1/1     Running   0          5s
+----
+```
+
+To access the exposed **query** microservice, the service must be port-forwarded. Run the following command to set up port forwarding to access the **query** service:
+
+```bash
+kubectl port-forward svc/query 9448
+```
+
+Open another command-line session and access the microservice by running the following command:
+```bash
+curl -k -s "https://localhost:9448/query/systems/system.${SN_ICR_NAMESPACE}.svc" | jq
+```
+
+You'll see an output similar to the following:
+
+```
+{
+  "hostname": "system.sn-labs-gkwan.svc",
+  "java.version": "11.0.23",
+  "os.name": "Linux"
+}
+```
+
+When you're done trying out the microservice, press **CTRL+C** in the command line session where you ran the `kubectl port-forward` command to stop the port forwarding, and then delete all resources by running the following commands:
+```bash
+kubectl delete -f deploy.yaml
+kubectl delete secret sys-app-credentials
+docker image prune -a -f
+```
+endif::[]
 
 == Great work! You're done!
 
