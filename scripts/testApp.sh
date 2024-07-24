@@ -61,11 +61,8 @@ docker run -d --network=$NETWORK --name query -p 9085:9085 query:1.0-SNAPSHOT
 
 sleep 30
 
-docker logs system
-docker logs system | grep product
-docker logs system | grep java
-docker logs query | grep product
-docker logs query | grep java
+docker logs system | grep Launching
+docker logs query | grep Launching
 
 curl http://localhost:9085/query/systems/system
 
