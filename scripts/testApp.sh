@@ -61,6 +61,7 @@ docker run -d --network=$NETWORK --name query -p 9085:9085 query:1.0-SNAPSHOT
 
 sleep 30
 
+docker logs system
 docker logs system | grep product
 docker logs system | grep java
 docker logs query | grep product
