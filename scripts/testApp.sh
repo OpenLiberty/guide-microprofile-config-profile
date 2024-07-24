@@ -61,6 +61,9 @@ docker run -d --network=$NETWORK --name query -p 9085:9085 query:1.0-SNAPSHOT
 
 sleep 30
 
+docker logs system | grep Launching
+docker logs query | grep Launching
+
 curl http://localhost:9085/query/systems/system
 
 queryStatus="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9085/query/systems/system")"
