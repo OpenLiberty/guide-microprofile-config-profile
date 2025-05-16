@@ -86,11 +86,34 @@ When you run Open Liberty in https://openliberty.io/docs/latest/development-mode
 Open a command-line session and run the following commands to navigate to the `system` directory and start the `system` service in the `dev` environment:
 
 ifndef::cloud-hosted[]
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
 [role='command']
 ```
 cd system
-mvn liberty:dev
+mvnw.cmd liberty:dev
 ```
+--
+
+[.tab_content.mac_section]
+--
+[role='command']
+```
+cd system
+./mvnw liberty:dev
+```
+--
+
+[.tab_content.linux_section]
+--
+[role='command']
+```
+cd system
+./mvnw liberty:dev
+```
+--
 endif::[]
 ifdef::cloud-hosted[]
 ```bash
@@ -102,11 +125,34 @@ endif::[]
 Open another command-line session and run the following commands to navigate to the `query` directory and start the `query` service in the `dev` environment:
 
 ifndef::cloud-hosted[]
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
 [role='command']
 ```
 cd query
-mvn liberty:dev
+mvnw.cmd liberty:dev
 ```
+--
+
+[.tab_content.mac_section]
+--
+[role='command']
+```
+cd query
+./mvnw liberty:dev
+```
+--
+
+[.tab_content.linux_section]
+--
+[role='command']
+```
+cd query
+./mvnw liberty:dev
+```
+--
 endif::[]
 ifdef::cloud-hosted[]
 ```bash
