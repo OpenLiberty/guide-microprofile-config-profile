@@ -1,6 +1,6 @@
-./mvnw -version
 #!/bin/bash
 set -euxo pipefail
+./mvnw -version
 
 ./mvnw -ntp -Dhttp.keepAlive=false \
     -Dmaven.wagon.http.pool=false \

@@ -28,8 +28,8 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_JSCPD: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          LINTER_RULES_PATH: ./tools/pr-checker/linters/
           FILTER_REGEX_EXCLUDE: mvnw*
+          LINTER_RULES_PATH: ./tools/pr-checker/linters/
           VALIDATE_KUBERNETES_KUBEVAL: false
           DEFAULT_BRANCH: prod
       - name: Summary
