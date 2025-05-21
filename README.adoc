@@ -116,10 +116,34 @@ cd system
 --
 endif::[]
 ifdef::cloud-hosted[]
-```bash
-cd /home/project/guide-microprofile-config-profile/start/system
-mvn liberty:dev
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
+[role='command']
 ```
+cd /home/project/guide-microprofile-config-profile/start/system
+mvnw.cmd liberty:dev
+```
+--
+
+[.tab_content.mac_section]
+--
+[role='command']
+```
+cd /home/project/guide-microprofile-config-profile/start/system
+./mvnw liberty:dev
+```
+--
+
+[.tab_content.linux_section]
+--
+[role='command']
+```
+cd /home/project/guide-microprofile-config-profile/start/system
+./mvnw liberty:dev
+```
+--
 endif::[]
 
 Open another command-line session and run the following commands to navigate to the `query` directory and start the `query` service in the `dev` environment:
@@ -155,10 +179,34 @@ cd query
 --
 endif::[]
 ifdef::cloud-hosted[]
-```bash
-cd /home/project/guide-microprofile-config-profile/start/query
-mvn liberty:dev
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
+[role='command']
 ```
+cd /home/project/guide-microprofile-config-profile/start/query
+mvnw.cmd liberty:dev
+```
+--
+
+[.tab_content.mac_section]
+--
+[role='command']
+```
+cd /home/project/guide-microprofile-config-profile/start/query
+./mvnw liberty:dev
+```
+--
+
+[.tab_content.linux_section]
+--
+[role='command']
+```
+cd /home/project/guide-microprofile-config-profile/start/query
+./mvnw liberty:dev
+```
+--
 endif::[]
 
 After you see the following message, your Liberty instance is ready in dev mode:
@@ -500,18 +548,44 @@ Before deploying, create the Dockerfile files for both [hotspot file=1]`system` 
 
 ifndef::cloud-hosted[]
 [source, role="no_copy"]
-----
-mvn -P prod clean package
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
+[role='command']
+```
+mvnw.cmd -P prod clean package
 docker build -t system:1.0-SNAPSHOT system/.
 docker build -t query:1.0-SNAPSHOT query/.
-----
+```
+--
+
+[.tab_content.mac_section]
+--
+[role='command']
+```
+./mvnw -P prod clean package
+docker build -t system:1.0-SNAPSHOT system/.
+docker build -t query:1.0-SNAPSHOT query/.
+```
+--
+
+[.tab_content.linux_section]
+--
+[role='command']
+```
+./mvnw -P prod clean package
+docker build -t system:1.0-SNAPSHOT system/.
+docker build -t query:1.0-SNAPSHOT query/.
+```
+--
 endif::[]
 ifdef::cloud-hosted[]
 ```bash
 cp /home/project/guide-microprofile-config-profile/finish/system/Dockerfile /home/project/guide-microprofile-config-profile/start/system
 cp /home/project/guide-microprofile-config-profile/finish/query/Dockerfile /home/project/guide-microprofile-config-profile/start/query
 cd /home/project/guide-microprofile-config-profile/start
-mvn -P prod clean package
+./mvnw -P prod clean package
 docker build -t system:1.0-SNAPSHOT system/.
 docker build -t query:1.0-SNAPSHOT query/.
 ```
