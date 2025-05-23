@@ -83,7 +83,7 @@ The MicroProfile Config configuration profile feature supplies configurations fo
 
 When you run Open Liberty in https://openliberty.io/docs/latest/development-mode.html[dev mode^], the dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
 
-Open a command-line session and run the following commands to navigate to the `system` directory and start the `system` service in the `dev` environment:
+Open a command-line session and run the following commands to navigate to the `start` directory and start the `system` service in the `dev` environment:
 
 ifndef::cloud-hosted[]
 include::{common-includes}/os-tabs.adoc[]
@@ -118,7 +118,7 @@ ifdef::cloud-hosted[]
 ```
 endif::[]
 
-Open another command-line session and run the following commands to navigate to the `query` directory and start the `query` service in the `dev` environment:
+Open another command-line session and run the following commands to navigate to the `start` directory and start the `query` service in the `dev` environment:
 
 ifndef::cloud-hosted[]
 include::{common-includes}/os-tabs.adoc[]
