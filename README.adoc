@@ -92,8 +92,7 @@ include::{common-includes}/os-tabs.adoc[]
 --
 [role='command']
 ```
-cd system
-mvnw.cmd liberty:dev
+mvnw.cmd -pl system liberty:dev
 ```
 --
 
@@ -101,8 +100,7 @@ mvnw.cmd liberty:dev
 --
 [role='command']
 ```
-cd system
-./mvnw liberty:dev
+./mvnw -pl system liberty:dev
 ```
 --
 
@@ -110,15 +108,13 @@ cd system
 --
 [role='command']
 ```
-cd system
-./mvnw liberty:dev
+./mvnw -pl system liberty:dev
 ```
 --
 endif::[]
 ifdef::cloud-hosted[]
 ```bash
-cd /home/project/guide-microprofile-config-profile/start/system
-./mvnw liberty:dev
+./mvnw -pl system liberty:dev
 ```
 endif::[]
 
@@ -131,8 +127,7 @@ include::{common-includes}/os-tabs.adoc[]
 --
 [role='command']
 ```
-cd query
-mvnw.cmd liberty:dev
+mvnw.cmd -pl query liberty:dev
 ```
 --
 
@@ -140,8 +135,7 @@ mvnw.cmd liberty:dev
 --
 [role='command']
 ```
-cd query
-./mvnw liberty:dev
+./mvnw -pl query liberty:dev
 ```
 --
 
@@ -149,15 +143,13 @@ cd query
 --
 [role='command']
 ```
-cd query
-./mvnw liberty:dev
+./mvnw -pl query liberty:dev
 ```
 --
 endif::[]
 ifdef::cloud-hosted[]
 ```bash
-cd /home/project/guide-microprofile-config-profile/start/query
-./mvnw liberty:dev
+./mvnw -pl query liberty:dev
 ```
 endif::[]
 
