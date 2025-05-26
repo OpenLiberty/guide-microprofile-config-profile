@@ -491,6 +491,7 @@ include::finish/query/src/main/resources/META-INF/microprofile-config.properties
 Before deploying, create the Dockerfile files for both [hotspot file=1]`system` and [hotspot file=2]`query` microservices. Then, build their `.war` files and Docker images in the `start` directory.
 
 ifndef::cloud-hosted[]
+[source, role="no_copy"]
 include::{common-includes}/os-tabs.adoc[]
 
 [.tab_content.windows_section]
