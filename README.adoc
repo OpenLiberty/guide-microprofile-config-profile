@@ -495,7 +495,7 @@ include::{common-includes}/os-tabs.adoc[]
 
 [.tab_content.windows_section]
 --
-[role='command']
+[source, role="no_copy"]
 ```
 mvnw.cmd -P prod clean package
 docker build -t system:1.0-SNAPSHOT system/.
@@ -505,7 +505,7 @@ docker build -t query:1.0-SNAPSHOT query/.
 
 [.tab_content.mac_section]
 --
-[role='command']
+[source, role="no_copy"]
 ```
 ./mvnw -P prod clean package
 docker build -t system:1.0-SNAPSHOT system/.
@@ -515,7 +515,7 @@ docker build -t query:1.0-SNAPSHOT query/.
 
 [.tab_content.linux_section]
 --
-[role='command']
+[source, role="no_copy"]
 ```
 ./mvnw -P prod clean package
 docker build -t system:1.0-SNAPSHOT system/.
