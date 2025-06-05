@@ -1,4 +1,4 @@
-// Copyright (c) 2024 IBM Corporation and others.
+// Copyright (c) 2024, 2025 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -83,35 +83,73 @@ The MicroProfile Config configuration profile feature supplies configurations fo
 
 When you run Open Liberty in https://openliberty.io/docs/latest/development-mode.html[dev mode^], the dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
 
-Open a command-line session and run the following commands to navigate to the `system` directory and start the `system` service in the `dev` environment:
+Open a command-line session and run the following commands to start the `system` service in the `dev` environment:
 
 ifndef::cloud-hosted[]
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
 [role='command']
 ```
-cd system
-mvn liberty:dev
+mvnw.cmd -pl system liberty:dev
 ```
+--
+
+[.tab_content.mac_section]
+--
+[role='command']
+```
+./mvnw -pl system liberty:dev
+```
+--
+
+[.tab_content.linux_section]
+--
+[role='command']
+```
+./mvnw -pl system liberty:dev
+```
+--
 endif::[]
 ifdef::cloud-hosted[]
 ```bash
-cd /home/project/guide-microprofile-config-profile/start/system
-mvn liberty:dev
+./mvnw -pl system liberty:dev
 ```
 endif::[]
 
-Open another command-line session and run the following commands to navigate to the `query` directory and start the `query` service in the `dev` environment:
+Open another command-line session and run the following commands to start the `query` service in the `dev` environment:
 
 ifndef::cloud-hosted[]
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
 [role='command']
 ```
-cd query
-mvn liberty:dev
+mvnw.cmd -pl query liberty:dev
 ```
+--
+
+[.tab_content.mac_section]
+--
+[role='command']
+```
+./mvnw -pl query liberty:dev
+```
+--
+
+[.tab_content.linux_section]
+--
+[role='command']
+```
+./mvnw -pl query liberty:dev
+```
+--
 endif::[]
 ifdef::cloud-hosted[]
 ```bash
-cd /home/project/guide-microprofile-config-profile/start/query
-mvn liberty:dev
+./mvnw -pl query liberty:dev
 ```
 endif::[]
 
@@ -453,19 +491,44 @@ include::finish/query/src/main/resources/META-INF/microprofile-config.properties
 Before deploying, create the Dockerfile files for both [hotspot file=1]`system` and [hotspot file=2]`query` microservices. Then, build their `.war` files and Docker images in the `start` directory.
 
 ifndef::cloud-hosted[]
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
 [source, role="no_copy"]
-----
-mvn -P prod clean package
+```
+mvnw.cmd -P prod clean package
 docker build -t system:1.0-SNAPSHOT system/.
 docker build -t query:1.0-SNAPSHOT query/.
-----
+```
+--
+
+[.tab_content.mac_section]
+--
+[source, role="no_copy"]
+```
+./mvnw -P prod clean package
+docker build -t system:1.0-SNAPSHOT system/.
+docker build -t query:1.0-SNAPSHOT query/.
+```
+--
+
+[.tab_content.linux_section]
+--
+[source, role="no_copy"]
+```
+./mvnw -P prod clean package
+docker build -t system:1.0-SNAPSHOT system/.
+docker build -t query:1.0-SNAPSHOT query/.
+```
+--
 endif::[]
 ifdef::cloud-hosted[]
 ```bash
 cp /home/project/guide-microprofile-config-profile/finish/system/Dockerfile /home/project/guide-microprofile-config-profile/start/system
 cp /home/project/guide-microprofile-config-profile/finish/query/Dockerfile /home/project/guide-microprofile-config-profile/start/query
 cd /home/project/guide-microprofile-config-profile/start
-mvn -P prod clean package
+./mvnw -P prod clean package
 docker build -t system:1.0-SNAPSHOT system/.
 docker build -t query:1.0-SNAPSHOT query/.
 ```
